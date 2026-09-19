@@ -18,22 +18,20 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-    /* Native Hardware-Accelerated Smooth Snap Carousel */
-    .carousel-snap-container {
+    /* Touch & Drag Carousel styles */
+    .carousel-container {
       display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scroll-behavior: smooth;
-      touch-action: pan-x pan-y;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: transform;
+      touch-action: pan-y pinch-zoom;
     }
     
     .carousel-slide {
       flex: 0 0 100%;
       width: 100%;
       height: 100%;
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
     }
 
     /* Double tap heart animation */
@@ -121,11 +119,6 @@
       </div>
 
       <div class="flex items-center gap-2.5">
-        <!-- Discreet Fullscreen Activator Icon -->
-        <button onclick="requestAppFullscreen()" class="p-1.5 rounded-full bg-zinc-800/50 hover:bg-zinc-700 text-zinc-300 transition" title="Attiva Schermo Intero per Scena">
-          <svg class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
-        </button>
-
         <!-- Prop Config Editor Trigger -->
         <button onclick="togglePropEditor()" class="p-1.5 rounded-full bg-zinc-800/50 hover:bg-zinc-700 text-zinc-300 transition" title="Pannello Scenografia (Edit Data)">
           <svg class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
@@ -356,7 +349,7 @@
           </div>
         </article>
 
-        <!-- POST 5: MULTI-IMAGE CAROUSEL POST (HARDWARE-ACCELERATED NATIVE FLUID SWIPE - 6 PHOTOS) -->
+        <!-- POST 5: MULTI-IMAGE CAROUSEL POST (RE-ENGINEERED SMOOTH TOUCH & DRAG - 6 PHOTOS) -->
         <article class="py-3 border-b border-zinc-900 bg-zinc-950/50">
           <!-- Post Header -->
           <div class="flex items-center justify-between px-3 py-2">
@@ -373,40 +366,47 @@
             <button class="text-zinc-400 hover:text-white"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
 
-          <!-- CAROUSEL MEDIA CONTAINER WITH NATIVE 120HZ TOUCH SNAP -->
-          <div class="relative aspect-square bg-black overflow-hidden group">
+          <!-- CAROUSEL MEDIA CONTAINER WITH RE-ENGINEERED TOUCH SWIPE -->
+          <div class="relative aspect-square bg-black overflow-hidden group select-none" id="carouselWrapper"
+               onmousedown="handleSwipeStart(event)" 
+               onmousemove="handleSwipeMove(event)" 
+               onmouseup="handleSwipeEnd(event)" 
+               onmouseleave="handleSwipeEnd(event)"
+               ontouchstart="handleSwipeStart(event)" 
+               ontouchmove="handleSwipeMove(event)" 
+               ontouchend="handleSwipeEnd(event)">
             
             <!-- Carousel Counter Pill Badge -->
             <div class="absolute top-3 right-3 z-10 bg-black/70 backdrop-blur-md text-white text-[11px] font-semibold px-2.5 py-1 rounded-full border border-white/10 pointer-events-none">
               <span id="carouselCounter">1/6</span>
             </div>
 
-            <!-- Carousel Snap Track -->
-            <div id="carouselTrack" class="carousel-snap-container h-full w-full no-scrollbar">
+            <!-- Carousel Track -->
+            <div id="carouselTrack" class="carousel-container">
               
               <!-- Photo 1 -->
               <div class="carousel-slide relative">
-                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover select-none pointer-events-none" alt="Photo 1">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover pointer-events-none" alt="Photo 1">
               </div>
               <!-- Photo 2 -->
               <div class="carousel-slide relative">
-                <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover select-none pointer-events-none" alt="Photo 2">
+                <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover pointer-events-none" alt="Photo 2">
               </div>
               <!-- Photo 3 -->
               <div class="carousel-slide relative">
-                <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover select-none pointer-events-none" alt="Photo 3">
+                <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover pointer-events-none" alt="Photo 3">
               </div>
               <!-- Photo 4 -->
               <div class="carousel-slide relative">
-                <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover select-none pointer-events-none" alt="Photo 4">
+                <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover pointer-events-none" alt="Photo 4">
               </div>
               <!-- Photo 5 -->
               <div class="carousel-slide relative">
-                <img src="https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover select-none pointer-events-none" alt="Photo 5">
+                <img src="https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover pointer-events-none" alt="Photo 5">
               </div>
               <!-- Photo 6 -->
               <div class="carousel-slide relative">
-                <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover select-none pointer-events-none" alt="Photo 6">
+                <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover pointer-events-none" alt="Photo 6">
               </div>
 
             </div>
@@ -533,6 +533,11 @@
       </div>
     </main>
 
+    <!-- FLOATING DISCREET FULLSCREEN BUTTON (SAFE FROM TOP NOTCH & BROWSER ADDRESS BAR) -->
+    <button onclick="requestAppFullscreen()" class="absolute bottom-16 right-4 z-30 p-3 rounded-full bg-zinc-800/90 text-white shadow-xl border border-zinc-700/80 backdrop-blur-md active:scale-95 transition" title="Attiva Schermo Intero">
+      <svg class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
+    </button>
+
     <!-- Bottom Navigation Bar -->
     <nav class="absolute bottom-0 inset-x-0 h-14 border-t border-zinc-800/80 backdrop-blur-lg flex justify-around items-center z-20" style="background-color: var(--bg-app); border-color: var(--border-color);">
       <button class="p-2 text-white hover:opacity-75 transition">
@@ -647,29 +652,74 @@
       like7: { count: 2910, liked: false }
     };
 
-    const carouselTrack = document.getElementById('carouselTrack');
-    const carouselCounter = document.getElementById('carouselCounter');
+    // Re-engineered Touch / Mouse Drag Swipe logic for 100% Guaranteed Smoothness
+    let swipeStartX = 0;
+    let swipeStartY = 0;
+    let isSwiping = false;
 
-    // Real-time Native Scroll Listener for 120Hz Hardware Carousel Swipe
-    if (carouselTrack) {
-      carouselTrack.addEventListener('scroll', () => {
-        const slideWidth = carouselTrack.clientWidth;
-        if (slideWidth > 0) {
-          const newIndex = Math.round(carouselTrack.scrollLeft / slideWidth);
-          if (newIndex !== currentSlide && newIndex >= 0 && newIndex < totalSlides) {
-            currentSlide = newIndex;
-            carouselCounter.innerText = `${currentSlide + 1}/${totalSlides}`;
+    function handleSwipeStart(e) {
+      isSwiping = true;
+      swipeStartX = e.touches ? e.touches[0].clientX : e.clientX;
+      swipeStartY = e.touches ? e.touches[0].clientY : e.clientY;
+      const track = document.getElementById('carouselTrack');
+      if (track) track.style.transition = 'none';
+    }
 
-            // Update Dots
-            const dotsContainer = document.getElementById('paginationDots');
-            if (dotsContainer) {
-              dotsContainer.innerHTML = Array.from({length: totalSlides}).map((_, i) => `
-                <span class="${i === currentSlide ? 'w-2 h-2 rounded-full bg-blue-500' : 'w-1.5 h-1.5 rounded-full bg-zinc-600'} transition-all duration-300"></span>
-              `).join('');
-            }
-          }
+    function handleSwipeMove(e) {
+      if (!isSwiping) return;
+      const currentX = e.touches ? e.touches[0].clientX : e.clientX;
+      const currentY = e.touches ? e.touches[0].clientY : e.clientY;
+      const diffX = currentX - swipeStartX;
+      const diffY = currentY - swipeStartY;
+
+      // Allow vertical scroll if scrolling down, lock horizontal if swiping carousel
+      if (Math.abs(diffX) > Math.abs(diffY)) {
+        if (e.cancelable) e.preventDefault();
+        const track = document.getElementById('carouselTrack');
+        if (track) {
+          const containerWidth = track.clientWidth;
+          const movePercent = -currentSlide * 100 + (diffX / containerWidth) * 100;
+          track.style.transform = `translateX(${movePercent}%)`;
         }
-      }, { passive: true });
+      }
+    }
+
+    function handleSwipeEnd(e) {
+      if (!isSwiping) return;
+      isSwiping = false;
+      const track = document.getElementById('carouselTrack');
+      if (track) {
+        track.style.transition = 'transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1)';
+        const endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+        const diffX = endX - swipeStartX;
+
+        if (diffX < -30 && currentSlide < totalSlides - 1) {
+          currentSlide++;
+        } else if (diffX > 30 && currentSlide > 0) {
+          currentSlide--;
+        }
+        updateCarousel();
+      }
+    }
+
+    // Update Carousel position & dots
+    function updateCarousel() {
+      const track = document.getElementById('carouselTrack');
+      const counter = document.getElementById('carouselCounter');
+      if (track) {
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      }
+      if (counter) {
+        counter.innerText = `${currentSlide + 1}/${totalSlides}`;
+      }
+
+      // Update Dots
+      const dotsContainer = document.getElementById('paginationDots');
+      if (dotsContainer) {
+        dotsContainer.innerHTML = Array.from({length: totalSlides}).map((_, i) => `
+          <span class="${i === currentSlide ? 'w-2 h-2 rounded-full bg-blue-500' : 'w-1.5 h-1.5 rounded-full bg-zinc-600'} transition-all duration-300"></span>
+        `).join('');
+      }
     }
 
     // Fullscreen API Helper for Movie Prop
@@ -788,7 +838,7 @@
         const carouselTrack = document.getElementById('carouselTrack');
         carouselTrack.innerHTML = carouselUrls.map(url => `
           <div class="carousel-slide relative">
-            <img src="${url}" class="w-full h-full object-cover select-none pointer-events-none">
+            <img src="${url}" class="w-full h-full object-cover pointer-events-none">
           </div>
         `).join('');
       }
