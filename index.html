@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Vibegram</title>
+  <title>PicShare - Scenografia Film</title>
   
   <!-- PWA & Mobile Fullscreen Standalone Meta Tags -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Vibegram">
+  <meta name="apple-mobile-web-app-title" content="PicShare">
   <link rel="manifest" href="manifest.json">
 
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
@@ -34,34 +34,34 @@
       height: 100%;
     }
 
-    /* Double tap heart animation */
-    @keyframes heartPop {
-      0% { transform: scale(0) rotate(-15deg); opacity: 0; }
-      50% { transform: scale(1.3) rotate(0deg); opacity: 0.9; }
+    /* Double tap Star animation (Legal Clearance: Star icon instead of heart) */
+    @keyframes starPop {
+      0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+      50% { transform: scale(1.4) rotate(0deg); opacity: 0.95; }
       70% { transform: scale(1) rotate(0deg); opacity: 1; }
-      100% { transform: scale(0.8) rotate(10deg); opacity: 0; }
+      100% { transform: scale(0.8) rotate(15deg); opacity: 0; }
     }
-    .heart-pop {
-      animation: heartPop 0.8s ease-out forwards;
+    .star-pop {
+      animation: starPop 0.8s ease-out forwards;
     }
 
     /* Custom Theme Colors */
     :root {
-      --bg-app: #000000;
-      --bg-card: #0a0a0a;
-      --border-color: #262626;
-      --text-main: #f5f5f5;
-      --text-muted: #a8a8a8;
-      --accent: #0095f6;
+      --bg-app: #050505;
+      --bg-card: #0d0d0d;
+      --border-color: #222222;
+      --text-main: #f8f8f8;
+      --text-muted: #999999;
+      --accent: #3b82f6;
     }
 
     .light-theme {
       --bg-app: #ffffff;
       --bg-card: #ffffff;
-      --border-color: #dbdbdb;
-      --text-main: #000000;
-      --text-muted: #737373;
-      --accent: #0095f6;
+      --border-color: #e5e5e5;
+      --text-main: #111111;
+      --text-muted: #666666;
+      --accent: #3b82f6;
     }
 
     body {
@@ -69,7 +69,7 @@
       color: var(--text-main);
       user-select: none;
       -webkit-user-select: none;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       padding-top: env(safe-area-inset-top);
       padding-bottom: env(safe-area-inset-bottom);
     }
@@ -106,15 +106,15 @@
       </div>
     </div>
 
-    <!-- App Header -->
+    <!-- App Header (PicShare - Brand Clearance Safe) -->
     <header class="sticky top-0 z-20 flex justify-between items-center px-4 py-3 border-b border-zinc-800/60 backdrop-blur-md bg-opacity-90" style="background-color: var(--bg-app); border-color: var(--border-color);">
       <div class="flex items-center gap-3">
         <button id="backBtn" class="p-1 text-zinc-400 hover:text-white transition">
           <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
         </button>
         <div class="flex items-center gap-1.5">
-          <span id="headerUsername" class="font-bold text-lg tracking-tight">leo_moretti</span>
-          <svg class="w-4 h-4 text-blue-500 fill-current" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          <span id="headerUsername" class="font-bold text-lg tracking-tight">alex_vance_art</span>
+          <svg class="w-4 h-4 text-emerald-500 fill-current" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
         </div>
       </div>
 
@@ -138,9 +138,9 @@
       <!-- Profile Header Summary -->
       <section class="p-4 border-b border-zinc-800/40" style="border-color: var(--border-color);">
         <div class="flex items-center justify-between gap-4">
-          <!-- Profile Avatar with Story Ring -->
+          <!-- Profile Avatar with Story Highlight Ring -->
           <div class="relative group cursor-pointer">
-            <div class="w-20 h-20 rounded-full p-0.5 bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600">
+            <div class="w-20 h-20 rounded-full p-0.5 bg-gradient-to-tr from-emerald-500 via-teal-500 to-cyan-600">
               <img id="profileAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Avatar" class="w-full h-full rounded-full object-cover border-2 border-black" style="border-color: var(--bg-app);">
             </div>
           </div>
@@ -162,20 +162,20 @@
           </div>
         </div>
 
-        <!-- Bio & Name -->
+        <!-- Bio & Name (Fictional Character Clearance Safe) -->
         <div class="mt-3">
-          <h1 id="profileDisplayName" class="font-bold text-sm">Leo Moretti</h1>
+          <h1 id="profileDisplayName" class="font-bold text-sm">Alex Vance</h1>
           <p id="profileBio" class="text-xs leading-relaxed mt-1 opacity-90">
-            Director of Photography & Visual Storyteller 📷<br>
-            Exploring lights, shadows & cinema memories 🎬<br>
+            Cinematography & Landscape Photography 📷<br>
+            Exploring light, shadow & visual stories 🎬<br>
             📍 Milan / Rome
           </p>
-          <a id="profileLink" href="#" onclick="return false;" class="text-xs text-blue-400 font-semibold block mt-1 hover:underline">vibes.co/leo-moretti</a>
+          <a id="profileLink" href="#" onclick="return false;" class="text-xs text-emerald-400 font-semibold block mt-1 hover:underline">picshare.net/alex_vance</a>
         </div>
 
         <!-- Follow & Action Buttons -->
         <div class="flex gap-2 mt-4">
-          <button id="followBtn" onclick="toggleFollow()" class="flex-1 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 transition">
+          <button id="followBtn" onclick="toggleFollow()" class="flex-1 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition">
             Segui già
           </button>
           <button class="flex-1 py-1.5 rounded-lg bg-zinc-800 text-xs font-semibold text-zinc-200 hover:bg-zinc-700 transition">
@@ -208,7 +208,7 @@
               <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
-                  <span>leo_moretti</span>
+                  <span>alex_vance_art</span>
                   <span class="text-zinc-500">• 2g</span>
                 </div>
                 <div class="text-[10px] text-zinc-400">Milano, Navigli</div>
@@ -218,21 +218,23 @@
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like1')">
             <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover" alt="Post 1">
-            <svg id="popHeart-like1" class="absolute inset-0 m-auto w-24 h-24 text-white fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <svg id="popStar-like1" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <div class="px-3 pt-3 pb-1 flex justify-between items-center">
             <div class="flex items-center gap-4">
+              <!-- Star Like Icon (Legal Clearance: Star instead of Heart) -->
               <button onclick="toggleLike('like1')" class="transition transform active:scale-125">
-                <svg id="iconLike-like1" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-rose-500" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                <svg id="iconLike-like1" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               </button>
               <button onclick="openComments('Sunset vibes in Milano 🌃')" class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></button>
-              <button class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+              <!-- Message Arrow Icon (Legal Clearance: Neutral Arrow instead of Instagram DM Airplane) -->
+              <button class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
             </div>
             <button onclick="toggleBookmark(this)" class="transition"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
           </div>
           <div class="px-3 text-xs">
-            <div class="font-bold text-xs" id="countLike-like1">1.240 "Mi piace"</div>
-            <div class="mt-1"><span class="font-bold">leo_moretti</span><span class="opacity-90"> Sunset reflections over Navigli. Golden hour 🌆✨</span></div>
+            <div class="font-bold text-xs" id="countLike-like1">1.240 Stelle</div>
+            <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90"> Sunset reflections over Navigli. Golden hour 🌆✨</span></div>
             <button onclick="openComments('Sunset vibes')" class="text-zinc-500 text-[11px] mt-1 block">Mostra tutti e 34 i commenti</button>
             <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">2 GIORNI FA</div>
           </div>
@@ -245,7 +247,7 @@
               <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
-                  <span>leo_moretti</span>
+                  <span>alex_vance_art</span>
                   <span class="text-zinc-500">• 4g</span>
                 </div>
                 <div class="text-[10px] text-zinc-400">Torino, Architettura</div>
@@ -255,21 +257,21 @@
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like2')">
             <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover" alt="Post 2">
-            <svg id="popHeart-like2" class="absolute inset-0 m-auto w-24 h-24 text-white fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <svg id="popStar-like2" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <div class="px-3 pt-3 pb-1 flex justify-between items-center">
             <div class="flex items-center gap-4">
               <button onclick="toggleLike('like2')" class="transition transform active:scale-125">
-                <svg id="iconLike-like2" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-rose-500" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                <svg id="iconLike-like2" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               </button>
               <button onclick="openComments('Urban geometry')" class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></button>
-              <button class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+              <button class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
             </div>
             <button onclick="toggleBookmark(this)" class="transition"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
           </div>
           <div class="px-3 text-xs">
-            <div class="font-bold text-xs" id="countLike-like2">2.105 "Mi piace"</div>
-            <div class="mt-1"><span class="font-bold">leo_moretti</span><span class="opacity-90"> Geometric shadows & steel lines. 🏢 Architectural framing study.</span></div>
+            <div class="font-bold text-xs" id="countLike-like2">2.105 Stelle</div>
+            <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90"> Geometric shadows & steel lines. 🏢 Architectural framing study.</span></div>
             <button onclick="openComments('Urban geometry')" class="text-zinc-500 text-[11px] mt-1 block">Mostra tutti e 48 i commenti</button>
             <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">4 GIORNI FA</div>
           </div>
@@ -282,7 +284,7 @@
               <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
-                  <span>leo_moretti</span>
+                  <span>alex_vance_art</span>
                   <span class="text-zinc-500">• 6g</span>
                 </div>
                 <div class="text-[10px] text-zinc-400">Studio Acoustic Session</div>
@@ -292,21 +294,21 @@
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like3')">
             <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover" alt="Post 3">
-            <svg id="popHeart-like3" class="absolute inset-0 m-auto w-24 h-24 text-white fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <svg id="popStar-like3" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <div class="px-3 pt-3 pb-1 flex justify-between items-center">
             <div class="flex items-center gap-4">
               <button onclick="toggleLike('like3')" class="transition transform active:scale-125">
-                <svg id="iconLike-like3" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-rose-500" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                <svg id="iconLike-like3" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               </button>
               <button onclick="openComments('Studio Session')" class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></button>
-              <button class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+              <button class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
             </div>
             <button onclick="toggleBookmark(this)" class="transition"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
           </div>
           <div class="px-3 text-xs">
-            <div class="font-bold text-xs" id="countLike-like3">954 "Mi piace"</div>
-            <div class="mt-1"><span class="font-bold">leo_moretti</span><span class="opacity-90"> Late night studio recording 🎸 Sound check complete.</span></div>
+            <div class="font-bold text-xs" id="countLike-like3">954 Stelle</div>
+            <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90"> Late night studio recording 🎸 Sound check complete.</span></div>
             <button onclick="openComments('Studio Session')" class="text-zinc-500 text-[11px] mt-1 block">Mostra tutti e 19 i commenti</button>
             <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">6 GIORNI FA</div>
           </div>
@@ -319,7 +321,7 @@
               <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
-                  <span>leo_moretti</span>
+                  <span>alex_vance_art</span>
                   <span class="text-zinc-500">• 1sett</span>
                 </div>
                 <div class="text-[10px] text-zinc-400">Lago di Como</div>
@@ -329,27 +331,27 @@
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like4')">
             <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover" alt="Post 4">
-            <svg id="popHeart-like4" class="absolute inset-0 m-auto w-24 h-24 text-white fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <svg id="popStar-like4" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <div class="px-3 pt-3 pb-1 flex justify-between items-center">
             <div class="flex items-center gap-4">
               <button onclick="toggleLike('like4')" class="transition transform active:scale-125">
-                <svg id="iconLike-like4" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-rose-500" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                <svg id="iconLike-like4" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               </button>
               <button onclick="openComments('Lake Como escapade')" class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></button>
-              <button class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+              <button class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
             </div>
             <button onclick="toggleBookmark(this)" class="transition"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
           </div>
           <div class="px-3 text-xs">
-            <div class="font-bold text-xs" id="countLike-like4">3.410 "Mi piace"</div>
-            <div class="mt-1"><span class="font-bold">leo_moretti</span><span class="opacity-90"> Quiet morning horizon. Lake vibes & fresh air. 🌅🌊</span></div>
+            <div class="font-bold text-xs" id="countLike-like4">3.410 Stelle</div>
+            <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90"> Quiet morning horizon. Lake vibes & fresh air. 🌅🌊</span></div>
             <button onclick="openComments('Lake Como')" class="text-zinc-500 text-[11px] mt-1 block">Mostra tutti e 62 i commenti</button>
             <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">1 SETTIMANA FA</div>
           </div>
         </article>
 
-        <!-- POST 5: MULTI-IMAGE CAROUSEL POST (RE-ENGINEERED SMOOTH TOUCH & DRAG - 6 PHOTOS) -->
+        <!-- POST 5: MULTI-IMAGE CAROUSEL POST (CLEARANCE SAFE & RE-ENGINEERED SMOOTH SWIPE - 6 PHOTOS) -->
         <article class="py-3 border-b border-zinc-900 bg-zinc-950/50">
           <!-- Post Header -->
           <div class="flex items-center justify-between px-3 py-2">
@@ -357,7 +359,7 @@
               <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
-                  <span>leo_moretti</span>
+                  <span>alex_vance_art</span>
                   <span class="text-zinc-500">• 1sett</span>
                 </div>
                 <div class="text-[10px] text-zinc-400">Rome, Italy • Cinematic Collection</div>
@@ -411,8 +413,8 @@
 
             </div>
 
-            <!-- Double Tap Pop Heart -->
-            <svg id="popHeart-like5" class="absolute inset-0 m-auto w-24 h-24 text-white fill-current drop-shadow-lg opacity-0 pointer-events-none z-20" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <!-- Double Tap Pop Star (Legal Clearance: Star instead of Heart) -->
+            <svg id="popStar-like5" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none z-20" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
 
           </div>
 
@@ -420,19 +422,19 @@
           <div class="px-3 pt-3 pb-1 flex justify-between items-center relative">
             <div class="flex items-center gap-4">
               <button onclick="toggleLike('like5')" class="transition transform active:scale-125">
-                <svg id="iconLike-like5" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-rose-500" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                <svg id="iconLike-like5" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               </button>
               <button onclick="openComments('Behind the scenes in Rome 🎥')" class="transition hover:text-zinc-400">
                 <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
               </button>
               <button class="transition hover:text-zinc-400">
-                <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </button>
             </div>
 
             <!-- Center Pagination Dots -->
             <div class="absolute left-1/2 -translate-x-1/2 flex gap-1.5" id="paginationDots">
-              <span class="w-2 h-2 rounded-full bg-blue-500 transition-all duration-300"></span>
+              <span class="w-2 h-2 rounded-full bg-emerald-500 transition-all duration-300"></span>
               <span class="w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300"></span>
               <span class="w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300"></span>
               <span class="w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300"></span>
@@ -446,9 +448,9 @@
           </div>
 
           <div class="px-3 text-xs">
-            <div class="font-bold text-xs" id="countLike-like5">4.892 "Mi piace"</div>
+            <div class="font-bold text-xs" id="countLike-like5">4.892 Stelle</div>
             <div class="mt-1">
-              <span class="font-bold">leo_moretti</span>
+              <span class="font-bold">alex_vance_art</span>
               <span class="opacity-90"> Full set series from Roman nights & mountain horizons. Swipe to see all 6 shots 🎬🌲📸</span>
             </div>
             <button onclick="openComments('Behind the scenes in Rome')" class="text-zinc-500 text-[11px] mt-1 block">Mostra tutti e 112 i commenti</button>
@@ -463,7 +465,7 @@
               <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
-                  <span>leo_moretti</span>
+                  <span>alex_vance_art</span>
                   <span class="text-zinc-500">• 2sett</span>
                 </div>
                 <div class="text-[10px] text-zinc-400">Caffè Brera, Milano</div>
@@ -473,21 +475,21 @@
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like6')">
             <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover" alt="Post 6">
-            <svg id="popHeart-like6" class="absolute inset-0 m-auto w-24 h-24 text-white fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <svg id="popStar-like6" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <div class="px-3 pt-3 pb-1 flex justify-between items-center">
             <div class="flex items-center gap-4">
               <button onclick="toggleLike('like6')" class="transition transform active:scale-125">
-                <svg id="iconLike-like6" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-rose-500" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                <svg id="iconLike-like6" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               </button>
               <button onclick="openComments('Morning espresso')" class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></button>
-              <button class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+              <button class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
             </div>
             <button onclick="toggleBookmark(this)" class="transition"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
           </div>
           <div class="px-3 text-xs">
-            <div class="font-bold text-xs" id="countLike-like6">1.820 "Mi piace"</div>
-            <div class="mt-1"><span class="font-bold">leo_moretti</span><span class="opacity-90"> Early morning coffee & screenplay notes in Brera. ☕📜</span></div>
+            <div class="font-bold text-xs" id="countLike-like6">1.820 Stelle</div>
+            <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90"> Early morning coffee & screenplay notes in Brera. ☕📜</span></div>
             <button onclick="openComments('Morning espresso')" class="text-zinc-500 text-[11px] mt-1 block">Mostra tutti e 28 i commenti</button>
             <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">2 SETTIMANE FA</div>
           </div>
@@ -500,7 +502,7 @@
               <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
-                  <span>leo_moretti</span>
+                  <span>alex_vance_art</span>
                   <span class="text-zinc-500">• 3sett</span>
                 </div>
                 <div class="text-[10px] text-zinc-400">Analog Lab</div>
@@ -510,21 +512,21 @@
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like7')">
             <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover" alt="Post 7">
-            <svg id="popHeart-like7" class="absolute inset-0 m-auto w-24 h-24 text-white fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <svg id="popStar-like7" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <div class="px-3 pt-3 pb-1 flex justify-between items-center">
             <div class="flex items-center gap-4">
               <button onclick="toggleLike('like7')" class="transition transform active:scale-125">
-                <svg id="iconLike-like7" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-rose-500" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                <svg id="iconLike-like7" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               </button>
               <button onclick="openComments('Analog 35mm film')" class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></button>
-              <button class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+              <button class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
             </div>
             <button onclick="toggleBookmark(this)" class="transition"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
           </div>
           <div class="px-3 text-xs">
-            <div class="font-bold text-xs" id="countLike-like7">2.910 "Mi piace"</div>
-            <div class="mt-1"><span class="font-bold">leo_moretti</span><span class="opacity-90"> Developing vintage 35mm rolls in the darkroom. Film texture forever. 🎞️📷</span></div>
+            <div class="font-bold text-xs" id="countLike-like7">2.910 Stelle</div>
+            <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90"> Developing vintage 35mm rolls in the darkroom. Film texture forever. 🎞️📷</span></div>
             <button onclick="openComments('Analog 35mm film')" class="text-zinc-500 text-[11px] mt-1 block">Mostra tutti e 41 i commenti</button>
             <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">3 SETTIMANE FA</div>
           </div>
@@ -538,7 +540,7 @@
       <svg class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
     </button>
 
-    <!-- Bottom Navigation Bar -->
+    <!-- Bottom Navigation Bar (Legal Clearance Safe Icons) -->
     <nav class="absolute bottom-0 inset-x-0 h-14 border-t border-zinc-800/80 backdrop-blur-lg flex justify-around items-center z-20" style="background-color: var(--bg-app); border-color: var(--border-color);">
       <button class="p-2 text-white hover:opacity-75 transition">
         <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -570,29 +572,29 @@
           <div class="flex gap-3 text-xs">
             <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" class="w-7 h-7 rounded-full object-cover">
             <div>
-              <div><span class="font-bold">elena_rossi</span> <span class="opacity-90">Che scatti assurdi Leo!! Quella foto con il tramonto è pazzesca 🌅🔥</span></div>
+              <div><span class="font-bold">elena_design</span> <span class="opacity-90">Che scatti assurdi Alex!! Quella foto con il tramonto è pazzesca 🌅🔥</span></div>
               <div class="text-[10px] text-zinc-500 mt-1 flex gap-3"><span>2h</span><span>Rispondi</span></div>
             </div>
           </div>
           <div class="flex gap-3 text-xs">
             <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" class="w-7 h-7 rounded-full object-cover">
             <div>
-              <div><span class="font-bold">marco_filmmaker</span> <span class="opacity-90">Lenti e camera usati per il carosello? Risultato pazzesco brother 🙌</span></div>
+              <div><span class="font-bold">marco_film_studio</span> <span class="opacity-90">Lenti e camera usati per il carosello? Risultato pazzesco brother 🙌</span></div>
               <div class="text-[10px] text-zinc-500 mt-1 flex gap-3"><span>4h</span><span>Rispondi</span></div>
             </div>
           </div>
           <div class="flex gap-3 text-xs">
             <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&q=80" class="w-7 h-7 rounded-full object-cover">
             <div>
-              <div><span class="font-bold">giulia.vibes</span> <span class="opacity-90">La 3a foto del carosello è da copertina di un album! ❤️</span></div>
+              <div><span class="font-bold">giulia_art</span> <span class="opacity-90">La 3a foto del carosello è da copertina di un album! ⭐</span></div>
               <div class="text-[10px] text-zinc-500 mt-1 flex gap-3"><span>1g</span><span>Rispondi</span></div>
             </div>
           </div>
         </div>
 
         <div class="pt-3 border-t border-zinc-800 flex items-center gap-2">
-          <input type="text" id="newCommentInput" placeholder="Aggiungi un commento..." class="flex-1 bg-zinc-900 text-white text-xs px-3 py-2 rounded-full border border-zinc-700 focus:outline-none focus:border-blue-500">
-          <button onclick="postComment()" class="text-blue-500 font-semibold text-xs px-2">Pubblica</button>
+          <input type="text" id="newCommentInput" placeholder="Aggiungi un commento..." class="flex-1 bg-zinc-900 text-white text-xs px-3 py-2 rounded-full border border-zinc-700 focus:outline-none focus:border-emerald-500">
+          <button onclick="postComment()" class="text-emerald-500 font-semibold text-xs px-2">Pubblica</button>
         </div>
       </div>
     </div>
@@ -600,7 +602,7 @@
     <!-- PROP CONFIGURATION / SCENOGRAPHY EDITOR MODAL -->
     <div id="propEditorModal" class="absolute inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex flex-col p-5 overflow-y-auto text-xs text-white">
       <div class="flex justify-between items-center border-b border-zinc-700 pb-3 mb-4">
-        <h2 class="text-sm font-bold text-blue-400">🎬 Pannello Scenografia & Dati Personaggio</h2>
+        <h2 class="text-sm font-bold text-emerald-400">🎬 Pannello Scenografia & Dati Personaggio</h2>
         <button onclick="togglePropEditor()" class="text-zinc-400 hover:text-white text-base">✕</button>
       </div>
       
@@ -609,15 +611,15 @@
       <div class="space-y-3">
         <div>
           <label class="block font-semibold mb-1">Nome Utente (@username):</label>
-          <input id="editUsername" type="text" value="leo_moretti" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
+          <input id="editUsername" type="text" value="alex_vance_art" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
         </div>
         <div>
           <label class="block font-semibold mb-1">Nome Visualizzato:</label>
-          <input id="editDisplayName" type="text" value="Leo Moretti" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
+          <input id="editDisplayName" type="text" value="Alex Vance" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
         </div>
         <div>
           <label class="block font-semibold mb-1">Bio Profilo:</label>
-          <textarea id="editBio" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white h-16">Director of Photography & Visual Storyteller 📷&#10;Exploring lights, shadows & cinema memories 🎬&#10;📍 Milan / Rome</textarea>
+          <textarea id="editBio" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white h-16">Cinematography & Landscape Photography 📷&#10;Exploring light, shadow & visual stories 🎬&#10;📍 Milan / Rome</textarea>
         </div>
         <div>
           <label class="block font-semibold mb-1">URL Avatar / Foto Profilo:</label>
@@ -628,7 +630,7 @@
           <textarea id="editCarouselUrls" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white h-20">https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80, https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1000&q=80, https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1000&q=80, https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1000&q=80, https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=1000&q=80, https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1000&q=80</textarea>
         </div>
 
-        <button onclick="savePropData()" class="w-full py-2.5 rounded bg-blue-600 font-bold text-white text-xs hover:bg-blue-500 transition mt-4">
+        <button onclick="savePropData()" class="w-full py-2.5 rounded bg-emerald-600 font-bold text-white text-xs hover:bg-emerald-500 transition mt-4">
           Salva e Applica Cambiamenti Scena
         </button>
       </div>
@@ -717,7 +719,7 @@
       const dotsContainer = document.getElementById('paginationDots');
       if (dotsContainer) {
         dotsContainer.innerHTML = Array.from({length: totalSlides}).map((_, i) => `
-          <span class="${i === currentSlide ? 'w-2 h-2 rounded-full bg-blue-500' : 'w-1.5 h-1.5 rounded-full bg-zinc-600'} transition-all duration-300"></span>
+          <span class="${i === currentSlide ? 'w-2 h-2 rounded-full bg-emerald-500' : 'w-1.5 h-1.5 rounded-full bg-zinc-600'} transition-all duration-300"></span>
         `).join('');
       }
     }
@@ -735,16 +737,18 @@
       }
     }
 
-    // Double Tap Like Animation
+    // Double Tap Star Animation (Clearance Compliant: Star Icon)
     let lastTap = 0;
     function handleDoubleTap(e, likeId) {
       const now = new Date().getTime();
       const timesince = now - lastTap;
       if (timesince < 300 && timesince > 0) {
-        const popHeart = document.getElementById(`popHeart-${likeId}`);
-        popHeart.classList.remove('heart-pop');
-        void popHeart.offsetWidth; // Trigger reflow
-        popHeart.classList.add('heart-pop');
+        const popStar = document.getElementById(`popStar-${likeId}`);
+        if (popStar) {
+          popStar.classList.remove('star-pop');
+          void popStar.offsetWidth; // Trigger reflow
+          popStar.classList.add('star-pop');
+        }
 
         if (!likesState[likeId].liked) {
           toggleLike(likeId);
@@ -753,7 +757,7 @@
       lastTap = now;
     }
 
-    // Toggle Like
+    // Toggle Star Like
     function toggleLike(likeId) {
       const state = likesState[likeId];
       state.liked = !state.liked;
@@ -764,14 +768,14 @@
 
       if (state.liked) {
         icon.classList.remove('fill-none', 'stroke-current');
-        icon.classList.add('fill-rose-500', 'text-rose-500');
+        icon.classList.add('fill-amber-400', 'text-amber-400');
       } else {
-        icon.classList.remove('fill-rose-500', 'text-rose-500');
+        icon.classList.remove('fill-amber-400', 'text-amber-400');
         icon.classList.add('fill-none', 'stroke-current');
       }
 
       if (countEl) {
-        countEl.innerText = `${state.count.toLocaleString('it-IT')} "Mi piace"`;
+        countEl.innerText = `${state.count.toLocaleString('it-IT')} Stelle`;
       }
     }
 
@@ -796,7 +800,7 @@
         btn.className = 'flex-1 py-1.5 rounded-lg bg-zinc-800 text-xs font-semibold text-zinc-200 hover:bg-zinc-700 transition';
       } else {
         btn.innerText = 'Segui';
-        btn.className = 'flex-1 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 transition';
+        btn.className = 'flex-1 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition';
       }
     }
 
