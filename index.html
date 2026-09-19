@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="it" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Vibegram - Fake Insta Prop</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    /* Hide scrollbars for clean app feel */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Touch & Drag Carousel styles */
+    .carousel-container {
+      display: flex;
+      transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      will-change: transform;
+    }
+    
+    /* Double tap heart animation */
+    @keyframes heartPop {
+      0% { transform: scale(0) rotate(-15deg); opacity: 0; }
+      50% { transform: scale(1.3) rotate(0deg); opacity: 0.9; }
+      70% { transform: scale(1) rotate(0deg); opacity: 1; }
+      100% { transform: scale(0.8) rotate(10deg); opacity: 0; }
+    }
+    .heart-pop {
+      animation: heartPop 0.8s ease-out forwards;
+    }
+
+    /* Custom Theme Colors */
+    :root {
+      --bg-app: #000000;
+      --bg-card: #0a0a0a;
+      --border-color: #262626;
+      --text-main: #f5f5f5;
+      --text-muted: #a8a8a8;
+      --accent: #0095f6;
+    }
+
+    .light-theme {
+      --bg-app: #ffffff;
+      --bg-card: #ffffff;
+      --border-color: #dbdbdb;
+      --text-main: #000000;
+      --text-muted: #737373;
+      --accent: #0095f6;
+    }
+
+    body {
+      background-color: var(--bg-app);
+      color: var(--text-main);
+      user-select: none;
+      -webkit-user-select: none;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+  </style>
+</head>
+<body class="h-full flex justify-center items-center overflow-hidden bg-zinc-950">
+
+  <!-- Main Viewport / Phone Frame Container -->
+  <div id="phoneFrame" class="relative w-full max-w-[430px] h-full sm:h-[880px] sm:max-h-[92vh] sm:rounded-[48px] sm:border-[10px] sm:border-zinc-800 shadow-2xl overflow-hidden flex flex-col transition-all duration-300" style="background-color: var(--bg-app);">
+    
+    <!-- Top Notch / Status Bar simulator for mobile frame -->
+    <div class="hidden sm:flex justify-between items-center px-7 pt-3 pb-1 text-xs font-semibold select-none z-30 opacity-80" style="color: var(--text-main);">
+      <span>9:41</span>
+      <div class="w-20 h-4 bg-zinc-900 rounded-full flex justify-center items-center">
+        <div class="w-3 h-3 rounded-full bg-zinc-950"></div>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.2 19.63 10.55 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9z"/></svg>
+        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        <div class="w-5 h-2.5 rounded-sm border border-current p-0.5 flex items-center">
+          <div class="w-full h-full bg-current rounded-xs"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- App Header -->
+    <header class="sticky top-0 z-20 flex justify-between items-center px-4 py-3 border-b border-zinc-800/60 backdrop-blur-md bg-opacity-90" style="background-color: var(--bg-app); border-color: var(--border-color);">
+      <div class="flex items-center gap-3">
+        <button id="backBtn" class="p-1 text-zinc-400 hover:text-white transition">
+          <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="flex items-center gap-1.5">
+          <span id="headerUsername" class="font-bold text-lg tracking-tight">leo_moretti</span>
+          <svg class="w-4 h-4 text-blue-500 fill-current" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <!-- Prop Config Editor Trigger -->
+        <button onclick="togglePropEditor()" class="p-1.5 rounded-full bg-zinc-800/50 hover:bg-zinc-700 text-zinc-300 transition" title="Pannello Scenografia (Edit Data)">
+          <svg class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button onclick="toggleTheme()" class="p-1.5 rounded-full bg-zinc-800/50 hover:bg-zinc-700 text-zinc-300 transition" title="Toggle Tema Chiaro/Scuro">
+          <svg id="themeIconSun" class="w-5 h-5 fill-none stroke-current stroke-2 hidden" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg id="themeIconMoon" class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+
+        <!-- Fullscreen Toggle for Prop Use -->
+        <button onclick="toggleFullscreen()" class="p-1.5 rounded-full bg-zinc-800/50 hover:bg-zinc-700 text-zinc-300 transition" title="Schermo Intero per Telefono Scena">
+          <svg class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Scrollable Profile Content & Post Feed -->
+    <main class="flex-1 overflow-y-auto no-scrollbar pb-16">
+      
+      <!-- Profile Header Summary -->
+      <section class="p-4 border-b border-zinc-800/40" style="border-color: var(--border-color);">
+        <div class="flex items-center justify-between gap-4">
+          <!-- Profile Avatar with Story Ring -->
+          <div class="relative group cursor-pointer">
+            <div class="w-20 h-20 rounded-full p-0.5 bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600">
+              <img id="profileAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Avatar" class="w-full h-full rounded-full object-cover border-2 border-black" style="border-color: var(--bg-app);">
+            </div>
+          </div>
+
+          <!-- Stats Counters -->
+          <div class="flex-1 flex justify-around text-center">
+            <div>
+              <div id="statPosts" class="font-bold text-base">42</div>
+              <div class="text-xs text-zinc-400">Post</div>
+            </div>
+            <div>
+              <div id="statFollowers" class="font-bold text-base">18.4K</div>
+              <div class="text-xs text-zinc-400">Follower</div>
+            </div>
+            <div>
+              <div id="statFollowing" class="font-bold text-base">612</div>
+              <div class="text-xs text-zinc-400">Seguiti</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bio & Name -->
+        <div class="mt-3">
+          <h1 id="profileDisplayName" class="font-bold text-sm">Leo Moretti</h1>
+          <p id="profileBio" class="text-xs leading-relaxed mt-1 opacity-90">
+            Director of Photography & Visual Storyteller 📷<br>
+            Exploring lights, shadows & cinema memories 🎬<br>
+            📍 Milan / Rome
+          </p>
+          <a id="profileLink" href="#" onclick="return false;" class="text-xs text-blue-400 font-semibold block mt-1 hover:underline">vibes.co/leo-moretti</a>
+        </div>
+
+        <!-- Follow & Action Buttons -->
+        <div class="flex gap-2 mt-4">
+          <button id="followBtn" onclick="toggleFollow()" class="flex-1 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 transition">
+            Segui già
+          </button>
+          <button class="flex-1 py-1.5 rounded-lg bg-zinc-800 text-xs font-semibold text-zinc-200 hover:bg-zinc-700 transition">
+            Messaggio
+          </button>
+          <button class="px-2.5 py-1.5 rounded-lg bg-zinc-800 text-xs text-zinc-200 hover:bg-zinc-700 transition">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- Profile View Tabs (Grid vs Vertical Feed) -->
+      <div class="flex border-b border-zinc-800/60 text-zinc-500 font-semibold text-xs" style="border-color: var(--border-color);">
+        <button class="flex-1 py-3 flex justify-center items-center gap-2 border-b-2 border-transparent text-zinc-500 hover:text-white">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z"/></svg>
+        </button>
+        <!-- Active Vertical Feed Tab -->
+        <button class="flex-1 py-3 flex justify-center items-center gap-2 border-b-2 border-white text-white">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M3 4h18v2H3zm0 7h18v2H3zm0 7h18v2H3z"/></svg>
+        </button>
+      </div>
+
+      <!-- POST FEED LIST -->
+      <div id="feedContainer" class="divide-y divide-zinc-900">
+        
+        <!-- POST 1: Standard Single Photo -->
+        <article class="py-3 border-b border-zinc-900">
+          <div class="flex items-center justify-between px-3 py-2">
+            <div class="flex items-center gap-2.5">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-8 h-8 rounded-full object-cover">
+              <div>
+                <div class="flex items-center gap-1 text-xs font-semibold">
+                  <span>leo_moretti</span>
+                  <span class="text-zinc-500">• 3g</span>
+                </div>
+                <div class="text-[10px] text-zinc-400">Milano, Navigli</div>
+              </div>
+            </div>
+            <button class="text-zinc-400 hover:text-white"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+          </div>
+
+          <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like1')">
+            <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover" alt="Post 1">
+            <svg id="popHeart-like1" class="absolute inset-0 m-auto w-24 h-24 text-white fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </div>
+
+          <!-- Actions -->
+          <div class="px-3 pt-3 pb-1 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+              <button onclick="toggleLike('like1')" class="transition transform active:scale-125">
+                <svg id="iconLike-like1" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-rose-500" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              </button>
+              <button onclick="openComments('Sunset vibes in Milano 🌃')" class="transition hover:text-zinc-400">
+                <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+              </button>
+              <button class="transition hover:text-zinc-400">
+                <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+            <button onclick="toggleBookmark(this)" class="transition">
+              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+            </button>
+          </div>
+
+          <div class="px-3 text-xs">
+            <div class="font-bold text-xs" id="countLike-like1">1.240 "Mi piace"</div>
+            <div class="mt-1">
+              <span class="font-bold">leo_moretti</span>
+              <span class="opacity-90"> Sunset reflections over Navigli. Golden hour never disappoints. 🌆✨</span>
+            </div>
+            <button onclick="openComments('Sunset vibes')" class="text-zinc-500 text-[11px] mt-1 block">Mostra tutti e 34 i commenti</button>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">3 GIORNI FA</div>
+          </div>
+        </article>
+
+        <!-- POST 2: MULTI-IMAGE CAROUSEL POST (MAIN MOVIE SCENE FOCUS) -->
+        <article class="py-3 border-b border-zinc-900 bg-zinc-950/50">
+          <!-- Post Header -->
+          <div class="flex items-center justify-between px-3 py-2">
+            <div class="flex items-center gap-2.5">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-8 h-8 rounded-full object-cover">
+              <div>
+                <div class="flex items-center gap-1 text-xs font-semibold">
+                  <span>leo_moretti</span>
+                  <span class="text-zinc-500">• 1g</span>
+                </div>
+                <div class="text-[10px] text-zinc-400">Rome, Italy • Set Shoot</div>
+              </div>
+            </div>
+            <button class="text-zinc-400 hover:text-white"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+          </div>
+
+          <!-- CAROUSEL MEDIA CONTAINER WITH TOUCH/DRAG SWIPE -->
+          <div class="relative aspect-square bg-black overflow-hidden group" id="carouselWrapper" onmouseleave="endDrag()" onmouseup="endDrag()">
+            
+            <!-- Carousel Counter Pill Badge -->
+            <div class="absolute top-3 right-3 z-10 bg-black/70 backdrop-blur-md text-white text-[11px] font-semibold px-2.5 py-1 rounded-full border border-white/10">
+              <span id="carouselCounter">1/4</span>
+            </div>
+
+            <!-- Carousel Track -->
+            <div id="carouselTrack" class="carousel-container h-full w-full"
+                 onmousedown="startDrag(event)" 
+                 onmousemove="onDrag(event)"
+                 ontouchstart="startTouch(event)"
+                 ontouchmove="onTouchMove(event)"
+                 ontouchend="endTouch(event)">
+              
+              <!-- Slide 1 -->
+              <div class="w-full h-full flex-shrink-0 relative">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover select-none pointer-events-none" alt="Slide 1">
+              </div>
+              <!-- Slide 2 -->
+              <div class="w-full h-full flex-shrink-0 relative">
+                <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover select-none pointer-events-none" alt="Slide 2">
+              </div>
+              <!-- Slide 3 -->
+              <div class="w-full h-full flex-shrink-0 relative">
+                <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover select-none pointer-events-none" alt="Slide 3">
+              </div>
+              <!-- Slide 4 -->
+              <div class="w-full h-full flex-shrink-0 relative">
+                <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover select-none pointer-events-none" alt="Slide 4">
+              </div>
+
+            </div>
+
+            <!-- Double Tap Pop Heart -->
+            <svg id="popHeart-like2" class="absolute inset-0 m-auto w-24 h-24 text-white fill-current drop-shadow-lg opacity-0 pointer-events-none z-20" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+
+            <!-- Navigation Arrows (Visible on hover or desktop prop use) -->
+            <button onclick="prevSlide(event)" class="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center backdrop-blur-sm opacity-80 hover:opacity-100 transition">
+              <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button onclick="nextSlide(event)" class="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center backdrop-blur-sm opacity-80 hover:opacity-100 transition">
+              <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+
+          <!-- Pagination Dots & Action Toolbar -->
+          <div class="px-3 pt-3 pb-1 flex justify-between items-center relative">
+            <div class="flex items-center gap-4">
+              <button onclick="toggleLike('like2')" class="transition transform active:scale-125">
+                <svg id="iconLike-like2" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-rose-500" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              </button>
+              <button onclick="openComments('Behind the scenes in Rome 🎥')" class="transition hover:text-zinc-400">
+                <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+              </button>
+              <button class="transition hover:text-zinc-400">
+                <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+
+            <!-- Center Pagination Dots -->
+            <div class="absolute left-1/2 -translate-x-1/2 flex gap-1.5" id="paginationDots">
+              <span class="w-2 h-2 rounded-full bg-blue-500 transition-all duration-300"></span>
+              <span class="w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300"></span>
+              <span class="w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300"></span>
+              <span class="w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300"></span>
+            </div>
+
+            <button onclick="toggleBookmark(this)" class="transition">
+              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+            </button>
+          </div>
+
+          <div class="px-3 text-xs">
+            <div class="font-bold text-xs" id="countLike-like2">3.892 "Mi piace"</div>
+            <div class="mt-1">
+              <span class="font-bold">leo_moretti</span>
+              <span class="opacity-90"> Exploring Roman nights & mountain horizons. Swipe to see the secret location from yesterday's shoot 🎬🌲📸</span>
+            </div>
+            <button onclick="openComments('Behind the scenes in Rome')" class="text-zinc-500 text-[11px] mt-1 block">Mostra tutti e 89 i commenti</button>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">1 GIORNI FA</div>
+          </div>
+        </article>
+
+        <!-- POST 3: Another Single Photo -->
+        <article class="py-3 border-b border-zinc-900">
+          <div class="flex items-center justify-between px-3 py-2">
+            <div class="flex items-center gap-2.5">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-8 h-8 rounded-full object-cover">
+              <div>
+                <div class="flex items-center gap-1 text-xs font-semibold">
+                  <span>leo_moretti</span>
+                  <span class="text-zinc-500">• 5g</span>
+                </div>
+                <div class="text-[10px] text-zinc-400">Studio Session</div>
+              </div>
+            </div>
+            <button class="text-zinc-400 hover:text-white"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+          </div>
+
+          <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like3')">
+            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover" alt="Post 3">
+            <svg id="popHeart-like3" class="absolute inset-0 m-auto w-24 h-24 text-white fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </div>
+
+          <div class="px-3 pt-3 pb-1 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+              <button onclick="toggleLike('like3')" class="transition transform active:scale-125">
+                <svg id="iconLike-like3" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-rose-500" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              </button>
+              <button onclick="openComments('Acoustic vibes 🎸')" class="transition hover:text-zinc-400">
+                <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+              </button>
+              <button class="transition hover:text-zinc-400">
+                <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+            <button onclick="toggleBookmark(this)" class="transition">
+              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+            </button>
+          </div>
+
+          <div class="px-3 text-xs">
+            <div class="font-bold text-xs" id="countLike-like3">954 "Mi piace"</div>
+            <div class="mt-1">
+              <span class="font-bold">leo_moretti</span>
+              <span class="opacity-90"> Late night acoustic studio recording 🎸🎧 sound check complete.</span>
+            </div>
+            <button onclick="openComments('Studio session')" class="text-zinc-500 text-[11px] mt-1 block">Mostra tutti e 19 i commenti</button>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">5 GIORNI FA</div>
+          </div>
+        </article>
+
+      </div>
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="absolute bottom-0 inset-x-0 h-14 border-t border-zinc-800/80 backdrop-blur-lg flex justify-around items-center z-20" style="background-color: var(--bg-app); border-color: var(--border-color);">
+      <button class="p-2 text-white hover:opacity-75 transition">
+        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </button>
+      <button class="p-2 text-zinc-400 hover:text-white transition">
+        <svg class="w-6 h-6 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="p-2 text-zinc-400 hover:text-white transition">
+        <svg class="w-6 h-6 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      </button>
+      <button class="p-2 text-zinc-400 hover:text-white transition">
+        <svg class="w-6 h-6 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </button>
+      <button class="p-1 rounded-full border-2 border-white">
+        <img id="bottomNavAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" class="w-5 h-5 rounded-full object-cover">
+      </button>
+    </nav>
+
+    <!-- Comments Drawer Modal -->
+    <div id="commentsModal" class="absolute inset-0 bg-black/80 backdrop-blur-sm z-40 hidden flex flex-col justify-end transition-opacity duration-300">
+      <div class="h-[75%] rounded-t-3xl border-t border-zinc-700 flex flex-col p-4" style="background-color: var(--bg-card); color: var(--text-main);">
+        <div class="w-12 h-1 bg-zinc-600 rounded-full mx-auto mb-3 cursor-pointer" onclick="closeComments()"></div>
+        <div class="flex justify-between items-center border-b border-zinc-800 pb-3 mb-3">
+          <h3 class="font-bold text-sm">Commenti</h3>
+          <button onclick="closeComments()" class="text-zinc-400 hover:text-white">✕</button>
+        </div>
+        
+        <div class="flex-1 overflow-y-auto space-y-4 no-scrollbar pr-1">
+          <div class="flex gap-3 text-xs">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" class="w-7 h-7 rounded-full object-cover">
+            <div>
+              <div><span class="font-bold">elena_rossi</span> <span class="opacity-90">Che scatti assurdi Leo!! Quella foto con il tramonto è pazzesca 🌅🔥</span></div>
+              <div class="text-[10px] text-zinc-500 mt-1 flex gap-3"><span>2h</span><span>Rispondi</span></div>
+            </div>
+          </div>
+          <div class="flex gap-3 text-xs">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" class="w-7 h-7 rounded-full object-cover">
+            <div>
+              <div><span class="font-bold">marco_filmmaker</span> <span class="opacity-90">Lenti e camera usati per il carosello? Risultato pazzesco brother 🙌</span></div>
+              <div class="text-[10px] text-zinc-500 mt-1 flex gap-3"><span>4h</span><span>Rispondi</span></div>
+            </div>
+          </div>
+          <div class="flex gap-3 text-xs">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&q=80" class="w-7 h-7 rounded-full object-cover">
+            <div>
+              <div><span class="font-bold">giulia.vibes</span> <span class="opacity-90">La 3a foto del carosello è da copertina di un album! ❤️</span></div>
+              <div class="text-[10px] text-zinc-500 mt-1 flex gap-3"><span>1g</span><span>Rispondi</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-zinc-800 flex items-center gap-2">
+          <input type="text" id="newCommentInput" placeholder="Aggiungi un commento..." class="flex-1 bg-zinc-900 text-white text-xs px-3 py-2 rounded-full border border-zinc-700 focus:outline-none focus:border-blue-500">
+          <button onclick="postComment()" class="text-blue-500 font-semibold text-xs px-2">Pubblica</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROP CONFIGURATION / SCENOGRAPHY EDITOR MODAL -->
+    <div id="propEditorModal" class="absolute inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex flex-col p-5 overflow-y-auto text-xs text-white">
+      <div class="flex justify-between items-center border-b border-zinc-700 pb-3 mb-4">
+        <h2 class="text-sm font-bold text-blue-400">🎬 Pannello Scenografia & Dati Personaggio</h2>
+        <button onclick="togglePropEditor()" class="text-zinc-400 hover:text-white text-base">✕</button>
+      </div>
+      
+      <p class="text-zinc-400 mb-4">Modifica qui le info e le immagini per adeguarle al personaggio del film prima delle riprese:</p>
+      
+      <div class="space-y-3">
+        <div>
+          <label class="block font-semibold mb-1">Nome Utente (@username):</label>
+          <input id="editUsername" type="text" value="leo_moretti" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
+        </div>
+        <div>
+          <label class="block font-semibold mb-1">Nome Visualizzato:</label>
+          <input id="editDisplayName" type="text" value="Leo Moretti" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
+        </div>
+        <div>
+          <label class="block font-semibold mb-1">Bio Profilo:</label>
+          <textarea id="editBio" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white h-16">Director of Photography & Visual Storyteller 📷&#10;Exploring lights, shadows & cinema memories 🎬&#10;📍 Milan / Rome</textarea>
+        </div>
+        <div>
+          <label class="block font-semibold mb-1">URL Avatar / Foto Profilo:</label>
+          <input id="editAvatarUrl" type="text" value="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
+        </div>
+        <div>
+          <label class="block font-semibold mb-1">Immagini Carosello Post 2 (URL separati da virgola):</label>
+          <textarea id="editCarouselUrls" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white h-20">https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80, https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1000&q=80, https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1000&q=80, https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1000&q=80</textarea>
+        </div>
+
+        <button onclick="savePropData()" class="w-full py-2.5 rounded bg-blue-600 font-bold text-white text-xs hover:bg-blue-500 transition mt-4">
+          Salva e Applica Cambiamenti Scena
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // State management
+    let currentSlide = 0;
+    const totalSlides = 4;
+    let isFollowing = true;
+    let likesState = {
+      like1: { count: 1240, liked: false },
+      like2: { count: 3892, liked: false },
+      like3: { count: 954, liked: false }
+    };
+
+    // Carousel Swipe Touch / Mouse Variables
+    let startX = 0;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
+    let isDragging = false;
+
+    const carouselTrack = document.getElementById('carouselTrack');
+    const carouselCounter = document.getElementById('carouselCounter');
+
+    // Update Carousel position & dots
+    function updateCarousel() {
+      currentTranslate = -currentSlide * 100;
+      prevTranslate = currentTranslate;
+      carouselTrack.style.transform = `translateX(${currentTranslate}%)`;
+      carouselCounter.innerText = `${currentSlide + 1}/${totalSlides}`;
+
+      // Update Dots
+      const dotsContainer = document.getElementById('paginationDots');
+      if (dotsContainer) {
+        dotsContainer.innerHTML = Array.from({length: totalSlides}).map((_, i) => `
+          <span class="${i === currentSlide ? 'w-2 h-2 rounded-full bg-blue-500' : 'w-1.5 h-1.5 rounded-full bg-zinc-600'} transition-all duration-300"></span>
+        `).join('');
+      }
+    }
+
+    function nextSlide(e) {
+      if (e) e.stopPropagation();
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateCarousel();
+      }
+    }
+
+    function prevSlide(e) {
+      if (e) e.stopPropagation();
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateCarousel();
+      }
+    }
+
+    // Touch & Mouse Drag Handlers for Mobile Swipe feel
+    function startDrag(e) {
+      isDragging = true;
+      startX = e.clientX;
+      carouselTrack.style.transition = 'none';
+    }
+
+    function onDrag(e) {
+      if (!isDragging) return;
+      const currentX = e.clientX;
+      const diffX = currentX - startX;
+      const containerWidth = carouselTrack.clientWidth;
+      const movePercent = (diffX / containerWidth) * 100;
+      carouselTrack.style.transform = `translateX(${prevTranslate + movePercent}%)`;
+    }
+
+    function endDrag() {
+      if (!isDragging) return;
+      isDragging = false;
+      carouselTrack.style.transition = 'transform 0.3s cubic-bezier(0.25, 1, 0.5, 1)';
+      const movedBy = currentTranslate - prevTranslate;
+      // Evaluate threshold
+      if (movedBy < -10 && currentSlide < totalSlides - 1) {
+        currentSlide += 1;
+      } else if (movedBy > 10 && currentSlide > 0) {
+        currentSlide -= 1;
+      }
+      updateCarousel();
+    }
+
+    function startTouch(e) {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+      carouselTrack.style.transition = 'none';
+    }
+
+    function onTouchMove(e) {
+      if (!isDragging) return;
+      const currentX = e.touches[0].clientX;
+      const diffX = currentX - startX;
+      const containerWidth = carouselTrack.clientWidth;
+      const movePercent = (diffX / containerWidth) * 100;
+      carouselTrack.style.transform = `translateX(${prevTranslate + movePercent}%)`;
+    }
+
+    function endTouch(e) {
+      endDrag();
+    }
+
+    // Double Tap Like Animation
+    let lastTap = 0;
+    function handleDoubleTap(e, likeId) {
+      const now = new Date().getTime();
+      const timesince = now - lastTap;
+      if (timesince < 300 && timesince > 0) {
+        const popHeart = document.getElementById(`popHeart-${likeId}`);
+        popHeart.classList.remove('heart-pop');
+        void popHeart.offsetWidth; // Trigger reflow
+        popHeart.classList.add('heart-pop');
+
+        if (!likesState[likeId].liked) {
+          toggleLike(likeId);
+        }
+      }
+      lastTap = now;
+    }
+
+    // Toggle Like
+    function toggleLike(likeId) {
+      const state = likesState[likeId];
+      state.liked = !state.liked;
+      state.count += state.liked ? 1 : -1;
+
+      const icon = document.getElementById(`iconLike-${likeId}`);
+      const countEl = document.getElementById(`countLike-${likeId}`);
+
+      if (state.liked) {
+        icon.classList.remove('fill-none', 'stroke-current');
+        icon.classList.add('fill-rose-500', 'text-rose-500');
+      } else {
+        icon.classList.remove('fill-rose-500', 'text-rose-500');
+        icon.classList.add('fill-none', 'stroke-current');
+      }
+
+      if (countEl) {
+        countEl.innerText = `${state.count.toLocaleString('it-IT')} "Mi piace"`;
+      }
+    }
+
+    // Toggle Bookmark
+    function toggleBookmark(btn) {
+      const svg = btn.querySelector('svg');
+      if (svg.classList.contains('fill-none')) {
+        svg.classList.remove('fill-none');
+        svg.classList.add('fill-current', 'text-white');
+      } else {
+        svg.classList.remove('fill-current', 'text-white');
+        svg.classList.add('fill-none');
+      }
+    }
+
+    // Toggle Follow
+    function toggleFollow() {
+      isFollowing = !isFollowing;
+      const btn = document.getElementById('followBtn');
+      if (isFollowing) {
+        btn.innerText = 'Segui già';
+        btn.className = 'flex-1 py-1.5 rounded-lg bg-zinc-800 text-xs font-semibold text-zinc-200 hover:bg-zinc-700 transition';
+      } else {
+        btn.innerText = 'Segui';
+        btn.className = 'flex-1 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 transition';
+      }
+    }
+
+    // Comments Modal
+    function openComments(title) {
+      document.getElementById('commentsModal').classList.remove('hidden');
+    }
+    function closeComments() {
+      document.getElementById('commentsModal').classList.add('hidden');
+    }
+
+    // Theme Toggle (Light/Dark mode)
+    function toggleTheme() {
+      document.body.classList.toggle('light-theme');
+      document.getElementById('themeIconSun').classList.toggle('hidden');
+      document.getElementById('themeIconMoon').classList.toggle('hidden');
+    }
+
+    // Fullscreen Toggle for set prop phone
+    function toggleFullscreen() {
+      const elem = document.documentElement;
+      if (!document.fullscreenElement) {
+        if (elem.requestFullscreen) elem.requestFullscreen();
+        else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    // Prop Config Editor
+    function togglePropEditor() {
+      document.getElementById('propEditorModal').classList.toggle('hidden');
+    }
+
+    function savePropData() {
+      const username = document.getElementById('editUsername').value;
+      const displayName = document.getElementById('editDisplayName').value;
+      const bio = document.getElementById('editBio').value;
+      const avatarUrl = document.getElementById('editAvatarUrl').value;
+      
+      document.getElementById('headerUsername').innerText = username;
+      document.getElementById('profileDisplayName').innerText = displayName;
+      document.getElementById('profileBio').innerHTML = bio.replace(/\n/g, '<br>');
+      document.getElementById('profileAvatar').src = avatarUrl;
+      document.getElementById('bottomNavAvatar').src = avatarUrl;
+
+      // Update Carousel Images
+      const carouselUrls = document.getElementById('editCarouselUrls').value.split(',').map(s => s.trim());
+      if (carouselUrls.length > 0) {
+        const carouselTrack = document.getElementById('carouselTrack');
+        carouselTrack.innerHTML = carouselUrls.map(url => `
+          <div class="w-full h-full flex-shrink-0 relative">
+            <img src="${url}" class="w-full h-full object-cover select-none pointer-events-none">
+          </div>
+        `).join('');
+      }
+
+      togglePropEditor();
+    }
+  </script>
+</body>
+</html>
