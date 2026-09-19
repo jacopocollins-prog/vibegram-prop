@@ -2,11 +2,19 @@
 <html lang="it" class="h-full">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Vibegram - Fake Insta Prop</title>
+  
+  <!-- PWA & Mobile Fullscreen Standalone Meta Tags -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Vibegram">
+  <link rel="manifest" href="manifest.json">
+
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <style>
-    /* Hide scrollbars for clean app feel */
+    /* Hide scrollbars for clean native app feel */
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -53,6 +61,19 @@
       user-select: none;
       -webkit-user-select: none;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    /* Edge-to-edge Mobile Mode */
+    @media (max-width: 640px) {
+      #phoneFrame {
+        max-width: 100vw !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        border-radius: 0 !important;
+        border: none !important;
+      }
     }
   </style>
 </head>
@@ -88,7 +109,13 @@
         </div>
       </div>
 
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-3">
+        <!-- Fullscreen Activator for Movie Shoot -->
+        <button onclick="requestAppFullscreen()" class="px-2.5 py-1 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-[11px] font-bold transition flex items-center gap-1" title="Attiva Schermo Intero per Scena">
+          <svg class="w-3.5 h-3.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
+          <span>FULLSCREEN</span>
+        </button>
+
         <!-- Prop Config Editor Trigger -->
         <button onclick="togglePropEditor()" class="p-1.5 rounded-full bg-zinc-800/50 hover:bg-zinc-700 text-zinc-300 transition" title="Pannello Scenografia (Edit Data)">
           <svg class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
@@ -98,11 +125,6 @@
         <button onclick="toggleTheme()" class="p-1.5 rounded-full bg-zinc-800/50 hover:bg-zinc-700 text-zinc-300 transition" title="Toggle Tema Chiaro/Scuro">
           <svg id="themeIconSun" class="w-5 h-5 fill-none stroke-current stroke-2 hidden" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
           <svg id="themeIconMoon" class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-        </button>
-
-        <!-- Fullscreen Toggle for Prop Use -->
-        <button onclick="toggleFullscreen()" class="p-1.5 rounded-full bg-zinc-800/50 hover:bg-zinc-700 text-zinc-300 transition" title="Schermo Intero per Telefono Scena">
-          <svg class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
         </button>
       </div>
     </header>
@@ -324,7 +346,7 @@
               <span class="opacity-90"> Exploring Roman nights & mountain horizons. Swipe to see the secret location from yesterday's shoot 🎬🌲📸</span>
             </div>
             <button onclick="openComments('Behind the scenes in Rome')" class="text-zinc-500 text-[11px] mt-1 block">Mostra tutti e 89 i commenti</button>
-            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">1 GIORNI FA</div>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">1 GIORNO FA</div>
           </div>
         </article>
 
@@ -499,6 +521,19 @@
     const carouselTrack = document.getElementById('carouselTrack');
     const carouselCounter = document.getElementById('carouselCounter');
 
+    // Fullscreen API Helper for Movie Prop
+    function requestAppFullscreen() {
+      const docEl = document.documentElement;
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        if (docEl.requestFullscreen) docEl.requestFullscreen();
+        else if (docEl.webkitRequestFullscreen) docEl.webkitRequestFullscreen();
+        else if (docEl.msRequestFullscreen) docEl.msRequestFullscreen();
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      }
+    }
+
     // Update Carousel position & dots
     function updateCarousel() {
       currentTranslate = -currentSlide * 100;
@@ -658,17 +693,6 @@
       document.body.classList.toggle('light-theme');
       document.getElementById('themeIconSun').classList.toggle('hidden');
       document.getElementById('themeIconMoon').classList.toggle('hidden');
-    }
-
-    // Fullscreen Toggle for set prop phone
-    function toggleFullscreen() {
-      const elem = document.documentElement;
-      if (!document.fullscreenElement) {
-        if (elem.requestFullscreen) elem.requestFullscreen();
-        else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
-      } else {
-        if (document.exitFullscreen) document.exitFullscreen();
-      }
     }
 
     // Prop Config Editor
