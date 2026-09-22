@@ -239,10 +239,10 @@
                   <span>alex_vance_art</span>
                   <span class="text-zinc-500">• 2g</span>
                 </div>
-                <div class="text-[10px] text-zinc-400">Milano, Navigli</div>
+                <div class="text-[10px] text-zinc-400" id="location-post1">Milano, Navigli</div>
               </div>
             </div>
-            <button class="text-zinc-400 hover:text-white"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+            <button onclick="openSinglePostEditor(1)" class="text-zinc-400 hover:text-white p-1 transition" title="Modifica Dati Post"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like1')">
             <img src="images/post1.jpg?v=2" class="w-full h-full object-cover" alt="Post 1">
@@ -264,7 +264,7 @@
             <div class="font-bold text-xs" id="countLike-like1">1.240 Stelle</div>
             <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90"> Sunset reflections over Navigli. Golden hour 🌆✨</span></div>
             <button onclick="openComments('Sunset vibes')" class="text-zinc-500 text-[11px] mt-1 block">Mostra tutti e 34 i commenti</button>
-            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">2 GIORNI FA</div>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1" id="timeFooter-post1">2 GIORNI FA</div>
           </div>
         </article>
 
@@ -278,10 +278,10 @@
                   <span>alex_vance_art</span>
                   <span class="text-zinc-500">• 4g</span>
                 </div>
-                <div class="text-[10px] text-zinc-400">Torino, Architettura</div>
+                <div class="text-[10px] text-zinc-400" id="location-post2">Torino, Architettura</div>
               </div>
             </div>
-            <button class="text-zinc-400 hover:text-white"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+            <button onclick="openSinglePostEditor(1)" class="text-zinc-400 hover:text-white p-1 transition" title="Modifica Dati Post"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like2')">
             <img src="images/post2.jpg?v=2" class="w-full h-full object-cover" alt="Post 2">
@@ -301,7 +301,7 @@
             <div class="font-bold text-xs" id="countLike-like2">2.105 Stelle</div>
             <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90"> Geometric shadows & steel lines. 🏢 Architectural framing study.</span></div>
             <button onclick="openComments('Urban geometry')" class="text-zinc-500 text-[11px] mt-1 block">Mostra tutti e 48 i commenti</button>
-            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">4 GIORNI FA</div>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1" id="timeFooter-post2">4 GIORNI FA</div>
           </div>
         </article>
 
@@ -315,10 +315,10 @@
                   <span>alex_vance_art</span>
                   <span class="text-zinc-500">• 6g</span>
                 </div>
-                <div class="text-[10px] text-zinc-400">Studio Acoustic Session</div>
+                <div class="text-[10px] text-zinc-400" id="location-post3">Studio Acoustic Session</div>
               </div>
             </div>
-            <button class="text-zinc-400 hover:text-white"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+            <button onclick="openSinglePostEditor(1)" class="text-zinc-400 hover:text-white p-1 transition" title="Modifica Dati Post"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like3')">
             <img src="images/post3.jpg?v=2" class="w-full h-full object-cover" alt="Post 3">
@@ -338,7 +338,7 @@
             <div class="font-bold text-xs" id="countLike-like3">954 Stelle</div>
             <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90"> Late night studio recording 🎸 Sound check complete.</span></div>
             <button onclick="openComments('Studio Session')" class="text-zinc-500 text-[11px] mt-1 block">Mostra tutti e 19 i commenti</button>
-            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">6 GIORNI FA</div>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1" id="timeFooter-post3">6 GIORNI FA</div>
           </div>
         </article>
 
@@ -352,10 +352,10 @@
                   <span>alex_vance_art</span>
                   <span class="text-zinc-500">• 1sett</span>
                 </div>
-                <div class="text-[10px] text-zinc-400">Lago di Como</div>
+                <div class="text-[10px] text-zinc-400" id="location-post4">Lago di Como</div>
               </div>
             </div>
-            <button class="text-zinc-400 hover:text-white"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+            <button onclick="openSinglePostEditor(1)" class="text-zinc-400 hover:text-white p-1 transition" title="Modifica Dati Post"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like4')">
             <img src="images/post4.jpg?v=2" class="w-full h-full object-cover" alt="Post 4">
@@ -375,7 +375,7 @@
             <div class="font-bold text-xs" id="countLike-like4">3.410 Stelle</div>
             <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90"> Quiet morning horizon. Lake vibes & fresh air. 🌅🌊</span></div>
             <button onclick="openComments('Lake Como')" class="text-zinc-500 text-[11px] mt-1 block">Mostra tutti e 62 i commenti</button>
-            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">1 SETTIMANA FA</div>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1" id="timeFooter-post4">1 SETTIMANA FA</div>
           </div>
         </article>
 
@@ -393,7 +393,7 @@
                 <div class="text-[10px] text-zinc-400">Rome, Italy • Cinematic Collection</div>
               </div>
             </div>
-            <button class="text-zinc-400 hover:text-white"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+            <button onclick="openSinglePostEditor(1)" class="text-zinc-400 hover:text-white p-1 transition" title="Modifica Dati Post"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
 
           <!-- CAROUSEL MEDIA CONTAINER WITH RE-ENGINEERED TOUCH SWIPE -->
@@ -477,7 +477,7 @@
               <span class="opacity-90"> Full set series from Roman nights & mountain horizons. Swipe to see all 5 shots 🎬🌲📸</span>
             </div>
             <button onclick="openComments('Behind the scenes in Rome')" class="text-zinc-500 text-[11px] mt-1 block">Mostra tutti e 112 i commenti</button>
-            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">1 SETTIMANA FA</div>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1" id="timeFooter-post4">1 SETTIMANA FA</div>
           </div>
         </article>
 
@@ -494,7 +494,7 @@
                 <div class="text-[10px] text-zinc-400">Caffè Brera, Milano</div>
               </div>
             </div>
-            <button class="text-zinc-400 hover:text-white"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+            <button onclick="openSinglePostEditor(1)" class="text-zinc-400 hover:text-white p-1 transition" title="Modifica Dati Post"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like6')">
             <img src="images/post6.jpg?v=2" class="w-full h-full object-cover" alt="Post 6">
@@ -514,7 +514,7 @@
             <div class="font-bold text-xs" id="countLike-like6">1.820 Stelle</div>
             <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90"> Early morning coffee & screenplay notes in Brera. ☕📜</span></div>
             <button onclick="openComments('Morning espresso')" class="text-zinc-500 text-[11px] mt-1 block">Mostra tutti e 28 i commenti</button>
-            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">2 SETTIMANE FA</div>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1" id="timeFooter-post6">2 SETTIMANE FA</div>
           </div>
         </article>
 
@@ -528,10 +528,10 @@
                   <span>alex_vance_art</span>
                   <span class="text-zinc-500">• 3sett</span>
                 </div>
-                <div class="text-[10px] text-zinc-400">Analog Lab</div>
+                <div class="text-[10px] text-zinc-400" id="location-post7">Analog Lab</div>
               </div>
             </div>
-            <button class="text-zinc-400 hover:text-white"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+            <button onclick="openSinglePostEditor(1)" class="text-zinc-400 hover:text-white p-1 transition" title="Modifica Dati Post"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like7')">
             <img src="images/post7.jpg?v=2" class="w-full h-full object-cover" alt="Post 7">
@@ -551,7 +551,7 @@
             <div class="font-bold text-xs" id="countLike-like7">2.910 Stelle</div>
             <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90"> Developing vintage 35mm rolls in the darkroom. Film texture forever. 🎞️📷</span></div>
             <button onclick="openComments('Analog 35mm film')" class="text-zinc-500 text-[11px] mt-1 block">Mostra tutti e 41 i commenti</button>
-            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">3 SETTIMANE FA</div>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1" id="timeFooter-post7">3 SETTIMANE FA</div>
           </div>
         </article>
 
@@ -618,6 +618,55 @@
         <div class="pt-3 border-t border-zinc-800 flex items-center gap-2">
           <input type="text" id="newCommentInput" placeholder="Aggiungi un commento..." class="flex-1 bg-zinc-900 text-white text-xs px-3 py-2 rounded-full border border-zinc-700 focus:outline-none focus:border-emerald-500">
           <button onclick="postComment()" class="text-emerald-500 font-semibold text-xs px-2">Pubblica</button>
+        </div>
+      </div>
+    </div>
+
+        <!-- SINGLE POST EDITOR MODAL (TRIGGERED BY THREE DOTS ...) -->
+    <div id="singlePostEditorModal" class="absolute inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex flex-col p-5 overflow-y-auto text-xs text-white">
+      <div class="flex justify-between items-center border-b border-zinc-700 pb-3 mb-4">
+        <h2 class="text-sm font-bold text-amber-400 flex items-center gap-2">
+          <span>âš™ï¸</span> Modifica Dati Post <span id="editingPostNumBadge" class="text-zinc-400 font-normal text-xs">(Post #1)</span>
+        </h2>
+        <button onclick="closeSinglePostEditor()" class="text-zinc-400 hover:text-white text-base">âœ•</button>
+      </div>
+      
+      <p class="text-zinc-400 mb-4">Modifica le informazioni di questo post per la scena del film:</p>
+      
+      <div class="space-y-3">
+        <div>
+          <label class="block font-semibold mb-1 text-zinc-300">Luogo / Posizione:</label>
+          <input id="editPostLocationInput" type="text" placeholder="Es. Milano, Navigli" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-400">
+        </div>
+        
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block font-semibold mb-1 text-zinc-300">Data Intestazione:</label>
+            <input id="editPostTimeHeaderInput" type="text" placeholder="Es. 2g, 1sett" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-400">
+          </div>
+          <div>
+            <label class="block font-semibold mb-1 text-zinc-300">Data PiÃ¨ di Pagina:</label>
+            <input id="editPostTimeFooterInput" type="text" placeholder="Es. 2 GIORNI FA" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-400">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-1 text-zinc-300">QuantitÃ  Stelle (Like):</label>
+          <input id="editPostLikesInput" type="number" placeholder="Es. 1240" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-400">
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-1 text-zinc-300">Descrizione Post (Didascalia):</label>
+          <textarea id="editPostCaptionInput" placeholder="Inserisci il testo della didascalia..." class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white h-24 focus:outline-none focus:border-amber-400"></textarea>
+        </div>
+
+        <div class="flex gap-2 pt-2">
+          <button onclick="closeSinglePostEditor()" class="flex-1 py-2.5 rounded bg-zinc-800 font-semibold text-zinc-300 hover:bg-zinc-700 transition">
+            Annulla
+          </button>
+          <button onclick="saveSinglePostData()" class="flex-1 py-2.5 rounded bg-amber-500 font-bold text-black hover:bg-amber-400 transition">
+            Salva Modifiche
+          </button>
         </div>
       </div>
     </div>
@@ -855,6 +904,77 @@
         btn.innerText = 'Segui';
         btn.className = 'flex-1 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition';
       }
+    }
+
+        // Single Post Editor Modal Logic (Three dots trigger)
+    let currentEditingPostNum = null;
+
+    function openSinglePostEditor(postNum) {
+      currentEditingPostNum = postNum;
+      const badge = document.getElementById('editingPostNumBadge');
+      if (badge) badge.innerText = '(Post #' + postNum + ')';
+      
+      const locEl = document.getElementById('location-post' + postNum);
+      const headerTimeEl = document.getElementById('timeHeader-post' + postNum);
+      const footerTimeEl = document.getElementById('timeFooter-post' + postNum);
+      const captionEl = document.getElementById('caption-post' + postNum);
+
+      if (document.getElementById('editPostLocationInput')) {
+        document.getElementById('editPostLocationInput').value = locEl ? locEl.innerText : '';
+      }
+      if (document.getElementById('editPostTimeHeaderInput')) {
+        document.getElementById('editPostTimeHeaderInput').value = headerTimeEl ? headerTimeEl.innerText.replace(/^[â€¢\s]+/, '') : '';
+      }
+      if (document.getElementById('editPostTimeFooterInput')) {
+        document.getElementById('editPostTimeFooterInput').value = footerTimeEl ? footerTimeEl.innerText : '';
+      }
+      if (document.getElementById('editPostCaptionInput')) {
+        document.getElementById('editPostCaptionInput').value = captionEl ? captionEl.innerText.trim() : '';
+      }
+
+      if (likesState['like' + postNum] && document.getElementById('editPostLikesInput')) {
+        document.getElementById('editPostLikesInput').value = likesState['like' + postNum].count;
+      }
+
+      const modal = document.getElementById('singlePostEditorModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeSinglePostEditor() {
+      const modal = document.getElementById('singlePostEditorModal');
+      if (modal) modal.classList.add('hidden');
+      currentEditingPostNum = null;
+    }
+
+    function saveSinglePostData() {
+      if (!currentEditingPostNum) return;
+      const pNum = currentEditingPostNum;
+
+      const newLoc = document.getElementById('editPostLocationInput').value;
+      const newHeaderTime = document.getElementById('editPostTimeHeaderInput').value;
+      const newFooterTime = document.getElementById('editPostTimeFooterInput').value;
+      const newLikes = parseInt(document.getElementById('editPostLikesInput').value, 10);
+      const newCaption = document.getElementById('editPostCaptionInput').value;
+
+      const locEl = document.getElementById('location-post' + pNum);
+      const headerTimeEl = document.getElementById('timeHeader-post' + pNum);
+      const footerTimeEl = document.getElementById('timeFooter-post' + pNum);
+      const captionEl = document.getElementById('caption-post' + pNum);
+      const countEl = document.getElementById('countLike-like' + pNum);
+
+      if (locEl) locEl.innerText = newLoc;
+      if (headerTimeEl) headerTimeEl.innerText = newHeaderTime ? 'â€¢ ' + newHeaderTime : '';
+      if (footerTimeEl) footerTimeEl.innerText = newFooterTime;
+      if (captionEl) captionEl.innerText = ' ' + newCaption;
+
+      if (!isNaN(newLikes) && likesState['like' + pNum]) {
+        likesState['like' + pNum].count = newLikes;
+        if (countEl) {
+          countEl.innerText = newLikes.toLocaleString('it-IT') + ' Stelle';
+        }
+      }
+
+      closeSinglePostEditor();
     }
 
     // Comments Modal
