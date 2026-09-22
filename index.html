@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="it" class="h-full">
 <head>
   <meta charset="UTF-8">
@@ -141,7 +141,7 @@
           <!-- Profile Avatar with Story Highlight Ring -->
           <div class="relative group cursor-pointer">
             <div class="w-20 h-20 rounded-full p-0.5 bg-gradient-to-tr from-emerald-500 via-teal-500 to-cyan-600">
-              <img id="profileAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Avatar" class="w-full h-full rounded-full object-cover border-2 border-black" style="border-color: var(--bg-app);">
+              <img id="profileAvatar" src="images/post6.jpg" alt="Avatar" class="w-full h-full rounded-full object-cover border-2 border-black" style="border-color: var(--bg-app);">
             </div>
           </div>
 
@@ -189,23 +189,51 @@
 
       <!-- Profile View Tabs (Grid vs Vertical Feed) -->
       <div class="flex border-b border-zinc-800/60 text-zinc-500 font-semibold text-xs" style="border-color: var(--border-color);">
-        <button class="flex-1 py-3 flex justify-center items-center gap-2 border-b-2 border-transparent text-zinc-500 hover:text-white">
+        <button id="gridTabBtn" onclick="switchTab('grid')" class="flex-1 py-3 flex justify-center items-center gap-2 border-b-2 border-transparent text-zinc-500 hover:text-white">
           <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z"/></svg>
         </button>
         <!-- Active Vertical Feed Tab -->
-        <button class="flex-1 py-3 flex justify-center items-center gap-2 border-b-2 border-white text-white">
+        <button id="feedTabBtn" onclick="switchTab('feed')" class="flex-1 py-3 flex justify-center items-center gap-2 border-b-2 border-white text-white">
           <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M3 4h18v2H3zm0 7h18v2H3zm0 7h18v2H3z"/></svg>
         </button>
+      </div>
+
+      <!-- PROFILE 3-COLUMN GRID VIEW -->
+      <div id="gridContainer" class="grid grid-cols-3 gap-0.5 bg-black hidden">
+        <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-1')">
+          <img src="images/post1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+        </div>
+        <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-2')">
+          <img src="images/post2.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+        </div>
+        <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-3')">
+          <img src="images/post3.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+        </div>
+        <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-4')">
+          <img src="images/post4.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+        </div>
+        <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-5')">
+          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+          <div class="absolute top-1.5 right-1.5 bg-black/60 backdrop-blur-xs p-1 rounded-sm text-white">
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+          </div>
+        </div>
+        <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-6')">
+          <img src="images/post6.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+        </div>
+        <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-7')">
+          <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+        </div>
       </div>
 
       <!-- POST FEED LIST -->
       <div id="feedContainer" class="divide-y divide-zinc-900">
         
         <!-- POST 1 (Single Photo) -->
-        <article class="py-3 border-b border-zinc-900">
+        <article id="post-1" class="py-3 border-b border-zinc-900">
           <div class="flex items-center justify-between px-3 py-2">
             <div class="flex items-center gap-2.5">
-              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -217,7 +245,7 @@
             <button class="text-zinc-400 hover:text-white"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like1')">
-            <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover" alt="Post 1">
+            <img src="images/post1.jpg" class="w-full h-full object-cover" alt="Post 1">
             <svg id="popStar-like1" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <div class="px-3 pt-3 pb-1 flex justify-between items-center">
@@ -241,10 +269,10 @@
         </article>
 
         <!-- POST 2 (Single Photo) -->
-        <article class="py-3 border-b border-zinc-900">
+        <article id="post-2" class="py-3 border-b border-zinc-900">
           <div class="flex items-center justify-between px-3 py-2">
             <div class="flex items-center gap-2.5">
-              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -256,7 +284,7 @@
             <button class="text-zinc-400 hover:text-white"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like2')">
-            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover" alt="Post 2">
+            <img src="images/post2.jpg" class="w-full h-full object-cover" alt="Post 2">
             <svg id="popStar-like2" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <div class="px-3 pt-3 pb-1 flex justify-between items-center">
@@ -278,10 +306,10 @@
         </article>
 
         <!-- POST 3 (Single Photo) -->
-        <article class="py-3 border-b border-zinc-900">
+        <article id="post-3" class="py-3 border-b border-zinc-900">
           <div class="flex items-center justify-between px-3 py-2">
             <div class="flex items-center gap-2.5">
-              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -293,7 +321,7 @@
             <button class="text-zinc-400 hover:text-white"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like3')">
-            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover" alt="Post 3">
+            <img src="images/post3.jpg" class="w-full h-full object-cover" alt="Post 3">
             <svg id="popStar-like3" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <div class="px-3 pt-3 pb-1 flex justify-between items-center">
@@ -315,10 +343,10 @@
         </article>
 
         <!-- POST 4 (Single Photo) -->
-        <article class="py-3 border-b border-zinc-900">
+        <article id="post-4" class="py-3 border-b border-zinc-900">
           <div class="flex items-center justify-between px-3 py-2">
             <div class="flex items-center gap-2.5">
-              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -330,7 +358,7 @@
             <button class="text-zinc-400 hover:text-white"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like4')">
-            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover" alt="Post 4">
+            <img src="images/post4.jpg" class="w-full h-full object-cover" alt="Post 4">
             <svg id="popStar-like4" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <div class="px-3 pt-3 pb-1 flex justify-between items-center">
@@ -352,11 +380,11 @@
         </article>
 
         <!-- POST 5: MULTI-IMAGE CAROUSEL POST (CLEARANCE SAFE & RE-ENGINEERED SMOOTH SWIPE - 6 PHOTOS) -->
-        <article class="py-3 border-b border-zinc-900 bg-zinc-950/50">
+        <article id="post-5" class="py-3 border-b border-zinc-900 bg-zinc-950/50">
           <!-- Post Header -->
           <div class="flex items-center justify-between px-3 py-2">
             <div class="flex items-center gap-2.5">
-              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -459,10 +487,10 @@
         </article>
 
         <!-- POST 6 (Single Photo) -->
-        <article class="py-3 border-b border-zinc-900">
+        <article id="post-6" class="py-3 border-b border-zinc-900">
           <div class="flex items-center justify-between px-3 py-2">
             <div class="flex items-center gap-2.5">
-              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -474,7 +502,7 @@
             <button class="text-zinc-400 hover:text-white"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like6')">
-            <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover" alt="Post 6">
+            <img src="images/post6.jpg" class="w-full h-full object-cover" alt="Post 6">
             <svg id="popStar-like6" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <div class="px-3 pt-3 pb-1 flex justify-between items-center">
@@ -496,10 +524,10 @@
         </article>
 
         <!-- POST 7 (Single Photo) -->
-        <article class="py-3 border-b border-zinc-900">
+        <article id="post-7" class="py-3 border-b border-zinc-900">
           <div class="flex items-center justify-between px-3 py-2">
             <div class="flex items-center gap-2.5">
-              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -555,7 +583,7 @@
         <svg class="w-6 h-6 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
       </button>
       <button class="p-1 rounded-full border-2 border-white">
-        <img id="bottomNavAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" class="w-5 h-5 rounded-full object-cover">
+        <img id="bottomNavAvatar" src="images/post6.jpg" class="w-5 h-5 rounded-full object-cover">
       </button>
     </nav>
 
@@ -623,7 +651,7 @@
         </div>
         <div>
           <label class="block font-semibold mb-1">URL Avatar / Foto Profilo:</label>
-          <input id="editAvatarUrl" type="text" value="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
+          <input id="editAvatarUrl" type="text" value="images/post6.jpg" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
         </div>
         <div>
           <label class="block font-semibold mb-1">Immagini Carosello Post 5 (URL separati da virgola):</label>
@@ -789,6 +817,36 @@
         svg.classList.remove('fill-current', 'text-white');
         svg.classList.add('fill-none');
       }
+    }
+
+    // Switch Profile View Tab (Grid vs Feed)
+    function switchTab(mode) {
+      const gridContainer = document.getElementById('gridContainer');
+      const feedContainer = document.getElementById('feedContainer');
+      const gridTabBtn = document.getElementById('gridTabBtn');
+      const feedTabBtn = document.getElementById('feedTabBtn');
+
+      if (mode === 'grid') {
+        gridContainer.classList.remove('hidden');
+        feedContainer.classList.add('hidden');
+        gridTabBtn.className = "flex-1 py-3 flex justify-center items-center gap-2 border-b-2 border-white text-white";
+        feedTabBtn.className = "flex-1 py-3 flex justify-center items-center gap-2 border-b-2 border-transparent text-zinc-500 hover:text-white";
+      } else {
+        gridContainer.classList.add('hidden');
+        feedContainer.classList.remove('hidden');
+        feedTabBtn.className = "flex-1 py-3 flex justify-center items-center gap-2 border-b-2 border-white text-white";
+        gridTabBtn.className = "flex-1 py-3 flex justify-center items-center gap-2 border-b-2 border-transparent text-zinc-500 hover:text-white";
+      }
+    }
+
+    function scrollToPost(postId) {
+      switchTab('feed');
+      setTimeout(() => {
+        const target = document.getElementById(postId);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 50);
     }
 
     // Toggle Follow
