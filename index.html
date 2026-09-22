@@ -749,9 +749,14 @@
           <textarea id="editCarouselUrls" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white h-20">https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80, images/carousel_2.jpg?v=500, images/carousel_3.jpg?v=500, images/carousel_4.jpg?v=500, images/carousel_5.jpg?v=500, https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1000&q=80</textarea>
         </div>
 
-        <button onclick="savePropData()" class="w-full py-2.5 rounded bg-emerald-600 font-bold text-white text-xs hover:bg-emerald-500 transition mt-4">
-          Save & Apply Prop Changes
-        </button>
+        <div class="flex gap-2 mt-4">
+          <button onclick="savePropData()" class="flex-1 py-2.5 rounded bg-emerald-600 font-bold text-white text-xs hover:bg-emerald-500 transition">
+            Save & Apply Prop Changes
+          </button>
+          <button onclick="resetStorageState()" class="py-2.5 px-3 rounded bg-red-900/60 text-red-300 font-semibold text-xs hover:bg-red-800 transition" title="Reset all custom scene edits">
+            Reset Defaults
+          </button>
+        </div>
       </div>
     </div>
 
@@ -894,8 +899,9 @@
       }
 
       if (countEl) {
-        countEl.innerText = `${state.count.toLocaleString('it-IT')} Sterne`;
+        countEl.innerText = `${state.count.toLocaleString('de-DE')} Sterne`;
       }
+      saveStorageState();
     }
 
     // Toggle Bookmark
@@ -951,9 +957,10 @@
         btn.innerText = 'Folgen';
         btn.className = 'flex-1 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition';
       }
+      saveStorageState();
     }
 
-        // Single Post Editor Modal Logic (Three dots trigger)
+    // Single Post Editor Modal Logic (Three dots trigger)
     let currentEditingPostNum = null;
 
     function openSinglePostEditor(postNum) {
@@ -974,7 +981,7 @@
       const likesInput = document.getElementById('editPostLikesInput');
 
       if (locInput) locInput.value = locEl ? locEl.innerText.trim() : '';
-      if (headerTimeInput) headerTimeInput.value = headerTimeEl ? headerTimeEl.innerText.replace(/^[•\s]+/, '').replace(/^[â€¢\s]+/, '').trim() : '';
+      if (headerTimeInput) headerTimeInput.value = headerTimeEl ? headerTimeEl.innerText.replace(/^[\u2022\s]+/, '').replace(/^[•\s]+/, '').trim() : '';
       if (footerTimeInput) footerTimeInput.value = footerTimeEl ? footerTimeEl.innerText.trim() : '';
       if (captionInput) captionInput.value = captionEl ? captionEl.innerText.trim() : '';
 
@@ -1027,6 +1034,7 @@
         }
       }
 
+      saveStorageState();
       closeSinglePostEditor();
     }
 
@@ -1073,8 +1081,146 @@
         `).join('');
       }
 
+      saveStorageState();
       togglePropEditor();
     }
+
+    // LOCAL STORAGE PERSISTENCE ENGINE FOR LIVE FILM PROP DATA
+    function saveStorageState() {
+      try {
+        const postsData = {};
+        for (let i = 1; i <= 7; i++) {
+          const locEl = document.getElementById('location-post' + i);
+          const headerTimeEl = document.getElementById('timeHeader-post' + i);
+          const footerTimeEl = document.getElementById('timeFooter-post' + i);
+          const captionEl = document.getElementById('caption-post' + i);
+
+          postsData['post' + i] = {
+            location: locEl ? locEl.innerText : '',
+            headerTime: headerTimeEl ? headerTimeEl.innerText.replace(/^[\u2022\s]+/, '').replace(/^[•\s]+/, '') : '',
+            footerTime: footerTimeEl ? footerTimeEl.innerText : '',
+            caption: captionEl ? captionEl.innerText : '',
+            likesCount: likesState['like' + i] ? likesState['like' + i].count : 0
+          };
+        }
+
+        const propData = {
+          username: document.getElementById('headerUsername').innerText,
+          displayName: document.getElementById('profileDisplayName').innerText,
+          bio: document.getElementById('profileBio').innerHTML.replace(/<br\s*[\/]?>/gi, '\n'),
+          avatarUrl: document.getElementById('profileAvatar').src,
+          carouselUrls: document.getElementById('editCarouselUrls') ? document.getElementById('editCarouselUrls').value : ''
+        };
+
+        const statePayload = {
+          isFollowing: isFollowing,
+          likesState: likesState,
+          postsData: postsData,
+          propData: propData
+        };
+
+        localStorage.setItem('picshare_film_prop_state', JSON.stringify(statePayload));
+      } catch (e) {
+        console.error('LocalStorage save error:', e);
+      }
+    }
+
+    function loadStorageState() {
+      try {
+        const raw = localStorage.getItem('picshare_film_prop_state');
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+
+        // 1. Follow State
+        if (typeof saved.isFollowing === 'boolean') {
+          isFollowing = saved.isFollowing;
+          const btn = document.getElementById('followBtn');
+          if (btn) {
+            if (isFollowing) {
+              btn.innerText = 'Gefolgt';
+              btn.className = 'flex-1 py-1.5 rounded-lg bg-zinc-800 text-xs font-semibold text-zinc-200 hover:bg-zinc-700 transition';
+            } else {
+              btn.innerText = 'Folgen';
+              btn.className = 'flex-1 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition';
+            }
+          }
+        }
+
+        // 2. Likes State
+        if (saved.likesState) {
+          likesState = saved.likesState;
+          for (let key in likesState) {
+            const st = likesState[key];
+            const icon = document.getElementById(`iconLike-${key}`);
+            const countEl = document.getElementById(`countLike-${key}`);
+            if (icon && st.liked) {
+              icon.classList.remove('fill-none', 'stroke-current');
+              icon.classList.add('fill-amber-400', 'text-amber-400');
+            }
+            if (countEl) {
+              countEl.innerText = st.count.toLocaleString('de-DE') + ' Sterne';
+            }
+          }
+        }
+
+        // 3. Posts Data
+        if (saved.postsData) {
+          for (let i = 1; i <= 7; i++) {
+            const p = saved.postsData['post' + i];
+            if (!p) continue;
+            const locEl = document.getElementById('location-post' + i);
+            const headerTimeEl = document.getElementById('timeHeader-post' + i);
+            const footerTimeEl = document.getElementById('timeFooter-post' + i);
+            const captionEl = document.getElementById('caption-post' + i);
+
+            if (locEl && p.location !== undefined) locEl.innerText = p.location;
+            if (headerTimeEl && p.headerTime !== undefined) headerTimeEl.innerText = p.headerTime ? '\u2022 ' + p.headerTime : '';
+            if (footerTimeEl && p.footerTime !== undefined) footerTimeEl.innerText = p.footerTime;
+            if (captionEl && p.caption !== undefined) captionEl.innerText = p.caption;
+          }
+        }
+
+        // 4. Prop Data
+        if (saved.propData) {
+          const pd = saved.propData;
+          if (pd.username) document.getElementById('headerUsername').innerText = pd.username;
+          if (pd.displayName) document.getElementById('profileDisplayName').innerText = pd.displayName;
+          if (pd.bio) document.getElementById('profileBio').innerHTML = pd.bio.replace(/\n/g, '<br>');
+          if (pd.avatarUrl) {
+            document.getElementById('profileAvatar').src = pd.avatarUrl;
+            document.getElementById('bottomNavAvatar').src = pd.avatarUrl;
+          }
+          if (pd.carouselUrls) {
+            const input = document.getElementById('editCarouselUrls');
+            if (input) input.value = pd.carouselUrls;
+            const urlsArr = pd.carouselUrls.split(',').map(s => s.trim());
+            if (urlsArr.length > 0) {
+              const carouselTrack = document.getElementById('carouselTrack');
+              if (carouselTrack) {
+                carouselTrack.innerHTML = urlsArr.map(url => `
+                  <div class="carousel-slide relative">
+                    <img src="${url}" class="w-full h-full object-cover pointer-events-none">
+                  </div>
+                `).join('');
+              }
+            }
+          }
+        }
+      } catch (e) {
+        console.error('LocalStorage load error:', e);
+      }
+    }
+
+    function resetStorageState() {
+      if (confirm('Reset all changes back to initial scene defaults?')) {
+        localStorage.removeItem('picshare_film_prop_state');
+        window.location.reload();
+      }
+    }
+
+    // Automatically load saved state on launch
+    document.addEventListener('DOMContentLoaded', loadStorageState);
+    loadStorageState();
   </script>
 </body>
 </html>
