@@ -141,7 +141,7 @@
           <!-- Profile Avatar with Story Highlight Ring -->
           <div class="relative group cursor-pointer">
             <div class="w-20 h-20 rounded-full p-0.5 bg-gradient-to-tr from-emerald-500 via-teal-500 to-cyan-600">
-              <img id="profileAvatar" src="images/post6.jpg?v=3" alt="Avatar" class="w-full h-full rounded-full object-cover border-2 border-black" style="border-color: var(--bg-app);">
+              <img id="profileAvatar" src="images/post6.jpg?v=6" alt="Avatar" class="w-full h-full rounded-full object-cover border-2 border-black" style="border-color: var(--bg-app);">
             </div>
           </div>
 
@@ -201,28 +201,28 @@
       <!-- PROFILE 3-COLUMN GRID VIEW -->
       <div id="gridContainer" class="grid grid-cols-3 gap-0.5 bg-black hidden">
         <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-1')">
-          <img src="images/post1.jpg?v=3" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+          <img src="images/post1.jpg?v=6" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
         </div>
         <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-2')">
-          <img src="images/post2.jpg?v=3" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+          <img src="images/post2.jpg?v=6" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
         </div>
         <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-3')">
-          <img src="images/post3.jpg?v=3" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+          <img src="images/post3.jpg?v=6" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
         </div>
         <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-4')">
-          <img src="images/post4.jpg?v=3" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+          <img src="images/post4.jpg?v=6" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
         </div>
         <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-5')">
-          <img src="images/carousel_1.jpg?v=3" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+          <img src="images/carousel_1.jpg?v=6" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
           <div class="absolute top-1.5 right-1.5 bg-black/60 backdrop-blur-xs p-1 rounded-sm text-white">
             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
           </div>
         </div>
         <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-6')">
-          <img src="images/post6.jpg?v=3" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+          <img src="images/post6.jpg?v=6" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
         </div>
         <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-7')">
-          <img src="images/post7.jpg?v=3" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+          <img src="images/post7.jpg?v=6" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
         </div>
       </div>
 
@@ -233,7 +233,7 @@
         <article id="post-1" class="py-3 border-b border-zinc-900">
           <div class="flex items-center justify-between px-3 py-2">
             <div class="flex items-center gap-2.5">
-              <img src="images/post6.jpg?v=3" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg?v=6" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -242,10 +242,10 @@
                 <div class="text-[10px] text-zinc-400" id="location-post1">Milano, Navigli</div>
               </div>
             </div>
-            <button onclick="openSinglePostEditor(1)" class="text-zinc-400 hover:text-white p-1 transition" title="Modifica Dati Post"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+            <button onclick="openSinglePostEditor(1)" class="text-zinc-400 hover:text-white p-2 active:scale-90 active:opacity-50 transition cursor-pointer z-10" title="Modifica Dati Post"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like1')">
-            <img src="images/post1.jpg?v=3" class="w-full h-full object-cover" alt="Post 1">
+            <img src="images/post1.jpg?v=6" class="w-full h-full object-cover" alt="Post 1">
             <svg id="popStar-like1" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <div class="px-3 pt-3 pb-1 flex justify-between items-center">
@@ -272,7 +272,7 @@
         <article id="post-2" class="py-3 border-b border-zinc-900">
           <div class="flex items-center justify-between px-3 py-2">
             <div class="flex items-center gap-2.5">
-              <img src="images/post6.jpg?v=3" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg?v=6" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -281,10 +281,10 @@
                 <div class="text-[10px] text-zinc-400" id="location-post2">Torino, Architettura</div>
               </div>
             </div>
-            <button onclick="openSinglePostEditor(1)" class="text-zinc-400 hover:text-white p-1 transition" title="Modifica Dati Post"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+            <button onclick="openSinglePostEditor(2)" class="text-zinc-400 hover:text-white p-2 active:scale-90 active:opacity-50 transition cursor-pointer z-10" title="Modifica Dati Post"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like2')">
-            <img src="images/post2.jpg?v=3" class="w-full h-full object-cover" alt="Post 2">
+            <img src="images/post2.jpg?v=6" class="w-full h-full object-cover" alt="Post 2">
             <svg id="popStar-like2" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <div class="px-3 pt-3 pb-1 flex justify-between items-center">
@@ -309,7 +309,7 @@
         <article id="post-3" class="py-3 border-b border-zinc-900">
           <div class="flex items-center justify-between px-3 py-2">
             <div class="flex items-center gap-2.5">
-              <img src="images/post6.jpg?v=3" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg?v=6" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -318,10 +318,10 @@
                 <div class="text-[10px] text-zinc-400" id="location-post3">Studio Acoustic Session</div>
               </div>
             </div>
-            <button onclick="openSinglePostEditor(1)" class="text-zinc-400 hover:text-white p-1 transition" title="Modifica Dati Post"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+            <button onclick="openSinglePostEditor(3)" class="text-zinc-400 hover:text-white p-2 active:scale-90 active:opacity-50 transition cursor-pointer z-10" title="Modifica Dati Post"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like3')">
-            <img src="images/post3.jpg?v=3" class="w-full h-full object-cover" alt="Post 3">
+            <img src="images/post3.jpg?v=6" class="w-full h-full object-cover" alt="Post 3">
             <svg id="popStar-like3" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <div class="px-3 pt-3 pb-1 flex justify-between items-center">
@@ -346,7 +346,7 @@
         <article id="post-4" class="py-3 border-b border-zinc-900">
           <div class="flex items-center justify-between px-3 py-2">
             <div class="flex items-center gap-2.5">
-              <img src="images/post6.jpg?v=3" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg?v=6" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -355,10 +355,10 @@
                 <div class="text-[10px] text-zinc-400" id="location-post4">Lago di Como</div>
               </div>
             </div>
-            <button onclick="openSinglePostEditor(1)" class="text-zinc-400 hover:text-white p-1 transition" title="Modifica Dati Post"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+            <button onclick="openSinglePostEditor(4)" class="text-zinc-400 hover:text-white p-2 active:scale-90 active:opacity-50 transition cursor-pointer z-10" title="Modifica Dati Post"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like4')">
-            <img src="images/post4.jpg?v=3" class="w-full h-full object-cover" alt="Post 4">
+            <img src="images/post4.jpg?v=6" class="w-full h-full object-cover" alt="Post 4">
             <svg id="popStar-like4" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <div class="px-3 pt-3 pb-1 flex justify-between items-center">
@@ -384,7 +384,7 @@
           <!-- Post Header -->
           <div class="flex items-center justify-between px-3 py-2">
             <div class="flex items-center gap-2.5">
-              <img src="images/post6.jpg?v=3" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg?v=6" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -393,7 +393,7 @@
                 <div class="text-[10px] text-zinc-400">Rome, Italy • Cinematic Collection</div>
               </div>
             </div>
-            <button onclick="openSinglePostEditor(1)" class="text-zinc-400 hover:text-white p-1 transition" title="Modifica Dati Post"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+            <button onclick="openSinglePostEditor(5)" class="text-zinc-400 hover:text-white p-2 active:scale-90 active:opacity-50 transition cursor-pointer z-10" title="Modifica Dati Post"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
 
           <!-- CAROUSEL MEDIA CONTAINER WITH RE-ENGINEERED TOUCH SWIPE -->
@@ -416,23 +416,23 @@
               
               <!-- Photo 1 -->
               <div class="carousel-slide relative">
-                <img src="images/carousel_1.jpg?v=3" class="w-full h-full object-cover pointer-events-none" alt="Photo 1">
+                <img src="images/carousel_1.jpg?v=6" class="w-full h-full object-cover pointer-events-none" alt="Photo 1">
               </div>
               <!-- Photo 2 -->
               <div class="carousel-slide relative">
-                <img src="images/carousel_2.jpg?v=3" class="w-full h-full object-cover pointer-events-none" alt="Photo 2">
+                <img src="images/carousel_2.jpg?v=6" class="w-full h-full object-cover pointer-events-none" alt="Photo 2">
               </div>
               <!-- Photo 3 -->
               <div class="carousel-slide relative">
-                <img src="images/carousel_3.jpg?v=3" class="w-full h-full object-cover pointer-events-none" alt="Photo 3">
+                <img src="images/carousel_3.jpg?v=6" class="w-full h-full object-cover pointer-events-none" alt="Photo 3">
               </div>
               <!-- Photo 4 -->
               <div class="carousel-slide relative">
-                <img src="images/carousel_4.jpg?v=3" class="w-full h-full object-cover pointer-events-none" alt="Photo 4">
+                <img src="images/carousel_4.jpg?v=6" class="w-full h-full object-cover pointer-events-none" alt="Photo 4">
               </div>
               <!-- Photo 5 -->
               <div class="carousel-slide relative">
-                <img src="images/carousel_5.jpg?v=3" class="w-full h-full object-cover pointer-events-none" alt="Photo 5">
+                <img src="images/carousel_5.jpg?v=6" class="w-full h-full object-cover pointer-events-none" alt="Photo 5">
               </div>
 
             </div>
@@ -485,7 +485,7 @@
         <article id="post-6" class="py-3 border-b border-zinc-900">
           <div class="flex items-center justify-between px-3 py-2">
             <div class="flex items-center gap-2.5">
-              <img src="images/post6.jpg?v=3" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg?v=6" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -494,10 +494,10 @@
                 <div class="text-[10px] text-zinc-400">Caffè Brera, Milano</div>
               </div>
             </div>
-            <button onclick="openSinglePostEditor(1)" class="text-zinc-400 hover:text-white p-1 transition" title="Modifica Dati Post"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+            <button onclick="openSinglePostEditor(6)" class="text-zinc-400 hover:text-white p-2 active:scale-90 active:opacity-50 transition cursor-pointer z-10" title="Modifica Dati Post"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like6')">
-            <img src="images/post6.jpg?v=3" class="w-full h-full object-cover" alt="Post 6">
+            <img src="images/post6.jpg?v=6" class="w-full h-full object-cover" alt="Post 6">
             <svg id="popStar-like6" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <div class="px-3 pt-3 pb-1 flex justify-between items-center">
@@ -522,7 +522,7 @@
         <article id="post-7" class="py-3 border-b border-zinc-900">
           <div class="flex items-center justify-between px-3 py-2">
             <div class="flex items-center gap-2.5">
-              <img src="images/post6.jpg?v=3" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg?v=6" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -531,10 +531,10 @@
                 <div class="text-[10px] text-zinc-400" id="location-post7">Analog Lab</div>
               </div>
             </div>
-            <button onclick="openSinglePostEditor(1)" class="text-zinc-400 hover:text-white p-1 transition" title="Modifica Dati Post"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+            <button onclick="openSinglePostEditor(7)" class="text-zinc-400 hover:text-white p-2 active:scale-90 active:opacity-50 transition cursor-pointer z-10" title="Modifica Dati Post"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
           <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like7')">
-            <img src="images/post7.jpg?v=3" class="w-full h-full object-cover" alt="Post 7">
+            <img src="images/post7.jpg?v=6" class="w-full h-full object-cover" alt="Post 7">
             <svg id="popStar-like7" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <div class="px-3 pt-3 pb-1 flex justify-between items-center">
@@ -578,7 +578,7 @@
         <svg class="w-6 h-6 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
       </button>
       <button class="p-1 rounded-full border-2 border-white">
-        <img id="bottomNavAvatar" src="images/post6.jpg?v=3" class="w-5 h-5 rounded-full object-cover">
+        <img id="bottomNavAvatar" src="images/post6.jpg?v=6" class="w-5 h-5 rounded-full object-cover">
       </button>
     </nav>
 
@@ -695,11 +695,11 @@
         </div>
         <div>
           <label class="block font-semibold mb-1">URL Avatar / Foto Profilo:</label>
-          <input id="editAvatarUrl" type="text" value="images/post6.jpg?v=3" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
+          <input id="editAvatarUrl" type="text" value="images/post6.jpg?v=6" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
         </div>
         <div>
           <label class="block font-semibold mb-1">Immagini Carosello Post 5 (URL separati da virgola):</label>
-          <textarea id="editCarouselUrls" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white h-20">https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80, images/carousel_2.jpg?v=3, images/carousel_3.jpg?v=3, images/carousel_4.jpg?v=3, images/carousel_5.jpg?v=3, https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1000&q=80</textarea>
+          <textarea id="editCarouselUrls" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white h-20">https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80, images/carousel_2.jpg?v=6, images/carousel_3.jpg?v=6, images/carousel_4.jpg?v=6, images/carousel_5.jpg?v=6, https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1000&q=80</textarea>
         </div>
 
         <button onclick="savePropData()" class="w-full py-2.5 rounded bg-emerald-600 font-bold text-white text-xs hover:bg-emerald-500 transition mt-4">
