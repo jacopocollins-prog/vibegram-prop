@@ -1085,7 +1085,7 @@
       togglePropEditor();
     }
 
-    // LOCAL STORAGE PERSISTENCE ENGINE FOR LIVE FILM PROP DATA
+    // LOCAL STORAGE PERSISTENCE ENGINE FOR LIVE FILM PROP DATA (V2 STORAGE KEY)
     function saveStorageState() {
       try {
         const postsData = {};
@@ -1124,8 +1124,8 @@
         };
 
         const jsonStr = JSON.stringify(statePayload);
-        localStorage.setItem('picshare_film_prop_state', jsonStr);
-        sessionStorage.setItem('picshare_film_prop_state', jsonStr);
+        localStorage.setItem('picshare_film_prop_v2', jsonStr);
+        sessionStorage.setItem('picshare_film_prop_v2', jsonStr);
         showSaveToast();
       } catch (e) {
         console.error('LocalStorage save error:', e);
@@ -1134,7 +1134,11 @@
 
     function loadStorageState() {
       try {
-        const raw = localStorage.getItem('picshare_film_prop_state') || sessionStorage.getItem('picshare_film_prop_state');
+        // Clean legacy key if present
+        localStorage.removeItem('picshare_film_prop_state');
+        sessionStorage.removeItem('picshare_film_prop_state');
+
+        const raw = localStorage.getItem('picshare_film_prop_v2') || sessionStorage.getItem('picshare_film_prop_v2');
         if (!raw) return;
         const saved = JSON.parse(raw);
 
@@ -1238,6 +1242,8 @@
 
     function resetStorageState() {
       if (confirm('Reset all changes back to initial scene defaults?')) {
+        localStorage.removeItem('picshare_film_prop_v2');
+        sessionStorage.removeItem('picshare_film_prop_v2');
         localStorage.removeItem('picshare_film_prop_state');
         sessionStorage.removeItem('picshare_film_prop_state');
         window.location.reload();
