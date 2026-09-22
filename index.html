@@ -179,7 +179,7 @@
         <!-- Follow & Action Buttons -->
         <div class="flex gap-2 mt-4">
           <button id="followBtn" onclick="toggleFollow()" class="flex-1 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition">
-            Folgen
+            Segui
           </button>
           <button class="flex-1 py-1.5 rounded-lg bg-zinc-800 text-xs font-semibold text-zinc-200 hover:bg-zinc-700 transition">
             Nachricht
@@ -901,10 +901,10 @@
       isFollowing = !isFollowing;
       const btn = document.getElementById('followBtn');
       if (isFollowing) {
-        btn.innerText = 'Gefolgt';
+        btn.innerText = 'Segui già';
         btn.className = 'flex-1 py-1.5 rounded-lg bg-zinc-800 text-xs font-semibold text-zinc-200 hover:bg-zinc-700 transition';
       } else {
-        btn.innerText = 'Folgen';
+        btn.innerText = 'Segui';
         btn.className = 'flex-1 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition';
       }
     }
