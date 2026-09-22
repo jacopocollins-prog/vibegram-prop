@@ -195,15 +195,15 @@
           <!-- Stats Counters -->
           <div class="flex-1 flex justify-around text-center">
             <div>
-              <div id="statPosts" class="font-bold text-base">42</div>
+              <div id="statPosts" class="font-bold text-base">7</div>
               <div class="text-xs text-zinc-400">Beitr&auml;ge</div>
             </div>
             <div>
-              <div id="statFollowers" class="font-bold text-base">18.4K</div>
+              <div id="statFollowers" class="font-bold text-base">5.432</div>
               <div class="text-xs text-zinc-400">Follower</div>
             </div>
             <div>
-              <div id="statFollowing" class="font-bold text-base">612</div>
+              <div id="statFollowing" class="font-bold text-base">3.874</div>
               <div class="text-xs text-zinc-400">Gefolgt</div>
             </div>
           </div>
@@ -1110,6 +1110,9 @@
           displayName: document.getElementById('profileDisplayName').innerText,
           bio: document.getElementById('profileBio').innerHTML.replace(/<br\s*[\/]?>/gi, '\n'),
           avatarUrl: document.getElementById('profileAvatar').src,
+          statPosts: document.getElementById('statPosts').innerText,
+          statFollowers: document.getElementById('statFollowers').innerText,
+          statFollowing: document.getElementById('statFollowing').innerText,
           carouselUrls: document.getElementById('editCarouselUrls') ? document.getElementById('editCarouselUrls').value : ''
         };
 
@@ -1192,6 +1195,9 @@
           if (pd.username) document.getElementById('headerUsername').innerText = pd.username;
           if (pd.displayName) document.getElementById('profileDisplayName').innerText = pd.displayName;
           if (pd.bio) document.getElementById('profileBio').innerHTML = pd.bio.replace(/\n/g, '<br>');
+          if (pd.statPosts) document.getElementById('statPosts').innerText = pd.statPosts;
+          if (pd.statFollowers) document.getElementById('statFollowers').innerText = pd.statFollowers;
+          if (pd.statFollowing) document.getElementById('statFollowing').innerText = pd.statFollowing;
           if (pd.avatarUrl) {
             document.getElementById('profileAvatar').src = pd.avatarUrl;
             document.getElementById('bottomNavAvatar').src = pd.avatarUrl;
