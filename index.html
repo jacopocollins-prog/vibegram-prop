@@ -673,46 +673,46 @@
     <div id="singlePostEditorModal" class="absolute inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex flex-col p-5 overflow-y-auto text-xs text-white">
       <div class="flex justify-between items-center border-b border-zinc-700 pb-3 mb-4">
         <h2 class="text-sm font-bold text-amber-400 flex items-center gap-2">
-          <span>&#9881;&#65039;</span> Beitragsdetails bearbeiten <span id="editingPostNumBadge" class="text-zinc-400 font-normal text-xs">(Beitrag #1)</span>
+          <span>&#9881;&#65039;</span> Edit Post Details <span id="editingPostNumBadge" class="text-zinc-400 font-normal text-xs">(Post #1)</span>
         </h2>
         <button onclick="closeSinglePostEditor()" class="text-zinc-400 hover:text-white text-base">&#10005;</button>
       </div>
       
-      <p class="text-zinc-400 mb-4">Bearbeiten Sie die Informationen dieses Beitrags f&uuml;r die Filmszene:</p>
+      <p class="text-zinc-400 mb-4">Edit the information for this post live on set:</p>
       
       <div class="space-y-3">
         <div>
-          <label class="block font-semibold mb-1 text-zinc-300">Ort / Standort:</label>
-          <input id="editPostLocationInput" type="text" placeholder="z.B. Berlin, Mitte" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-400">
+          <label class="block font-semibold mb-1 text-zinc-300">Location / City:</label>
+          <input id="editPostLocationInput" type="text" placeholder="e.g. Berlin, Germany" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-400">
         </div>
         
         <div class="grid grid-cols-2 gap-2">
           <div>
-            <label class="block font-semibold mb-1 text-zinc-300">Kopfzeilen-Datum:</label>
-            <input id="editPostTimeHeaderInput" type="text" placeholder="z.B. 2 T., 1 Wo." class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-400">
+            <label class="block font-semibold mb-1 text-zinc-300">Header Date:</label>
+            <input id="editPostTimeHeaderInput" type="text" placeholder="e.g. 2 T., 1 Wo." class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-400">
           </div>
           <div>
-            <label class="block font-semibold mb-1 text-zinc-300">Fu&szlig;zeilen-Datum:</label>
-            <input id="editPostTimeFooterInput" type="text" placeholder="z.B. VOR 2 TAGEN" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-400">
+            <label class="block font-semibold mb-1 text-zinc-300">Footer Date:</label>
+            <input id="editPostTimeFooterInput" type="text" placeholder="e.g. VOR 2 TAGEN" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-400">
           </div>
         </div>
 
         <div>
-          <label class="block font-semibold mb-1 text-zinc-300">Sterne-Anzahl (Likes):</label>
-          <input id="editPostLikesInput" type="number" placeholder="z.B. 1240" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-400">
+          <label class="block font-semibold mb-1 text-zinc-300">Star Count (Likes):</label>
+          <input id="editPostLikesInput" type="number" placeholder="e.g. 1240" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-400">
         </div>
 
         <div>
-          <label class="block font-semibold mb-1 text-zinc-300">Bildunterschrift (Caption):</label>
-          <textarea id="editPostCaptionInput" placeholder="Bildunterschrift eingeben..." class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white h-24 focus:outline-none focus:border-amber-400"></textarea>
+          <label class="block font-semibold mb-1 text-zinc-300">Caption / Description:</label>
+          <textarea id="editPostCaptionInput" placeholder="Enter caption here..." class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white h-24 focus:outline-none focus:border-amber-400"></textarea>
         </div>
 
         <div class="flex gap-2 pt-2">
           <button onclick="closeSinglePostEditor()" class="flex-1 py-2.5 rounded bg-zinc-800 font-semibold text-zinc-300 hover:bg-zinc-700 transition">
-            Abbrechen
+            Cancel
           </button>
           <button onclick="saveSinglePostData()" class="flex-1 py-2.5 rounded bg-amber-500 font-bold text-black hover:bg-amber-400 transition">
-            &Auml;nderungen speichern
+            Save Post Changes
           </button>
         </div>
       </div>
@@ -721,36 +721,36 @@
     <!-- PROP CONFIGURATION / SCENOGRAPHY EDITOR MODAL -->
     <div id="propEditorModal" class="absolute inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex flex-col p-5 overflow-y-auto text-xs text-white">
       <div class="flex justify-between items-center border-b border-zinc-700 pb-3 mb-4">
-        <h2 class="text-sm font-bold text-emerald-400">🎬 Pannello Scenografia & Dati Personaggio</h2>
+        <h2 class="text-sm font-bold text-emerald-400">🎬 Scenography Panel - Character & Prop Data</h2>
         <button onclick="togglePropEditor()" class="text-zinc-400 hover:text-white text-base">&#10005;</button>
       </div>
       
-      <p class="text-zinc-400 mb-4">Bearbeiten Sie die Details und Szenenbilder f&uuml;r den Dreh:</p>
+      <p class="text-zinc-400 mb-4">Edit character details and scene images for filming:</p>
       
       <div class="space-y-3">
         <div>
-          <label class="block font-semibold mb-1">Benutzername (@username):</label>
+          <label class="block font-semibold mb-1">Username (@username):</label>
           <input id="editUsername" type="text" value="alex_vance_art" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
         </div>
         <div>
-          <label class="block font-semibold mb-1">Anzeigename:</label>
+          <label class="block font-semibold mb-1">Display Name:</label>
           <input id="editDisplayName" type="text" value="Alex Vance" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
         </div>
         <div>
-          <label class="block font-semibold mb-1">Profil-Bio:</label>
+          <label class="block font-semibold mb-1">Profile Bio:</label>
           <textarea id="editBio" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white h-16">Cinematography & Landscape Photography 📷&#10;Exploring light, shadow & visual stories 🎬&#10;📍 Milan / Rome</textarea>
         </div>
         <div>
-          <label class="block font-semibold mb-1">Avatar-URL / Profilfoto:</label>
+          <label class="block font-semibold mb-1">Avatar URL / Profile Picture:</label>
           <input id="editAvatarUrl" type="text" value="images/post6.jpg?v=500" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
         </div>
         <div>
-          <label class="block font-semibold mb-1">Karussell-Beitrag 5 Bilder (URLs mit Komma getrennt):</label>
+          <label class="block font-semibold mb-1">Carousel Post 5 Images (Comma separated URLs):</label>
           <textarea id="editCarouselUrls" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white h-20">https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80, images/carousel_2.jpg?v=500, images/carousel_3.jpg?v=500, images/carousel_4.jpg?v=500, images/carousel_5.jpg?v=500, https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1000&q=80</textarea>
         </div>
 
         <button onclick="savePropData()" class="w-full py-2.5 rounded bg-emerald-600 font-bold text-white text-xs hover:bg-emerald-500 transition mt-4">
-          Speichern & Szenen&auml;nderungen anwenden
+          Save & Apply Prop Changes
         </button>
       </div>
     </div>
@@ -959,7 +959,7 @@
     function openSinglePostEditor(postNum) {
       currentEditingPostNum = postNum;
       const badge = document.getElementById('editingPostNumBadge');
-      if (badge) badge.innerText = '(Beitrag #' + postNum + ')';
+      if (badge) badge.innerText = '(Post #' + postNum + ')';
       
       const locEl = document.getElementById('location-post' + postNum);
       const headerTimeEl = document.getElementById('timeHeader-post' + postNum);
