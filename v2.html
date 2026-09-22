@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="de" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>PicShare V2 - Scenografia Film</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <!-- PWA & Mobile Fullscreen Standalone Meta Tags -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PicShare V2">
+  <link rel="manifest" href="manifest.json">
+
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    /* Hide scrollbars for clean native app feel */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Touch & Drag Carousel styles */
+    .carousel-container {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: transform;
+      touch-action: pan-y pinch-zoom;
+    }
+    
+    .carousel-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Double tap Star animation (Legal Clearance: Star icon instead of heart) */
+    @keyframes starPop {
+      0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+      50% { transform: scale(1.4) rotate(0deg); opacity: 0.95; }
+      70% { transform: scale(1) rotate(0deg); opacity: 1; }
+      100% { transform: scale(0.8) rotate(15deg); opacity: 0; }
+    }
+    .star-pop {
+      animation: starPop 0.8s ease-out forwards;
+    }
+
+    /* Custom Theme Colors */
+    :root {
+      --bg-app: #050505;
+      --bg-card: #0d0d0d;
+      --border-color: #222222;
+      --text-main: #f8f8f8;
+      --text-muted: #999999;
+      --accent: #3b82f6;
+    }
+
+    .light-theme {
+      --bg-app: #ffffff;
+      --bg-card: #ffffff;
+      --border-color: #e5e5e5;
+      --text-main: #111111;
+      --text-muted: #666666;
+      --accent: #3b82f6;
+    }
+
+    .light-theme #phoneFrame,
+    .light-theme header,
+    .light-theme nav,
+    .light-theme main,
+    .light-theme section,
+    .light-theme article,
+    .light-theme #feedContainer {
+      background-color: #ffffff !important;
+      color: #111111 !important;
+      border-color: #e5e5e5 !important;
+    }
+
+    .light-theme article {
+      background-color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
+    }
+
+    .light-theme #feedTabBtn {
+      border-color: #111111 !important;
+      color: #111111 !important;
+    }
+
+    .light-theme .text-white {
+      color: #111111 !important;
+    }
+
+    .light-theme .text-zinc-400,
+    .light-theme .text-zinc-500 {
+      color: #666666 !important;
+    }
+
+    .light-theme .border-zinc-800,
+    .light-theme .border-zinc-900 {
+      border-color: #e5e5e5 !important;
+    }
+
+    .light-theme .bg-zinc-800 {
+      background-color: #f3f4f6 !important;
+      color: #111111 !important;
+    }
+
+    .light-theme .bg-zinc-900 {
+      background-color: #f9fafb !important;
+    }
+
+    body {
+      background-color: var(--bg-app);
+      color: var(--text-main);
+      user-select: none;
+      -webkit-user-select: none;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    /* Edge-to-edge Mobile Mode */
+    @media (max-width: 640px) {
+      #phoneFrame {
+        max-width: 100vw !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        border-radius: 0 !important;
+        border: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="h-full flex justify-center items-center overflow-hidden bg-zinc-950">
+
+  <!-- Main Viewport / Phone Frame Container -->
+  <div id="phoneFrame" class="relative w-full max-w-[430px] h-full sm:h-[880px] sm:max-h-[92vh] sm:rounded-[48px] sm:border-[10px] sm:border-zinc-800 shadow-2xl overflow-hidden flex flex-col transition-all duration-300" style="background-color: var(--bg-app);">
+    
+    <!-- Top Notch / Status Bar simulator for mobile frame -->
+    <div class="hidden sm:flex justify-between items-center px-7 pt-3 pb-1 text-xs font-semibold select-none z-30 opacity-80" style="color: var(--text-main);">
+      <span class="w-8"></span>
+      <div class="w-20 h-4 bg-zinc-900 rounded-full flex justify-center items-center">
+        <div class="w-3 h-3 rounded-full bg-zinc-950"></div>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.2 19.63 10.55 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9z"/></svg>
+        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        <div class="w-5 h-2.5 rounded-sm border border-current p-0.5 flex items-center">
+          <div class="w-full h-full bg-current rounded-xs"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- App Header (PicShare V2 - Brand Clearance Safe) -->
+    <header class="sticky top-0 z-20 flex justify-between items-center px-4 py-3 border-b border-zinc-800/60 backdrop-blur-md bg-opacity-90" style="background-color: var(--bg-app); border-color: var(--border-color);">
+      <div class="flex items-center gap-3">
+        <button id="backBtn" class="p-1 text-zinc-400 hover:text-white transition">
+          <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="flex items-center gap-1.5">
+          <span id="headerUsername" class="font-bold text-lg tracking-tight">alex_vance_art</span>
+          <svg class="w-4 h-4 text-emerald-500 fill-current" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2.5">
+        <!-- Prop Config Editor Trigger -->
+        <button onclick="togglePropEditor()" class="p-1.5 rounded-full bg-zinc-800/50 hover:bg-zinc-700 text-zinc-300 transition" title="Pannello Scenografia (Edit Data)">
+          <svg class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button onclick="toggleTheme()" class="p-1.5 rounded-full bg-zinc-800/50 hover:bg-zinc-700 text-zinc-300 transition" title="Toggle Tema Chiaro/Scuro">
+          <svg id="themeIconSun" class="w-5 h-5 fill-none stroke-current stroke-2 hidden" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg id="themeIconMoon" class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Scrollable Profile Content & Post Feed -->
+    <main class="flex-1 overflow-y-auto no-scrollbar pb-16">
+      
+      <!-- VERSION 2 PROFILE HEADER (CENTERED LARGE AVATAR + KONTAKTE LEFT + BEITRÄGE RIGHT) -->
+      <section class="p-4 border-b border-zinc-800/40" style="border-color: var(--border-color);">
+        
+        <!-- Centered Profile Layout: Left Kontakte | Center Avatar | Right Beitrage -->
+        <div class="flex items-center justify-around text-center my-1">
+          
+          <!-- Left Stat: Kontakte (Connessioni) -->
+          <div class="w-1/3 flex flex-col items-center">
+            <div id="statContacts" class="font-bold text-lg text-white">5.432</div>
+            <div class="text-xs text-zinc-400 font-medium tracking-wide">Kontakte</div>
+          </div>
+
+          <!-- Centered Large Avatar -->
+          <div class="relative group cursor-pointer flex-shrink-0">
+            <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1 bg-gradient-to-tr from-emerald-500 via-teal-500 to-cyan-600 shadow-xl">
+              <img id="profileAvatar" src="images/post6.jpg?v=600" alt="Avatar" class="w-full h-full rounded-full object-cover border-2 border-black" style="border-color: var(--bg-app);">
+            </div>
+          </div>
+
+          <!-- Right Stat: Beiträge (Posts) -->
+          <div class="w-1/3 flex flex-col items-center">
+            <div id="statPosts" class="font-bold text-lg text-white">7</div>
+            <div class="text-xs text-zinc-400 font-medium tracking-wide">Beitr&auml;ge</div>
+          </div>
+
+        </div>
+
+        <!-- Bio & Name (Centered Alignment for V2 Design) -->
+        <div class="mt-4 text-center">
+          <h1 id="profileDisplayName" class="font-bold text-base">Alex Vance</h1>
+          <p id="profileBio" class="text-xs leading-relaxed mt-1 opacity-90 max-w-xs mx-auto">
+            Cinematography & Landscape Photography 📷<br>
+            Exploring light, shadow & visual stories 🎬<br>
+            📍 Milan / Rome
+          </p>
+          <a id="profileLink" href="#" onclick="return false;" class="text-xs text-emerald-400 font-semibold block mt-1 hover:underline">picshare.net/alex_vance</a>
+        </div>
+
+        <!-- V2 Action Buttons: Verbinden (Connetti) & Nachricht (Messaggia) -->
+        <div class="flex gap-2.5 mt-4">
+          <button id="connectBtn" onclick="toggleConnect()" class="flex-1 py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition shadow-md">
+            Verbinden
+          </button>
+          <button class="flex-1 py-2 rounded-xl bg-zinc-800 text-xs font-semibold text-zinc-200 hover:bg-zinc-700 transition border border-zinc-700/50">
+            Nachricht
+          </button>
+        </div>
+      </section>
+
+      <!-- Profile View Tabs (Grid vs Feed) -->
+      <div class="flex border-b border-zinc-800/60 text-zinc-500 font-semibold text-xs" style="border-color: var(--border-color);">
+        <button id="gridTabBtn" onclick="switchTab('grid')" class="flex-1 py-3 flex justify-center items-center gap-2 border-b-2 border-transparent text-zinc-500 hover:text-white">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z"/></svg>
+        </button>
+        <button id="feedTabBtn" onclick="switchTab('feed')" class="flex-1 py-3 flex justify-center items-center gap-2 border-b-2 border-white text-white">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M3 4h18v2H3zm0 7h18v2H3zm0 7h18v2H3z"/></svg>
+        </button>
+      </div>
+
+      <!-- PROFILE 3-COLUMN GRID VIEW -->
+      <div id="gridContainer" class="grid grid-cols-3 gap-1 p-1 bg-black hidden">
+        <div class="relative aspect-square cursor-pointer overflow-hidden rounded-lg group" onclick="scrollToPost('post-1')">
+          <img src="images/post1.jpg?v=600" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+        </div>
+        <div class="relative aspect-square cursor-pointer overflow-hidden rounded-lg group" onclick="scrollToPost('post-2')">
+          <img src="images/post2.jpg?v=600" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+        </div>
+        <div class="relative aspect-square cursor-pointer overflow-hidden rounded-lg group" onclick="scrollToPost('post-3')">
+          <img src="images/post3.jpg?v=600" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+        </div>
+        <div class="relative aspect-square cursor-pointer overflow-hidden rounded-lg group" onclick="scrollToPost('post-4')">
+          <img src="images/post4.jpg?v=600" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+        </div>
+        <div class="relative aspect-square cursor-pointer overflow-hidden rounded-lg group" onclick="scrollToPost('post-5')">
+          <img src="images/carousel_1.jpg?v=600" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+          <div class="absolute top-1.5 right-1.5 bg-black/60 backdrop-blur-xs p-1 rounded-sm text-white">
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+          </div>
+        </div>
+        <div class="relative aspect-square cursor-pointer overflow-hidden rounded-lg group" onclick="scrollToPost('post-6')">
+          <img src="images/post6.jpg?v=600" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+        </div>
+        <div class="relative aspect-square cursor-pointer overflow-hidden rounded-lg group" onclick="scrollToPost('post-7')">
+          <img src="images/post7.jpg?v=600" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+        </div>
+      </div>
+
+      <!-- POST FEED LIST WITH ROUNDED CARDS (CORNICI STONDATE) -->
+      <div id="feedContainer" class="p-3 space-y-5">
+        
+        <!-- POST 1 (Single Photo) -->
+        <article id="post-1" class="rounded-3xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden shadow-lg transition">
+          <div class="flex items-center justify-between px-4 py-3">
+            <div class="flex items-center gap-2.5">
+              <img src="images/post6.jpg?v=600" class="w-8 h-8 rounded-full object-cover">
+              <div>
+                <div class="flex items-center gap-1 text-xs font-semibold">
+                  <span>alex_vance_art</span>
+                  <span class="text-zinc-500" id="timeHeader-post1">• 2 T.</span>
+                </div>
+                <div class="text-[10px] text-zinc-400" id="location-post1">Milano, Navigli</div>
+              </div>
+            </div>
+            <button onclick="openSinglePostEditor(1)" class="text-zinc-400 hover:text-white p-2 active:scale-90 transition cursor-pointer" title="Edit Post Details"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+          </div>
+          <div class="relative aspect-square bg-zinc-900 overflow-hidden mx-2 rounded-2xl" onclick="handleDoubleTap(event, 'like1')">
+            <img src="images/post1.jpg?v=600" class="w-full h-full object-cover" alt="Post 1">
+            <svg id="popStar-like1" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          
+          <!-- V2 Centered 3 Action Buttons: Star (Like), Message, Bookmark (Save) -->
+          <div class="px-3 py-2.5 flex justify-center items-center gap-10 border-t border-b border-zinc-800/40 my-2">
+            <button onclick="toggleLike('like1')" class="transition transform active:scale-125 p-1">
+              <svg id="iconLike-like1" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </button>
+            <button class="transition hover:text-zinc-400 p-1">
+              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="toggleBookmark(this)" class="transition p-1">
+              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+            </button>
+          </div>
+
+          <div class="px-4 pb-4 text-xs">
+            <div class="font-bold text-xs" id="countLike-like1">1.240 Sterne</div>
+            <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90" id="caption-post1"> Sunset reflections over Navigli. Golden hour 🌆✨</span></div>
+            <button onclick="openComments('Sunset vibes')" class="text-zinc-500 text-[11px] mt-1 block">Alle 34 Kommentare anzeigen</button>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1" id="timeFooter-post1">VOR 2 TAGEN</div>
+          </div>
+        </article>
+
+        <!-- POST 2 (Single Photo) -->
+        <article id="post-2" class="rounded-3xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden shadow-lg transition">
+          <div class="flex items-center justify-between px-4 py-3">
+            <div class="flex items-center gap-2.5">
+              <img src="images/post6.jpg?v=600" class="w-8 h-8 rounded-full object-cover">
+              <div>
+                <div class="flex items-center gap-1 text-xs font-semibold">
+                  <span>alex_vance_art</span>
+                  <span class="text-zinc-500" id="timeHeader-post2">• 4 T.</span>
+                </div>
+                <div class="text-[10px] text-zinc-400" id="location-post2">Torino, Architettura</div>
+              </div>
+            </div>
+            <button onclick="openSinglePostEditor(2)" class="text-zinc-400 hover:text-white p-2 active:scale-90 transition cursor-pointer" title="Edit Post Details"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+          </div>
+          <div class="relative aspect-square bg-zinc-900 overflow-hidden mx-2 rounded-2xl" onclick="handleDoubleTap(event, 'like2')">
+            <img src="images/post2.jpg?v=600" class="w-full h-full object-cover" alt="Post 2">
+            <svg id="popStar-like2" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          
+          <div class="px-3 py-2.5 flex justify-center items-center gap-10 border-t border-b border-zinc-800/40 my-2">
+            <button onclick="toggleLike('like2')" class="transition transform active:scale-125 p-1">
+              <svg id="iconLike-like2" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </button>
+            <button class="transition hover:text-zinc-400 p-1">
+              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="toggleBookmark(this)" class="transition p-1">
+              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+            </button>
+          </div>
+
+          <div class="px-4 pb-4 text-xs">
+            <div class="font-bold text-xs" id="countLike-like2">2.105 Sterne</div>
+            <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90" id="caption-post2"> Geometric shadows & steel lines. 🏢 Architectural framing study.</span></div>
+            <button onclick="openComments('Urban geometry')" class="text-zinc-500 text-[11px] mt-1 block">Alle 48 Kommentare anzeigen</button>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1" id="timeFooter-post2">VOR 4 TAGEN</div>
+          </div>
+        </article>
+
+        <!-- POST 3 (Single Photo) -->
+        <article id="post-3" class="rounded-3xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden shadow-lg transition">
+          <div class="flex items-center justify-between px-4 py-3">
+            <div class="flex items-center gap-2.5">
+              <img src="images/post6.jpg?v=600" class="w-8 h-8 rounded-full object-cover">
+              <div>
+                <div class="flex items-center gap-1 text-xs font-semibold">
+                  <span>alex_vance_art</span>
+                  <span class="text-zinc-500" id="timeHeader-post3">• 6 T.</span>
+                </div>
+                <div class="text-[10px] text-zinc-400" id="location-post3">Studio Acoustic Session</div>
+              </div>
+            </div>
+            <button onclick="openSinglePostEditor(3)" class="text-zinc-400 hover:text-white p-2 active:scale-90 transition cursor-pointer" title="Edit Post Details"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+          </div>
+          <div class="relative aspect-square bg-zinc-900 overflow-hidden mx-2 rounded-2xl" onclick="handleDoubleTap(event, 'like3')">
+            <img src="images/post3.jpg?v=600" class="w-full h-full object-cover" alt="Post 3">
+            <svg id="popStar-like3" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          
+          <div class="px-3 py-2.5 flex justify-center items-center gap-10 border-t border-b border-zinc-800/40 my-2">
+            <button onclick="toggleLike('like3')" class="transition transform active:scale-125 p-1">
+              <svg id="iconLike-like3" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </button>
+            <button class="transition hover:text-zinc-400 p-1">
+              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="toggleBookmark(this)" class="transition p-1">
+              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+            </button>
+          </div>
+
+          <div class="px-4 pb-4 text-xs">
+            <div class="font-bold text-xs" id="countLike-like3">954 Sterne</div>
+            <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90" id="caption-post3"> Late night studio recording 🎸 Sound check complete.</span></div>
+            <button onclick="openComments('Studio Session')" class="text-zinc-500 text-[11px] mt-1 block">Alle 19 Kommentare anzeigen</button>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1" id="timeFooter-post3">VOR 6 TAGEN</div>
+          </div>
+        </article>
+
+        <!-- POST 4 (Single Photo) -->
+        <article id="post-4" class="rounded-3xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden shadow-lg transition">
+          <div class="flex items-center justify-between px-4 py-3">
+            <div class="flex items-center gap-2.5">
+              <img src="images/post6.jpg?v=600" class="w-8 h-8 rounded-full object-cover">
+              <div>
+                <div class="flex items-center gap-1 text-xs font-semibold">
+                  <span>alex_vance_art</span>
+                  <span class="text-zinc-500" id="timeHeader-post4">• 1 Wo.</span>
+                </div>
+                <div class="text-[10px] text-zinc-400" id="location-post4">Lago di Como</div>
+              </div>
+            </div>
+            <button onclick="openSinglePostEditor(4)" class="text-zinc-400 hover:text-white p-2 active:scale-90 transition cursor-pointer" title="Edit Post Details"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+          </div>
+          <div class="relative aspect-square bg-zinc-900 overflow-hidden mx-2 rounded-2xl" onclick="handleDoubleTap(event, 'like4')">
+            <img src="images/post4.jpg?v=600" class="w-full h-full object-cover" alt="Post 4">
+            <svg id="popStar-like4" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          
+          <div class="px-3 py-2.5 flex justify-center items-center gap-10 border-t border-b border-zinc-800/40 my-2">
+            <button onclick="toggleLike('like4')" class="transition transform active:scale-125 p-1">
+              <svg id="iconLike-like4" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </button>
+            <button class="transition hover:text-zinc-400 p-1">
+              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="toggleBookmark(this)" class="transition p-1">
+              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+            </button>
+          </div>
+
+          <div class="px-4 pb-4 text-xs">
+            <div class="font-bold text-xs" id="countLike-like4">3.410 Sterne</div>
+            <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90" id="caption-post4"> Quiet morning horizon. Lake vibes & fresh air. 🌅🌊</span></div>
+            <button onclick="openComments('Lake Como')" class="text-zinc-500 text-[11px] mt-1 block">Alle 62 Kommentare anzeigen</button>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1" id="timeFooter-post4">VOR 1 WOCHE</div>
+          </div>
+        </article>
+
+        <!-- POST 5: MULTI-IMAGE CAROUSEL POST (CLEARANCE SAFE SWIPE - 5 SLIDES) -->
+        <article id="post-5" class="rounded-3xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden shadow-lg transition">
+          <div class="flex items-center justify-between px-4 py-3">
+            <div class="flex items-center gap-2.5">
+              <img src="images/post6.jpg?v=600" class="w-8 h-8 rounded-full object-cover">
+              <div>
+                <div class="flex items-center gap-1 text-xs font-semibold">
+                  <span>alex_vance_art</span>
+                  <span class="text-zinc-500" id="timeHeader-post5">• 1 Wo.</span>
+                </div>
+                <div class="text-[10px] text-zinc-400" id="location-post5">Rome, Italy • Cinematic Collection</div>
+              </div>
+            </div>
+            <button onclick="openSinglePostEditor(5)" class="text-zinc-400 hover:text-white p-2 active:scale-90 transition cursor-pointer" title="Edit Post Details"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+          </div>
+
+          <div class="relative aspect-square bg-black overflow-hidden mx-2 rounded-2xl select-none group" id="carouselWrapper"
+               onmousedown="handleSwipeStart(event)" 
+               onmousemove="handleSwipeMove(event)" 
+               onmouseup="handleSwipeEnd(event)" 
+               onmouseleave="handleSwipeEnd(event)"
+               ontouchstart="handleSwipeStart(event)" 
+               ontouchmove="handleSwipeMove(event)" 
+               ontouchend="handleSwipeEnd(event)">
+            
+            <div class="absolute top-3 right-3 z-10 bg-black/70 backdrop-blur-md text-white text-[11px] font-semibold px-2.5 py-1 rounded-full border border-white/10 pointer-events-none">
+              <span id="carouselCounter">1/5</span>
+            </div>
+
+            <div id="carouselTrack" class="carousel-container">
+              <div class="carousel-slide relative">
+                <img src="images/carousel_1.jpg?v=600" class="w-full h-full object-cover pointer-events-none" alt="Photo 1">
+              </div>
+              <div class="carousel-slide relative">
+                <img src="images/carousel_2.jpg?v=600" class="w-full h-full object-cover pointer-events-none" alt="Photo 2">
+              </div>
+              <div class="carousel-slide relative">
+                <img src="images/carousel_3.jpg?v=600" class="w-full h-full object-cover pointer-events-none" alt="Photo 3">
+              </div>
+              <div class="carousel-slide relative">
+                <img src="images/carousel_4.jpg?v=600" class="w-full h-full object-cover pointer-events-none" alt="Photo 4">
+              </div>
+              <div class="carousel-slide relative">
+                <img src="images/carousel_5.jpg?v=600" class="w-full h-full object-cover pointer-events-none" alt="Photo 5">
+              </div>
+            </div>
+
+            <svg id="popStar-like5" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none z-20" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+
+          <div class="px-3 py-2.5 flex justify-center items-center gap-10 border-t border-b border-zinc-800/40 my-2 relative">
+            <button onclick="toggleLike('like5')" class="transition transform active:scale-125 p-1">
+              <svg id="iconLike-like5" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </button>
+            <button class="transition hover:text-zinc-400 p-1">
+              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+
+            <!-- Center Pagination Dots -->
+            <div class="absolute left-1/2 -translate-x-1/2 bottom-[-18px] flex gap-1.5" id="paginationDots">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 transition-all duration-300"></span>
+              <span class="w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300"></span>
+              <span class="w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300"></span>
+              <span class="w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300"></span>
+              <span class="w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300"></span>
+            </div>
+
+            <button onclick="toggleBookmark(this)" class="transition p-1">
+              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+            </button>
+          </div>
+
+          <div class="px-4 pb-4 text-xs mt-3">
+            <div class="font-bold text-xs" id="countLike-like5">4.892 Sterne</div>
+            <div class="mt-1">
+              <span class="font-bold">alex_vance_art</span>
+              <span class="opacity-90" id="caption-post5"> Full set series from Roman nights & mountain horizons. Wischen, um alle 5 Fotos zu sehen 🎬🌲📸</span>
+            </div>
+            <button onclick="openComments('Behind the scenes in Rome')" class="text-zinc-500 text-[11px] mt-1 block">Alle 112 Kommentare anzeigen</button>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1" id="timeFooter-post5">VOR 1 WOCHE</div>
+          </div>
+        </article>
+
+        <!-- POST 6 (Single Photo) -->
+        <article id="post-6" class="rounded-3xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden shadow-lg transition">
+          <div class="flex items-center justify-between px-4 py-3">
+            <div class="flex items-center gap-2.5">
+              <img src="images/post6.jpg?v=600" class="w-8 h-8 rounded-full object-cover">
+              <div>
+                <div class="flex items-center gap-1 text-xs font-semibold">
+                  <span>alex_vance_art</span>
+                  <span class="text-zinc-500" id="timeHeader-post6">• 2 Wo.</span>
+                </div>
+                <div class="text-[10px] text-zinc-400" id="location-post6">Caffè Brera, Milano</div>
+              </div>
+            </div>
+            <button onclick="openSinglePostEditor(6)" class="text-zinc-400 hover:text-white p-2 active:scale-90 transition cursor-pointer" title="Edit Post Details"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+          </div>
+          <div class="relative aspect-square bg-zinc-900 overflow-hidden mx-2 rounded-2xl" onclick="handleDoubleTap(event, 'like6')">
+            <img src="images/post6.jpg?v=600" class="w-full h-full object-cover" alt="Post 6">
+            <svg id="popStar-like6" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          
+          <div class="px-3 py-2.5 flex justify-center items-center gap-10 border-t border-b border-zinc-800/40 my-2">
+            <button onclick="toggleLike('like6')" class="transition transform active:scale-125 p-1">
+              <svg id="iconLike-like6" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </button>
+            <button class="transition hover:text-zinc-400 p-1">
+              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="toggleBookmark(this)" class="transition p-1">
+              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+            </button>
+          </div>
+
+          <div class="px-4 pb-4 text-xs">
+            <div class="font-bold text-xs" id="countLike-like6">1.820 Sterne</div>
+            <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90" id="caption-post6"> Early morning coffee & screenplay notes in Brera. ☕📜</span></div>
+            <button onclick="openComments('Morning espresso')" class="text-zinc-500 text-[11px] mt-1 block">Alle 28 Kommentare anzeigen</button>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1" id="timeFooter-post6">VOR 2 WOCHEN</div>
+          </div>
+        </article>
+
+        <!-- POST 7 (Single Photo) -->
+        <article id="post-7" class="rounded-3xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden shadow-lg transition">
+          <div class="flex items-center justify-between px-4 py-3">
+            <div class="flex items-center gap-2.5">
+              <img src="images/post6.jpg?v=600" class="w-8 h-8 rounded-full object-cover">
+              <div>
+                <div class="flex items-center gap-1 text-xs font-semibold">
+                  <span>alex_vance_art</span>
+                  <span class="text-zinc-500" id="timeHeader-post7">• 3 Wo.</span>
+                </div>
+                <div class="text-[10px] text-zinc-400" id="location-post7">Analog Lab</div>
+              </div>
+            </div>
+            <button onclick="openSinglePostEditor(7)" class="text-zinc-400 hover:text-white p-2 active:scale-90 transition cursor-pointer" title="Edit Post Details"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+          </div>
+          <div class="relative aspect-square bg-zinc-900 overflow-hidden mx-2 rounded-2xl" onclick="handleDoubleTap(event, 'like7')">
+            <img src="images/post7.jpg?v=600" class="w-full h-full object-cover" alt="Post 7">
+            <svg id="popStar-like7" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          
+          <div class="px-3 py-2.5 flex justify-center items-center gap-10 border-t border-b border-zinc-800/40 my-2">
+            <button onclick="toggleLike('like7')" class="transition transform active:scale-125 p-1">
+              <svg id="iconLike-like7" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </button>
+            <button class="transition hover:text-zinc-400 p-1">
+              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="toggleBookmark(this)" class="transition p-1">
+              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+            </button>
+          </div>
+
+          <div class="px-4 pb-4 text-xs">
+            <div class="font-bold text-xs" id="countLike-like7">2.910 Sterne</div>
+            <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90" id="caption-post7"> Developing vintage 35mm rolls in the darkroom. Film texture forever. 🎞️📷</span></div>
+            <button onclick="openComments('Analog 35mm film')" class="text-zinc-500 text-[11px] mt-1 block">Alle 41 Kommentare anzeigen</button>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1" id="timeFooter-post7">VOR 3 WOCHEN</div>
+          </div>
+        </article>
+
+      </div>
+    </main>
+
+    <!-- FLOATING DISCREET FULLSCREEN BUTTON -->
+    <button onclick="requestAppFullscreen()" class="absolute bottom-16 right-4 z-30 p-3 rounded-full bg-zinc-800/90 text-white shadow-xl border border-zinc-700/80 backdrop-blur-md active:scale-95 transition" title="Attiva Schermo Intero">
+      <svg class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
+    </button>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="absolute bottom-0 inset-x-0 h-14 border-t border-zinc-800/80 backdrop-blur-lg flex justify-around items-center z-20" style="background-color: var(--bg-app); border-color: var(--border-color);">
+      <button class="p-2 text-white hover:opacity-75 transition">
+        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </button>
+      <button class="p-2 text-zinc-400 hover:text-white transition">
+        <svg class="w-6 h-6 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="p-2 text-zinc-400 hover:text-white transition">
+        <svg class="w-6 h-6 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      </button>
+      <button class="p-2 text-zinc-400 hover:text-white transition">
+        <svg class="w-6 h-6 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </button>
+      <button class="p-1 rounded-full border-2 border-white">
+        <img id="bottomNavAvatar" src="images/post6.jpg?v=600" class="w-5 h-5 rounded-full object-cover">
+      </button>
+    </nav>
+
+    <!-- Comments Drawer Modal -->
+    <div id="commentsModal" class="absolute inset-0 bg-black/80 backdrop-blur-sm z-40 hidden flex flex-col justify-end transition-opacity duration-300">
+      <div class="h-[75%] rounded-t-3xl border-t border-zinc-700 flex flex-col p-4" style="background-color: var(--bg-card); color: var(--text-main);">
+        <div class="w-12 h-1 bg-zinc-600 rounded-full mx-auto mb-3 cursor-pointer" onclick="closeComments()"></div>
+        <div class="flex justify-between items-center border-b border-zinc-800 pb-3 mb-3">
+          <h3 class="font-bold text-sm">Kommentare</h3>
+          <button onclick="closeComments()" class="text-zinc-400 hover:text-white">&#10005;</button>
+        </div>
+        
+        <div class="flex-1 overflow-y-auto space-y-4 no-scrollbar pr-1">
+          <div class="flex gap-3 text-xs">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" class="w-7 h-7 rounded-full object-cover">
+            <div>
+              <div><span class="font-bold">elena_design</span> <span class="opacity-90">Che scatti assurdi Alex!! Quella foto con il tramonto è pazzesca 🌅🔥</span></div>
+              <div class="text-[10px] text-zinc-500 mt-1 flex gap-3"><span>2h</span><span>Antworten</span></div>
+            </div>
+          </div>
+          <div class="flex gap-3 text-xs">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" class="w-7 h-7 rounded-full object-cover">
+            <div>
+              <div><span class="font-bold">marco_film_studio</span> <span class="opacity-90">Lenti e camera usati per il carosello? Risultato pazzesco brother 🙌</span></div>
+              <div class="text-[10px] text-zinc-500 mt-1 flex gap-3"><span>4h</span><span>Antworten</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-zinc-800 flex items-center gap-2">
+          <input type="text" id="newCommentInput" placeholder="Kommentar hinzuf&uuml;gen..." class="flex-1 bg-zinc-900 text-white text-xs px-3 py-2 rounded-full border border-zinc-700 focus:outline-none focus:border-emerald-500">
+          <button onclick="postComment()" class="text-emerald-500 font-semibold text-xs px-2">Posten</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SINGLE POST EDITOR MODAL -->
+    <div id="singlePostEditorModal" class="absolute inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex flex-col p-5 overflow-y-auto text-xs text-white">
+      <div class="flex justify-between items-center border-b border-zinc-700 pb-3 mb-4">
+        <h2 class="text-sm font-bold text-amber-400 flex items-center gap-2">
+          <span>&#9881;&#65039;</span> Edit Post Details <span id="editingPostNumBadge" class="text-zinc-400 font-normal text-xs">(Post #1)</span>
+        </h2>
+        <button onclick="closeSinglePostEditor()" class="text-zinc-400 hover:text-white text-base">&#10005;</button>
+      </div>
+      
+      <p class="text-zinc-400 mb-4">Edit the information for this post live on set:</p>
+      
+      <div class="space-y-3">
+        <div>
+          <label class="block font-semibold mb-1 text-zinc-300">Location / City:</label>
+          <input id="editPostLocationInput" type="text" placeholder="e.g. Berlin, Germany" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-400">
+        </div>
+        
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block font-semibold mb-1 text-zinc-300">Header Date:</label>
+            <input id="editPostTimeHeaderInput" type="text" placeholder="e.g. 2 T., 1 Wo." class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-400">
+          </div>
+          <div>
+            <label class="block font-semibold mb-1 text-zinc-300">Footer Date:</label>
+            <input id="editPostTimeFooterInput" type="text" placeholder="e.g. VOR 2 TAGEN" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-400">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-1 text-zinc-300">Star Count (Likes):</label>
+          <input id="editPostLikesInput" type="number" placeholder="e.g. 1240" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-400">
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-1 text-zinc-300">Caption / Description:</label>
+          <textarea id="editPostCaptionInput" placeholder="Enter caption here..." class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white h-24 focus:outline-none focus:border-amber-400"></textarea>
+        </div>
+
+        <div class="flex gap-2 pt-2">
+          <button onclick="closeSinglePostEditor()" class="flex-1 py-2.5 rounded bg-zinc-800 font-semibold text-zinc-300 hover:bg-zinc-700 transition">
+            Cancel
+          </button>
+          <button onclick="saveSinglePostData()" class="flex-1 py-2.5 rounded bg-amber-500 font-bold text-black hover:bg-amber-400 transition">
+            Save Post Changes
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROP CONFIGURATION / SCENOGRAPHY EDITOR MODAL -->
+    <div id="propEditorModal" class="absolute inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex flex-col p-5 overflow-y-auto text-xs text-white">
+      <div class="flex justify-between items-center border-b border-zinc-700 pb-3 mb-4">
+        <h2 class="text-sm font-bold text-emerald-400">🎬 Scenography Panel V2 - Character & Prop Data</h2>
+        <button onclick="togglePropEditor()" class="text-zinc-400 hover:text-white text-base">&#10005;</button>
+      </div>
+      
+      <p class="text-zinc-400 mb-4">Edit character details and scene images for filming:</p>
+      
+      <div class="space-y-3">
+        <div>
+          <label class="block font-semibold mb-1">Username (@username):</label>
+          <input id="editUsername" type="text" value="alex_vance_art" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
+        </div>
+        <div>
+          <label class="block font-semibold mb-1">Display Name:</label>
+          <input id="editDisplayName" type="text" value="Alex Vance" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
+        </div>
+        <div>
+          <label class="block font-semibold mb-1">Profile Bio:</label>
+          <textarea id="editBio" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white h-16">Cinematography & Landscape Photography 📷&#10;Exploring light, shadow & visual stories 🎬&#10;📍 Milan / Rome</textarea>
+        </div>
+        <div>
+          <label class="block font-semibold mb-1">Avatar URL / Profile Picture:</label>
+          <input id="editAvatarUrl" type="text" value="images/post6.jpg?v=600" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
+        </div>
+        
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block font-semibold mb-1 text-zinc-300">Kontakte:</label>
+            <input id="editContactsInput" type="text" value="5.432" class="w-full bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-white">
+          </div>
+          <div>
+            <label class="block font-semibold mb-1 text-zinc-300">Beitr&auml;ge:</label>
+            <input id="editPostsInput" type="text" value="7" class="w-full bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-white">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-1">Carousel Post 5 Images (Comma separated URLs):</label>
+          <textarea id="editCarouselUrls" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white h-20">images/carousel_1.jpg?v=600, images/carousel_2.jpg?v=600, images/carousel_3.jpg?v=600, images/carousel_4.jpg?v=600, images/carousel_5.jpg?v=600</textarea>
+        </div>
+
+        <div class="flex gap-2 mt-4">
+          <button onclick="savePropData()" class="flex-1 py-2.5 rounded bg-emerald-600 font-bold text-white text-xs hover:bg-emerald-500 transition">
+            Save & Apply Prop Changes
+          </button>
+          <button onclick="resetStorageState()" class="py-2.5 px-3 rounded bg-red-900/60 text-red-300 font-semibold text-xs hover:bg-red-800 transition" title="Reset all custom scene edits">
+            Reset Defaults
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- JAVASCRIPT LOGIC V2 -->
+  <script>
+    // State management V2
+    let currentSlide = 0;
+    let totalSlides = 5;
+    let isConnected = false;
+    let likesState = {
+      like1: { count: 1240, liked: false },
+      like2: { count: 2105, liked: false },
+      like3: { count: 954, liked: false },
+      like4: { count: 3410, liked: false },
+      like5: { count: 4892, liked: false },
+      like6: { count: 1820, liked: false },
+      like7: { count: 2910, liked: false }
+    };
+
+    // Touch / Mouse Drag Swipe logic
+    let swipeStartX = 0;
+    let swipeStartY = 0;
+    let isSwiping = false;
+
+    function handleSwipeStart(e) {
+      isSwiping = true;
+      swipeStartX = e.touches ? e.touches[0].clientX : e.clientX;
+      swipeStartY = e.touches ? e.touches[0].clientY : e.clientY;
+      const track = document.getElementById('carouselTrack');
+      if (track) track.style.transition = 'none';
+    }
+
+    function handleSwipeMove(e) {
+      if (!isSwiping) return;
+      const currentX = e.touches ? e.touches[0].clientX : e.clientX;
+      const currentY = e.touches ? e.touches[0].clientY : e.clientY;
+      const diffX = currentX - swipeStartX;
+      const diffY = currentY - swipeStartY;
+
+      if (Math.abs(diffX) > Math.abs(diffY)) {
+        if (e.cancelable) e.preventDefault();
+        const track = document.getElementById('carouselTrack');
+        if (track) {
+          const containerWidth = track.clientWidth;
+          const movePercent = -currentSlide * 100 + (diffX / containerWidth) * 100;
+          track.style.transform = `translateX(${movePercent}%)`;
+        }
+      }
+    }
+
+    function handleSwipeEnd(e) {
+      if (!isSwiping) return;
+      isSwiping = false;
+      const track = document.getElementById('carouselTrack');
+      if (track) {
+        track.style.transition = 'transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1)';
+        const endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+        const diffX = endX - swipeStartX;
+
+        if (diffX < -30 && currentSlide < totalSlides - 1) {
+          currentSlide++;
+        } else if (diffX > 30 && currentSlide > 0) {
+          currentSlide--;
+        }
+        updateCarousel();
+      }
+    }
+
+    function updateCarousel() {
+      const track = document.getElementById('carouselTrack');
+      const counter = document.getElementById('carouselCounter');
+      if (track) {
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      }
+      if (counter) {
+        counter.innerText = `${currentSlide + 1}/${totalSlides}`;
+      }
+
+      const dotsContainer = document.getElementById('paginationDots');
+      if (dotsContainer) {
+        dotsContainer.innerHTML = Array.from({length: totalSlides}).map((_, i) => `
+          <span class="${i === currentSlide ? 'w-2 h-2 rounded-full bg-emerald-500' : 'w-1.5 h-1.5 rounded-full bg-zinc-600'} transition-all duration-300"></span>
+        `).join('');
+      }
+    }
+
+    function requestAppFullscreen() {
+      const docEl = document.documentElement;
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        if (docEl.requestFullscreen) docEl.requestFullscreen();
+        else if (docEl.webkitRequestFullscreen) docEl.webkitRequestFullscreen();
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      }
+    }
+
+    let lastTap = 0;
+    function handleDoubleTap(e, likeId) {
+      const now = new Date().getTime();
+      const timesince = now - lastTap;
+      if (timesince < 300 && timesince > 0) {
+        const popStar = document.getElementById(`popStar-${likeId}`);
+        if (popStar) {
+          popStar.classList.remove('star-pop');
+          void popStar.offsetWidth;
+          popStar.classList.add('star-pop');
+        }
+
+        if (!likesState[likeId].liked) {
+          toggleLike(likeId);
+        }
+      }
+      lastTap = now;
+    }
+
+    function toggleLike(likeId) {
+      const state = likesState[likeId];
+      state.liked = !state.liked;
+      state.count += state.liked ? 1 : -1;
+
+      const icon = document.getElementById(`iconLike-${likeId}`);
+      const countEl = document.getElementById(`countLike-${likeId}`);
+
+      if (state.liked) {
+        icon.classList.remove('fill-none', 'stroke-current');
+        icon.classList.add('fill-amber-400', 'text-amber-400');
+      } else {
+        icon.classList.remove('fill-amber-400', 'text-amber-400');
+        icon.classList.add('fill-none', 'stroke-current');
+      }
+
+      if (countEl) {
+        countEl.innerText = `${state.count.toLocaleString('de-DE')} Sterne`;
+      }
+      saveStorageState();
+    }
+
+    function toggleBookmark(btn) {
+      const svg = btn.querySelector('svg');
+      if (svg.classList.contains('fill-none')) {
+        svg.classList.remove('fill-none');
+        svg.classList.add('fill-current', 'text-white');
+      } else {
+        svg.classList.remove('fill-current', 'text-white');
+        svg.classList.add('fill-none');
+      }
+    }
+
+    function switchTab(mode) {
+      const gridContainer = document.getElementById('gridContainer');
+      const feedContainer = document.getElementById('feedContainer');
+      const gridTabBtn = document.getElementById('gridTabBtn');
+      const feedTabBtn = document.getElementById('feedTabBtn');
+
+      if (mode === 'grid') {
+        gridContainer.classList.remove('hidden');
+        feedContainer.classList.add('hidden');
+        gridTabBtn.className = "flex-1 py-3 flex justify-center items-center gap-2 border-b-2 border-white text-white";
+        feedTabBtn.className = "flex-1 py-3 flex justify-center items-center gap-2 border-b-2 border-transparent text-zinc-500 hover:text-white";
+      } else {
+        gridContainer.classList.add('hidden');
+        feedContainer.classList.remove('hidden');
+        feedTabBtn.className = "flex-1 py-3 flex justify-center items-center gap-2 border-b-2 border-white text-white";
+        gridTabBtn.className = "flex-1 py-3 flex justify-center items-center gap-2 border-b-2 border-transparent text-zinc-500 hover:text-white";
+      }
+    }
+
+    function scrollToPost(postId) {
+      switchTab('feed');
+      setTimeout(() => {
+        const target = document.getElementById(postId);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 50);
+    }
+
+    // Toggle Connect (Verbinden -> Verbunden)
+    function toggleConnect() {
+      isConnected = !isConnected;
+      const btn = document.getElementById('connectBtn');
+      if (isConnected) {
+        btn.innerText = 'Verbunden';
+        btn.className = 'flex-1 py-2 rounded-xl bg-zinc-800 text-xs font-semibold text-zinc-200 hover:bg-zinc-700 transition border border-zinc-700/50';
+      } else {
+        btn.innerText = 'Verbinden';
+        btn.className = 'flex-1 py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition shadow-md';
+      }
+      saveStorageState();
+    }
+
+    let currentEditingPostNum = null;
+
+    function openSinglePostEditor(postNum) {
+      currentEditingPostNum = postNum;
+      const badge = document.getElementById('editingPostNumBadge');
+      if (badge) badge.innerText = '(Post #' + postNum + ')';
+      
+      const locEl = document.getElementById('location-post' + postNum);
+      const headerTimeEl = document.getElementById('timeHeader-post' + postNum);
+      const footerTimeEl = document.getElementById('timeFooter-post' + postNum);
+      const captionEl = document.getElementById('caption-post' + postNum);
+      const countEl = document.getElementById('countLike-like' + postNum);
+
+      const locInput = document.getElementById('editPostLocationInput');
+      const headerTimeInput = document.getElementById('editPostTimeHeaderInput');
+      const footerTimeInput = document.getElementById('editPostTimeFooterInput');
+      const captionInput = document.getElementById('editPostCaptionInput');
+      const likesInput = document.getElementById('editPostLikesInput');
+
+      if (locInput) locInput.value = locEl ? locEl.innerText.trim() : '';
+      if (headerTimeInput) headerTimeInput.value = headerTimeEl ? headerTimeEl.innerText.replace(/^[\u2022\s]+/, '').replace(/^[•\s]+/, '').trim() : '';
+      if (footerTimeInput) footerTimeInput.value = footerTimeEl ? footerTimeEl.innerText.trim() : '';
+      if (captionInput) captionInput.value = captionEl ? captionEl.innerText.trim() : '';
+
+      if (likesInput) {
+        if (likesState['like' + postNum] && likesState['like' + postNum].count) {
+          likesInput.value = likesState['like' + postNum].count;
+        } else if (countEl) {
+          const rawNum = countEl.innerText.replace(/[^0-9]/g, '');
+          if (rawNum) likesInput.value = parseInt(rawNum, 10);
+        }
+      }
+
+      const modal = document.getElementById('singlePostEditorModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeSinglePostEditor() {
+      const modal = document.getElementById('singlePostEditorModal');
+      if (modal) modal.classList.add('hidden');
+      currentEditingPostNum = null;
+    }
+
+    function saveSinglePostData() {
+      if (!currentEditingPostNum) return;
+      const pNum = currentEditingPostNum;
+
+      const newLoc = document.getElementById('editPostLocationInput').value;
+      const newHeaderTime = document.getElementById('editPostTimeHeaderInput').value;
+      const newFooterTime = document.getElementById('editPostTimeFooterInput').value;
+      const newLikes = parseInt(document.getElementById('editPostLikesInput').value, 10);
+      const newCaption = document.getElementById('editPostCaptionInput').value;
+
+      const locEl = document.getElementById('location-post' + pNum);
+      const headerTimeEl = document.getElementById('timeHeader-post' + pNum);
+      const footerTimeEl = document.getElementById('timeFooter-post' + pNum);
+      const captionEl = document.getElementById('caption-post' + pNum);
+      const countEl = document.getElementById('countLike-like' + pNum);
+
+      if (locEl) locEl.innerText = newLoc;
+      if (headerTimeEl) headerTimeEl.innerText = newHeaderTime ? '\u2022 ' + newHeaderTime : '';
+      if (footerTimeEl) footerTimeEl.innerText = newFooterTime;
+      if (captionEl) captionEl.innerText = ' ' + newCaption;
+
+      if (!isNaN(newLikes)) {
+        if (!likesState['like' + pNum]) likesState['like' + pNum] = { count: newLikes, liked: false };
+        else likesState['like' + pNum].count = newLikes;
+        
+        if (countEl) {
+          countEl.innerText = newLikes.toLocaleString('de-DE') + ' Sterne';
+        }
+      }
+
+      saveStorageState();
+      closeSinglePostEditor();
+    }
+
+    function openComments(title) {
+      document.getElementById('commentsModal').classList.remove('hidden');
+    }
+    function closeComments() {
+      document.getElementById('commentsModal').classList.add('hidden');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('light-theme');
+      document.getElementById('themeIconSun').classList.toggle('hidden');
+      document.getElementById('themeIconMoon').classList.toggle('hidden');
+    }
+
+    function togglePropEditor() {
+      document.getElementById('propEditorModal').classList.toggle('hidden');
+    }
+
+    function savePropData() {
+      const username = document.getElementById('editUsername').value;
+      const displayName = document.getElementById('editDisplayName').value;
+      const bio = document.getElementById('editBio').value;
+      const avatarUrl = document.getElementById('editAvatarUrl').value;
+      const statContacts = document.getElementById('editContactsInput') ? document.getElementById('editContactsInput').value : '5.432';
+      const statPosts = document.getElementById('editPostsInput') ? document.getElementById('editPostsInput').value : '7';
+      
+      document.getElementById('headerUsername').innerText = username;
+      document.getElementById('profileDisplayName').innerText = displayName;
+      document.getElementById('profileBio').innerHTML = bio.replace(/\n/g, '<br>');
+      document.getElementById('profileAvatar').src = avatarUrl;
+      document.getElementById('bottomNavAvatar').src = avatarUrl;
+      if (document.getElementById('statContacts')) document.getElementById('statContacts').innerText = statContacts;
+      if (document.getElementById('statPosts')) document.getElementById('statPosts').innerText = statPosts;
+
+      const carouselUrls = document.getElementById('editCarouselUrls').value.split(',').map(s => s.trim());
+      if (carouselUrls.length > 0) {
+        const carouselTrack = document.getElementById('carouselTrack');
+        if (carouselTrack) {
+          carouselTrack.innerHTML = carouselUrls.map(url => `
+            <div class="carousel-slide relative">
+              <img src="${url}" class="w-full h-full object-cover pointer-events-none">
+            </div>
+          `).join('');
+        }
+      }
+
+      saveStorageState();
+      togglePropEditor();
+    }
+
+    // PERSISTENCE ENGINE FOR V2 PAGE
+    function saveStorageState() {
+      try {
+        const postsData = {};
+        for (let i = 1; i <= 7; i++) {
+          const locEl = document.getElementById('location-post' + i);
+          const headerTimeEl = document.getElementById('timeHeader-post' + i);
+          const footerTimeEl = document.getElementById('timeFooter-post' + i);
+          const captionEl = document.getElementById('caption-post' + i);
+          const countEl = document.getElementById('countLike-like' + i);
+
+          postsData['post' + i] = {
+            location: locEl ? locEl.innerText.trim() : '',
+            headerTime: headerTimeEl ? headerTimeEl.innerText.replace(/^[\u2022\s]+/, '').replace(/^[•\s]+/, '').trim() : '',
+            footerTime: footerTimeEl ? footerTimeEl.innerText.trim() : '',
+            caption: captionEl ? captionEl.innerText.trim() : '',
+            likesCount: likesState['like' + i] ? likesState['like' + i].count : 0
+          };
+        }
+
+        const propData = {
+          username: document.getElementById('headerUsername').innerText,
+          displayName: document.getElementById('profileDisplayName').innerText,
+          bio: document.getElementById('profileBio').innerHTML.replace(/<br\s*[\/]?>/gi, '\n'),
+          avatarUrl: document.getElementById('profileAvatar').src,
+          statContacts: document.getElementById('statContacts') ? document.getElementById('statContacts').innerText : '5.432',
+          statPosts: document.getElementById('statPosts') ? document.getElementById('statPosts').innerText : '7',
+          carouselUrls: document.getElementById('editCarouselUrls') ? document.getElementById('editCarouselUrls').value : ''
+        };
+
+        const statePayload = {
+          isConnected: isConnected,
+          likesState: likesState,
+          postsData: postsData,
+          propData: propData
+        };
+
+        const jsonStr = JSON.stringify(statePayload);
+        localStorage.setItem('picshare_film_prop_v2_page_state', jsonStr);
+        sessionStorage.setItem('picshare_film_prop_v2_page_state', jsonStr);
+        showSaveToast();
+      } catch (e) {
+        console.error('LocalStorage save error:', e);
+      }
+    }
+
+    function loadStorageState() {
+      try {
+        const raw = localStorage.getItem('picshare_film_prop_v2_page_state') || sessionStorage.getItem('picshare_film_prop_v2_page_state');
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+
+        // 1. Connect State
+        if (typeof saved.isConnected === 'boolean') {
+          isConnected = saved.isConnected;
+          const btn = document.getElementById('connectBtn');
+          if (btn) {
+            if (isConnected) {
+              btn.innerText = 'Verbunden';
+              btn.className = 'flex-1 py-2 rounded-xl bg-zinc-800 text-xs font-semibold text-zinc-200 hover:bg-zinc-700 transition border border-zinc-700/50';
+            } else {
+              btn.innerText = 'Verbinden';
+              btn.className = 'flex-1 py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition shadow-md';
+            }
+          }
+        }
+
+        // 2. Likes State
+        if (saved.likesState) {
+          likesState = saved.likesState;
+          for (let key in likesState) {
+            const st = likesState[key];
+            const icon = document.getElementById(`iconLike-${key}`);
+            const countEl = document.getElementById(`countLike-${key}`);
+            if (icon && st.liked) {
+              icon.classList.remove('fill-none', 'stroke-current');
+              icon.classList.add('fill-amber-400', 'text-amber-400');
+            }
+            if (countEl) {
+              countEl.innerText = st.count.toLocaleString('de-DE') + ' Sterne';
+            }
+          }
+        }
+
+        // 3. Posts Data
+        if (saved.postsData) {
+          for (let i = 1; i <= 7; i++) {
+            const p = saved.postsData['post' + i];
+            if (!p) continue;
+            const locEl = document.getElementById('location-post' + i);
+            const headerTimeEl = document.getElementById('timeHeader-post' + i);
+            const footerTimeEl = document.getElementById('timeFooter-post' + i);
+            const captionEl = document.getElementById('caption-post' + i);
+            const countEl = document.getElementById('countLike-like' + i);
+
+            if (locEl && p.location !== undefined) locEl.innerText = p.location;
+            if (headerTimeEl && p.headerTime !== undefined) headerTimeEl.innerText = p.headerTime ? '\u2022 ' + p.headerTime : '';
+            if (footerTimeEl && p.footerTime !== undefined) footerTimeEl.innerText = p.footerTime;
+            if (captionEl && p.caption !== undefined) captionEl.innerText = ' ' + p.caption;
+            if (countEl && p.likesCount !== undefined) countEl.innerText = p.likesCount.toLocaleString('de-DE') + ' Sterne';
+          }
+        }
+
+        // 4. Prop Data
+        if (saved.propData) {
+          const pd = saved.propData;
+          if (pd.username) document.getElementById('headerUsername').innerText = pd.username;
+          if (pd.displayName) document.getElementById('profileDisplayName').innerText = pd.displayName;
+          if (pd.bio) document.getElementById('profileBio').innerHTML = pd.bio.replace(/\n/g, '<br>');
+          if (pd.statContacts) document.getElementById('statContacts').innerText = pd.statContacts;
+          if (pd.statPosts) document.getElementById('statPosts').innerText = pd.statPosts;
+          if (pd.avatarUrl) {
+            document.getElementById('profileAvatar').src = pd.avatarUrl;
+            document.getElementById('bottomNavAvatar').src = pd.avatarUrl;
+          }
+          if (pd.carouselUrls) {
+            const input = document.getElementById('editCarouselUrls');
+            if (input) input.value = pd.carouselUrls;
+            const urlsArr = pd.carouselUrls.split(',').map(s => s.trim());
+            if (urlsArr.length > 0) {
+              const carouselTrack = document.getElementById('carouselTrack');
+              if (carouselTrack) {
+                carouselTrack.innerHTML = urlsArr.map(url => `
+                  <div class="carousel-slide relative">
+                    <img src="${url}" class="w-full h-full object-cover pointer-events-none">
+                  </div>
+                `).join('');
+              }
+            }
+          }
+        }
+      } catch (e) {
+        console.error('LocalStorage load error:', e);
+      }
+    }
+
+    function showSaveToast() {
+      let toast = document.getElementById('saveToastPill');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'saveToastPill';
+        toast.className = 'fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-emerald-600/90 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-lg backdrop-blur-md opacity-0 transition-opacity duration-300 pointer-events-none';
+        toast.innerText = 'Saved ✓';
+        document.body.appendChild(toast);
+      }
+      toast.style.opacity = '1';
+      setTimeout(() => { toast.style.opacity = '0'; }, 1200);
+    }
+
+    function resetStorageState() {
+      if (confirm('Reset all changes back to initial scene defaults?')) {
+        localStorage.removeItem('picshare_film_prop_v2_page_state');
+        sessionStorage.removeItem('picshare_film_prop_v2_page_state');
+        window.location.reload();
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadStorageState);
+    window.addEventListener('load', loadStorageState);
+    window.addEventListener('pageshow', loadStorageState);
+    loadStorageState();
+  </script>
+</body>
+</html>
