@@ -213,7 +213,7 @@
           <img src="images/post4.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
         </div>
         <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-5')">
-          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+          <img src="images/carousel_1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
           <div class="absolute top-1.5 right-1.5 bg-black/60 backdrop-blur-xs p-1 rounded-sm text-white">
             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
           </div>
@@ -408,7 +408,7 @@
             
             <!-- Carousel Counter Pill Badge -->
             <div class="absolute top-3 right-3 z-10 bg-black/70 backdrop-blur-md text-white text-[11px] font-semibold px-2.5 py-1 rounded-full border border-white/10 pointer-events-none">
-              <span id="carouselCounter">1/6</span>
+              <span id="carouselCounter">1/5</span>
             </div>
 
             <!-- Carousel Track -->
@@ -416,27 +416,23 @@
               
               <!-- Photo 1 -->
               <div class="carousel-slide relative">
-                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover pointer-events-none" alt="Photo 1">
+                <img src="images/carousel_1.jpg" class="w-full h-full object-cover pointer-events-none" alt="Photo 1">
               </div>
               <!-- Photo 2 -->
               <div class="carousel-slide relative">
-                <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover pointer-events-none" alt="Photo 2">
+                <img src="images/carousel_2.jpg" class="w-full h-full object-cover pointer-events-none" alt="Photo 2">
               </div>
               <!-- Photo 3 -->
               <div class="carousel-slide relative">
-                <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover pointer-events-none" alt="Photo 3">
+                <img src="images/carousel_3.jpg" class="w-full h-full object-cover pointer-events-none" alt="Photo 3">
               </div>
               <!-- Photo 4 -->
               <div class="carousel-slide relative">
-                <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover pointer-events-none" alt="Photo 4">
+                <img src="images/carousel_4.jpg" class="w-full h-full object-cover pointer-events-none" alt="Photo 4">
               </div>
               <!-- Photo 5 -->
               <div class="carousel-slide relative">
-                <img src="https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover pointer-events-none" alt="Photo 5">
-              </div>
-              <!-- Photo 6 -->
-              <div class="carousel-slide relative">
-                <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover pointer-events-none" alt="Photo 6">
+                <img src="images/carousel_5.jpg" class="w-full h-full object-cover pointer-events-none" alt="Photo 5">
               </div>
 
             </div>
@@ -467,7 +463,6 @@
               <span class="w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300"></span>
               <span class="w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300"></span>
               <span class="w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300"></span>
-              <span class="w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300"></span>
             </div>
 
             <button onclick="toggleBookmark(this)" class="transition">
@@ -479,7 +474,7 @@
             <div class="font-bold text-xs" id="countLike-like5">4.892 Stelle</div>
             <div class="mt-1">
               <span class="font-bold">alex_vance_art</span>
-              <span class="opacity-90"> Full set series from Roman nights & mountain horizons. Swipe to see all 6 shots 🎬🌲📸</span>
+              <span class="opacity-90"> Full set series from Roman nights & mountain horizons. Swipe to see all 5 shots 🎬🌲📸</span>
             </div>
             <button onclick="openComments('Behind the scenes in Rome')" class="text-zinc-500 text-[11px] mt-1 block">Mostra tutti e 112 i commenti</button>
             <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">1 SETTIMANA FA</div>
@@ -655,7 +650,7 @@
         </div>
         <div>
           <label class="block font-semibold mb-1">Immagini Carosello Post 5 (URL separati da virgola):</label>
-          <textarea id="editCarouselUrls" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white h-20">https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80, https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1000&q=80, https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1000&q=80, https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1000&q=80, https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=1000&q=80, https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1000&q=80</textarea>
+          <textarea id="editCarouselUrls" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white h-20">https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80, images/carousel_2.jpg, images/carousel_3.jpg, images/carousel_4.jpg, images/carousel_5.jpg, https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1000&q=80</textarea>
         </div>
 
         <button onclick="savePropData()" class="w-full py-2.5 rounded bg-emerald-600 font-bold text-white text-xs hover:bg-emerald-500 transition mt-4">
@@ -670,7 +665,7 @@
   <script>
     // State management
     let currentSlide = 0;
-    const totalSlides = 6;
+    let totalSlides = 5;
     let isFollowing = true;
     let likesState = {
       like1: { count: 1240, liked: false },
