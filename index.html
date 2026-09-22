@@ -179,7 +179,7 @@
         <!-- Follow & Action Buttons -->
         <div class="flex gap-2 mt-4">
           <button id="followBtn" onclick="toggleFollow()" class="flex-1 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition">
-            Segui
+            Folgen
           </button>
           <button class="flex-1 py-1.5 rounded-lg bg-zinc-800 text-xs font-semibold text-zinc-200 hover:bg-zinc-700 transition">
             Nachricht
@@ -240,7 +240,7 @@
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
-                  <span class="text-zinc-500">• 2g</span>
+                  <span class="text-zinc-500" id="timeHeader-post1">• 2 T.</span>
                 </div>
                 <div class="text-[10px] text-zinc-400" id="location-post1">Milano, Navigli</div>
               </div>
@@ -279,7 +279,7 @@
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
-                  <span class="text-zinc-500">• 4g</span>
+                  <span class="text-zinc-500" id="timeHeader-post2">• 4 T.</span>
                 </div>
                 <div class="text-[10px] text-zinc-400" id="location-post2">Torino, Architettura</div>
               </div>
@@ -316,7 +316,7 @@
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
-                  <span class="text-zinc-500">• 6g</span>
+                  <span class="text-zinc-500" id="timeHeader-post3">• 6 T.</span>
                 </div>
                 <div class="text-[10px] text-zinc-400" id="location-post3">Studio Acoustic Session</div>
               </div>
@@ -353,7 +353,7 @@
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
-                  <span class="text-zinc-500">• 1sett</span>
+                  <span class="text-zinc-500" id="timeHeader-post4">• 1 Wo.</span>
                 </div>
                 <div class="text-[10px] text-zinc-400" id="location-post4">Lago di Como</div>
               </div>
@@ -391,7 +391,7 @@
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
-                  <span class="text-zinc-500">• 1sett</span>
+                  <span class="text-zinc-500" id="timeHeader-post5">• 1 Wo.</span>
                 </div>
                 <div class="text-[10px] text-zinc-400" id="location-post5">Rome, Italy • Cinematic Collection</div>
               </div>
@@ -492,7 +492,7 @@
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
-                  <span class="text-zinc-500">• 2sett</span>
+                  <span class="text-zinc-500" id="timeHeader-post6">• 2 Wo.</span>
                 </div>
                 <div class="text-[10px] text-zinc-400" id="location-post6">Caffè Brera, Milano</div>
               </div>
@@ -529,7 +529,7 @@
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
-                  <span class="text-zinc-500">• 3sett</span>
+                  <span class="text-zinc-500" id="timeHeader-post7">• 3 Wo.</span>
                 </div>
                 <div class="text-[10px] text-zinc-400" id="location-post7">Analog Lab</div>
               </div>
@@ -896,15 +896,15 @@
       }, 50);
     }
 
-    // Toggle Follow
+    // Toggle Follow (German Instagram standard: Folgen -> Gefolgt)
     function toggleFollow() {
       isFollowing = !isFollowing;
       const btn = document.getElementById('followBtn');
       if (isFollowing) {
-        btn.innerText = 'Segui già';
+        btn.innerText = 'Gefolgt';
         btn.className = 'flex-1 py-1.5 rounded-lg bg-zinc-800 text-xs font-semibold text-zinc-200 hover:bg-zinc-700 transition';
       } else {
-        btn.innerText = 'Segui';
+        btn.innerText = 'Folgen';
         btn.className = 'flex-1 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition';
       }
     }
