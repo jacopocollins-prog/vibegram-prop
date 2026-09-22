@@ -1094,12 +1094,13 @@
           const headerTimeEl = document.getElementById('timeHeader-post' + i);
           const footerTimeEl = document.getElementById('timeFooter-post' + i);
           const captionEl = document.getElementById('caption-post' + i);
+          const countEl = document.getElementById('countLike-like' + i);
 
           postsData['post' + i] = {
-            location: locEl ? locEl.innerText : '',
-            headerTime: headerTimeEl ? headerTimeEl.innerText.replace(/^[\u2022\s]+/, '').replace(/^[•\s]+/, '') : '',
-            footerTime: footerTimeEl ? footerTimeEl.innerText : '',
-            caption: captionEl ? captionEl.innerText : '',
+            location: locEl ? locEl.innerText.trim() : '',
+            headerTime: headerTimeEl ? headerTimeEl.innerText.replace(/^[\u2022\s]+/, '').replace(/^[•\s]+/, '').trim() : '',
+            footerTime: footerTimeEl ? footerTimeEl.innerText.trim() : '',
+            caption: captionEl ? captionEl.innerText.trim() : '',
             likesCount: likesState['like' + i] ? likesState['like' + i].count : 0
           };
         }
@@ -1119,7 +1120,10 @@
           propData: propData
         };
 
-        localStorage.setItem('picshare_film_prop_state', JSON.stringify(statePayload));
+        const jsonStr = JSON.stringify(statePayload);
+        localStorage.setItem('picshare_film_prop_state', jsonStr);
+        sessionStorage.setItem('picshare_film_prop_state', jsonStr);
+        showSaveToast();
       } catch (e) {
         console.error('LocalStorage save error:', e);
       }
@@ -1127,7 +1131,7 @@
 
     function loadStorageState() {
       try {
-        const raw = localStorage.getItem('picshare_film_prop_state');
+        const raw = localStorage.getItem('picshare_film_prop_state') || sessionStorage.getItem('picshare_film_prop_state');
         if (!raw) return;
         const saved = JSON.parse(raw);
 
@@ -1172,11 +1176,13 @@
             const headerTimeEl = document.getElementById('timeHeader-post' + i);
             const footerTimeEl = document.getElementById('timeFooter-post' + i);
             const captionEl = document.getElementById('caption-post' + i);
+            const countEl = document.getElementById('countLike-like' + i);
 
             if (locEl && p.location !== undefined) locEl.innerText = p.location;
             if (headerTimeEl && p.headerTime !== undefined) headerTimeEl.innerText = p.headerTime ? '\u2022 ' + p.headerTime : '';
             if (footerTimeEl && p.footerTime !== undefined) footerTimeEl.innerText = p.footerTime;
-            if (captionEl && p.caption !== undefined) captionEl.innerText = p.caption;
+            if (captionEl && p.caption !== undefined) captionEl.innerText = ' ' + p.caption;
+            if (countEl && p.likesCount !== undefined) countEl.innerText = p.likesCount.toLocaleString('de-DE') + ' Sterne';
           }
         }
 
@@ -1211,15 +1217,31 @@
       }
     }
 
+    function showSaveToast() {
+      let toast = document.getElementById('saveToastPill');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'saveToastPill';
+        toast.className = 'fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-emerald-600/90 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-lg backdrop-blur-md opacity-0 transition-opacity duration-300 pointer-events-none';
+        toast.innerText = 'Saved ✓';
+        document.body.appendChild(toast);
+      }
+      toast.style.opacity = '1';
+      setTimeout(() => { toast.style.opacity = '0'; }, 1200);
+    }
+
     function resetStorageState() {
       if (confirm('Reset all changes back to initial scene defaults?')) {
         localStorage.removeItem('picshare_film_prop_state');
+        sessionStorage.removeItem('picshare_film_prop_state');
         window.location.reload();
       }
     }
 
-    // Automatically load saved state on launch
-    document.addEventListener('DOMContentLoaded', loadStorageState);
+    // Automatically load saved state on launch & page show
+    window.addEventListener('DOMContentLoaded', loadStorageState);
+    window.addEventListener('load', loadStorageState);
+    window.addEventListener('pageshow', loadStorageState);
     loadStorageState();
   </script>
 </body>
