@@ -724,7 +724,7 @@
     </nav>
 
     <!-- Comments Drawer Modal -->
-    <div id="commentsModal" class="absolute inset-0 bg-black/80 backdrop-blur-sm z-40 hidden flex flex-col justify-end transition-opacity duration-300">
+    <div id="commentsModal" style="display: none;" class="absolute inset-0 bg-black/80 backdrop-blur-sm z-40 flex flex-col justify-end transition-opacity duration-300">
       <div class="h-[75%] rounded-t-3xl border-t border-zinc-700 flex flex-col p-4" style="background-color: var(--bg-card); color: var(--text-main);">
         <div class="w-12 h-1 bg-zinc-600 rounded-full mx-auto mb-3 cursor-pointer" onclick="closeComments()"></div>
         <div class="flex justify-between items-center border-b border-zinc-800 pb-3 mb-3">
@@ -757,7 +757,7 @@
     </div>
 
     <!-- SINGLE POST EDITOR MODAL -->
-    <div id="singlePostEditorModal" class="absolute inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex flex-col p-5 overflow-y-auto text-xs text-white">
+    <div id="singlePostEditorModal" style="display: none;" class="absolute inset-0 bg-black/90 backdrop-blur-md z-50 flex flex-col p-5 overflow-y-auto text-xs text-white">
       <div class="flex justify-between items-center border-b border-zinc-700 pb-3 mb-4">
         <h2 class="text-sm font-bold text-amber-400 flex items-center gap-2">
           <span>&#9881;&#65039;</span> Edit Post Details <span id="editingPostNumBadge" class="text-zinc-400 font-normal text-xs">(Post #1)</span>
@@ -806,7 +806,7 @@
     </div>
 
     <!-- PROP CONFIGURATION / SCENOGRAPHY EDITOR MODAL -->
-    <div id="propEditorModal" class="absolute inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex flex-col p-5 overflow-y-auto text-xs text-white">
+    <div id="propEditorModal" style="display: none;" class="absolute inset-0 bg-black/90 backdrop-blur-md z-50 flex flex-col p-5 overflow-y-auto text-xs text-white">
       <div class="flex justify-between items-center border-b border-zinc-700 pb-3 mb-4">
         <h2 class="text-sm font-bold text-emerald-400">🎬 Scenography Panel V2 - Character & Prop Data</h2>
         <button onclick="togglePropEditor()" class="text-zinc-400 hover:text-white text-base">&#10005;</button>
@@ -1100,12 +1100,12 @@
       }
 
       const modal = document.getElementById('singlePostEditorModal');
-      if (modal) modal.classList.remove('hidden');
+      if (modal) modal.style.display = 'flex';
     }
 
     function closeSinglePostEditor() {
       const modal = document.getElementById('singlePostEditorModal');
-      if (modal) modal.classList.add('hidden');
+      if (modal) modal.style.display = 'none';
       currentEditingPostNum = null;
     }
 
@@ -1144,10 +1144,10 @@
     }
 
     function openComments(title) {
-      document.getElementById('commentsModal').classList.remove('hidden');
+      document.getElementById('commentsModal').style.display = 'flex';
     }
     function closeComments() {
-      document.getElementById('commentsModal').classList.add('hidden');
+      document.getElementById('commentsModal').style.display = 'none';
     }
 
     function toggleTheme() {
@@ -1157,7 +1157,7 @@
     }
 
     function togglePropEditor() {
-      document.getElementById('propEditorModal').classList.toggle('hidden');
+      const m = document.getElementById('propEditorModal'); if (m.style.display === 'flex') m.style.display = 'none'; else m.style.display = 'flex';
     }
 
     function savePropData() {
@@ -1202,7 +1202,7 @@
         // VFX Chroma & Tracking Mode Manager
     let currentVfxMode = 'normal'; // 'normal', 'green', 'blue', 'grey'
 
-    function setVfxMode(mode) {
+    function setVfxMode(mode, skipSave = false) {
       currentVfxMode = mode;
       document.body.classList.remove('vfx-mode-green', 'vfx-mode-blue', 'vfx-mode-grey');
       
@@ -1217,8 +1217,10 @@
       const selectEl = document.getElementById('vfxModeSelect');
       if (selectEl) selectEl.value = mode;
 
-      saveStorageState();
-      showVfxToast(mode);
+      if (!skipSave) {
+        saveStorageState();
+        showVfxToast(mode);
+      }
     }
 
     function cycleVfxMode() {
@@ -1309,8 +1311,8 @@
         };
 
         const jsonStr = JSON.stringify(statePayload);
-        localStorage.setItem('picshare_film_prop_v2_page_state', jsonStr);
-        sessionStorage.setItem('picshare_film_prop_v2_page_state', jsonStr);
+        localStorage.setItem('picshare_film_prop_v2_page_state_v4', jsonStr);
+        sessionStorage.setItem('picshare_film_prop_v2_page_state_v4', jsonStr);
         showSaveToast();
       } catch (e) {
         console.error('LocalStorage save error:', e);
@@ -1319,11 +1321,11 @@
 
     function loadStorageState() {
       try {
-        const raw = localStorage.getItem('picshare_film_prop_v2_page_state') || sessionStorage.getItem('picshare_film_prop_v2_page_state');
+        const raw = localStorage.getItem('picshare_film_prop_v2_page_state_v4') || sessionStorage.getItem('picshare_film_prop_v2_page_state_v4');
         if (!raw) return;
         const saved = JSON.parse(raw);
 
-        if (saved.vfxMode) { setVfxMode(saved.vfxMode); }
+        if (saved.vfxMode) { setVfxMode(saved.vfxMode, true); }
         // 1. Connect State
         if (typeof saved.isConnected === 'boolean') {
           isConnected = saved.isConnected;
@@ -1428,8 +1430,8 @@
 
     function resetStorageState() {
       if (confirm('Reset all changes back to initial scene defaults?')) {
-        localStorage.removeItem('picshare_film_prop_v2_page_state');
-        sessionStorage.removeItem('picshare_film_prop_v2_page_state');
+        localStorage.removeItem('picshare_film_prop_v2_page_state_v4');
+        sessionStorage.removeItem('picshare_film_prop_v2_page_state_v4');
         window.location.reload();
       }
     }
