@@ -1347,8 +1347,8 @@
         };
 
         const jsonStr = JSON.stringify(statePayload);
-        localStorage.setItem('picshare_film_prop_v2_page_state_v999', jsonStr);
-        sessionStorage.setItem('picshare_film_prop_v2_page_state_v999', jsonStr);
+        localStorage.setItem('picshare_film_prop_v2_page_state_v1000000', jsonStr);
+        sessionStorage.setItem('picshare_film_prop_v2_page_state_v1000000', jsonStr);
         showSaveToast();
       } catch (e) {
         console.error('LocalStorage save error:', e);
@@ -1357,7 +1357,10 @@
 
     function loadStorageState() {
       try {
-        const raw = localStorage.getItem('picshare_film_prop_v2_page_state_v999') || sessionStorage.getItem('picshare_film_prop_v2_page_state_v999');
+        localStorage.removeItem('picshare_film_prop_v2_page_state_v999');
+        localStorage.removeItem('picshare_film_prop_v2_page_state_v9999');
+        localStorage.removeItem('picshare_film_prop_v2_page_state_v999999');
+        const raw = localStorage.getItem('picshare_film_prop_v2_page_state_v1000000') || sessionStorage.getItem('picshare_film_prop_v2_page_state_v1000000');
         if (!raw) return;
         const saved = JSON.parse(raw);
 
@@ -1434,11 +1437,11 @@
               if (carouselTrack) {
                 carouselTrack.innerHTML = urlsArr.map(url => `
                   <div class="carousel-slide relative">
-<div class="vfx-marker absolute top-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-10 left-6 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-10 right-6 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-8 h-8 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg></div>
+                    <div class="vfx-marker absolute top-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="#000000"/></svg></div>
+                    <div class="vfx-marker absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="#000000"/></svg></div>
+                    <div class="vfx-marker absolute inset-0 m-auto z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-8 h-8 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="3"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="4" fill="#000000"/></svg></div>
+                    <div class="vfx-marker absolute bottom-4 left-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="#000000"/></svg></div>
+                    <div class="vfx-marker absolute bottom-4 right-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="#000000"/></svg></div>
                     <img src="${url}" class="w-full h-full object-cover pointer-events-none">
                   </div>
                 `).join('');
