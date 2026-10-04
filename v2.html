@@ -133,7 +133,7 @@
       }
     }
   
-    /* VFX Screen Replacement & Chroma Key Styles (100% Solid Color, No Opacity Ghosting) */
+    /* VFX Screen Replacement & Chroma Key Styles (100% Pure Flat Solid Color, Zero Elements/Lines/Icons) */
     .vfx-mode-green {
       --vfx-bg: #00ff00 !important;
     }
@@ -152,24 +152,32 @@
     body[class*="vfx-mode-"] article,
     body[class*="vfx-mode-"] #feedContainer,
     body[class*="vfx-mode-"] #gridContainer,
-    body[class*="vfx-mode-"] .carousel-slide {
+    body[class*="vfx-mode-"] .carousel-slide,
+    body[class*="vfx-mode-"] div {
       background-color: var(--vfx-bg) !important;
+      background: var(--vfx-bg) !important;
       border-color: var(--vfx-bg) !important;
+      border: none !important;
       box-shadow: none !important;
+      outline: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
     }
 
-    /* Completely hide all UI elements, text, images, ghosts in VFX mode */
+    /* Make EVERY inner graphic, text, svg icon, image 100% invisible */
     body[class*="vfx-mode-"] #phoneFrame *:not(.vfx-marker):not(.vfx-marker *) {
       color: transparent !important;
-      background-color: transparent !important;
+      fill: transparent !important;
+      stroke: transparent !important;
       border-color: transparent !important;
+      border: none !important;
       box-shadow: none !important;
       opacity: 0 !important;
     }
 
     /* Keep Tracking Markers 100% OPAQUE & VISIBLE */
     .vfx-marker {
-      display: none;
+      display: none !important;
     }
 
     body[class*="vfx-mode-"] .vfx-marker {
@@ -183,6 +191,8 @@
       opacity: 1 !important;
       visibility: visible !important;
       color: #000000 !important;
+      stroke: #000000 !important;
+      fill: #000000 !important;
     }
   </style>
 </head>
@@ -239,9 +249,7 @@
       <section class="p-4 border-b border-zinc-800/40 relative vfx-section-header" style="border-color: var(--border-color);">
 <div class="vfx-marker absolute top-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-        
+<div class="vfx-marker absolute bottom-3 left-1/2 -translate-x-1/2 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
         <!-- Centered Profile Layout: Left Kontakte | Center Avatar | Right Beitrage -->
         <div class="flex items-center justify-around text-center my-1 vfx-hide-on-active">
           
@@ -254,7 +262,7 @@
           <!-- Centered Large Avatar -->
           <div class="relative group cursor-pointer flex-shrink-0">
             <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1 bg-gradient-to-tr from-emerald-500 via-teal-500 to-cyan-600 shadow-xl">
-              <img id="profileAvatar" src="images/post6.jpg?v=800" alt="Avatar" class="w-full h-full rounded-full object-cover border-2 border-black" style="border-color: var(--bg-app);">
+              <img id="profileAvatar" src="images/post6.jpg?v=900" alt="Avatar" class="w-full h-full rounded-full object-cover border-2 border-black" style="border-color: var(--bg-app);">
             </div>
           </div>
 
@@ -301,28 +309,28 @@
       <!-- PROFILE 3-COLUMN GRID VIEW -->
       <div id="gridContainer" class="grid grid-cols-3 gap-1 p-1 bg-black hidden">
         <div class="relative aspect-square cursor-pointer overflow-hidden rounded-lg group" onclick="scrollToPost('post-1')">
-          <img src="images/post1.jpg?v=800" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+          <img src="images/post1.jpg?v=900" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
         </div>
         <div class="relative aspect-square cursor-pointer overflow-hidden rounded-lg group" onclick="scrollToPost('post-2')">
-          <img src="images/post2.jpg?v=800" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+          <img src="images/post2.jpg?v=900" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
         </div>
         <div class="relative aspect-square cursor-pointer overflow-hidden rounded-lg group" onclick="scrollToPost('post-3')">
-          <img src="images/post3.jpg?v=800" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+          <img src="images/post3.jpg?v=900" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
         </div>
         <div class="relative aspect-square cursor-pointer overflow-hidden rounded-lg group" onclick="scrollToPost('post-4')">
-          <img src="images/post4.jpg?v=800" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+          <img src="images/post4.jpg?v=900" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
         </div>
         <div class="relative aspect-square cursor-pointer overflow-hidden rounded-lg group" onclick="scrollToPost('post-5')">
-          <img src="images/carousel_1.jpg?v=800" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+          <img src="images/carousel_1.jpg?v=900" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
           <div class="absolute top-1.5 right-1.5 bg-black/60 backdrop-blur-xs p-1 rounded-sm text-white">
             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
           </div>
         </div>
         <div class="relative aspect-square cursor-pointer overflow-hidden rounded-lg group" onclick="scrollToPost('post-6')">
-          <img src="images/post6.jpg?v=800" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+          <img src="images/post6.jpg?v=900" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
         </div>
         <div class="relative aspect-square cursor-pointer overflow-hidden rounded-lg group" onclick="scrollToPost('post-7')">
-          <img src="images/post7.jpg?v=800" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+          <img src="images/post7.jpg?v=900" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
         </div>
       </div>
 
@@ -333,7 +341,7 @@
         <article id="post-1" class="rounded-3xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden shadow-lg transition relative">
           <div class="flex items-center justify-between px-4 py-3">
             <div class="flex items-center gap-2.5">
-              <img src="images/post6.jpg?v=800" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg?v=900" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -349,7 +357,7 @@
 <div class="vfx-marker hidden absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute bottom-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute bottom-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-            <img src="images/post1.jpg?v=800" class="w-full h-full object-cover" alt="Post 1">
+            <img src="images/post1.jpg?v=900" class="w-full h-full object-cover" alt="Post 1">
             <svg id="popStar-like1" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           
@@ -378,7 +386,7 @@
         <article id="post-2" class="rounded-3xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden shadow-lg transition relative">
           <div class="flex items-center justify-between px-4 py-3">
             <div class="flex items-center gap-2.5">
-              <img src="images/post6.jpg?v=800" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg?v=900" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -394,7 +402,7 @@
 <div class="vfx-marker hidden absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute bottom-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute bottom-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-            <img src="images/post2.jpg?v=800" class="w-full h-full object-cover" alt="Post 2">
+            <img src="images/post2.jpg?v=900" class="w-full h-full object-cover" alt="Post 2">
             <svg id="popStar-like2" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           
@@ -422,7 +430,7 @@
         <article id="post-3" class="rounded-3xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden shadow-lg transition relative">
           <div class="flex items-center justify-between px-4 py-3">
             <div class="flex items-center gap-2.5">
-              <img src="images/post6.jpg?v=800" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg?v=900" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -438,7 +446,7 @@
 <div class="vfx-marker hidden absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute bottom-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute bottom-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-            <img src="images/post3.jpg?v=800" class="w-full h-full object-cover" alt="Post 3">
+            <img src="images/post3.jpg?v=900" class="w-full h-full object-cover" alt="Post 3">
             <svg id="popStar-like3" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           
@@ -466,7 +474,7 @@
         <article id="post-4" class="rounded-3xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden shadow-lg transition relative">
           <div class="flex items-center justify-between px-4 py-3">
             <div class="flex items-center gap-2.5">
-              <img src="images/post6.jpg?v=800" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg?v=900" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -482,7 +490,7 @@
 <div class="vfx-marker hidden absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute bottom-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute bottom-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-            <img src="images/post4.jpg?v=800" class="w-full h-full object-cover" alt="Post 4">
+            <img src="images/post4.jpg?v=900" class="w-full h-full object-cover" alt="Post 4">
             <svg id="popStar-like4" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           
@@ -510,7 +518,7 @@
         <article id="post-5" class="rounded-3xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden shadow-lg transition relative">
           <div class="flex items-center justify-between px-4 py-3">
             <div class="flex items-center gap-2.5">
-              <img src="images/post6.jpg?v=800" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg?v=900" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -546,7 +554,7 @@
 <div class="vfx-marker hidden absolute bottom-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute bottom-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none items-center justify-center"><svg class="w-8 h-8 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg></div>
-                <img src="images/carousel_1.jpg?v=800" class="w-full h-full object-cover pointer-events-none" alt="Photo 1">
+                <img src="images/carousel_1.jpg?v=900" class="w-full h-full object-cover pointer-events-none" alt="Photo 1">
               </div>
               <div class="carousel-slide relative">
 <div class="vfx-marker hidden absolute top-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
@@ -554,7 +562,7 @@
 <div class="vfx-marker hidden absolute bottom-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute bottom-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none items-center justify-center"><svg class="w-8 h-8 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg></div>
-                <img src="images/carousel_2.jpg?v=800" class="w-full h-full object-cover pointer-events-none" alt="Photo 2">
+                <img src="images/carousel_2.jpg?v=900" class="w-full h-full object-cover pointer-events-none" alt="Photo 2">
               </div>
               <div class="carousel-slide relative">
 <div class="vfx-marker hidden absolute top-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
@@ -562,7 +570,7 @@
 <div class="vfx-marker hidden absolute bottom-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute bottom-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none items-center justify-center"><svg class="w-8 h-8 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg></div>
-                <img src="images/carousel_3.jpg?v=800" class="w-full h-full object-cover pointer-events-none" alt="Photo 3">
+                <img src="images/carousel_3.jpg?v=900" class="w-full h-full object-cover pointer-events-none" alt="Photo 3">
               </div>
               <div class="carousel-slide relative">
 <div class="vfx-marker hidden absolute top-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
@@ -570,7 +578,7 @@
 <div class="vfx-marker hidden absolute bottom-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute bottom-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none items-center justify-center"><svg class="w-8 h-8 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg></div>
-                <img src="images/carousel_4.jpg?v=800" class="w-full h-full object-cover pointer-events-none" alt="Photo 4">
+                <img src="images/carousel_4.jpg?v=900" class="w-full h-full object-cover pointer-events-none" alt="Photo 4">
               </div>
               <div class="carousel-slide relative">
 <div class="vfx-marker hidden absolute top-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
@@ -578,7 +586,7 @@
 <div class="vfx-marker hidden absolute bottom-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute bottom-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none items-center justify-center"><svg class="w-8 h-8 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg></div>
-                <img src="images/carousel_5.jpg?v=800" class="w-full h-full object-cover pointer-events-none" alt="Photo 5">
+                <img src="images/carousel_5.jpg?v=900" class="w-full h-full object-cover pointer-events-none" alt="Photo 5">
               </div>
             </div>
 
@@ -622,7 +630,7 @@
         <article id="post-6" class="rounded-3xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden shadow-lg transition relative">
           <div class="flex items-center justify-between px-4 py-3">
             <div class="flex items-center gap-2.5">
-              <img src="images/post6.jpg?v=800" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg?v=900" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -638,7 +646,7 @@
 <div class="vfx-marker hidden absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute bottom-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute bottom-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-            <img src="images/post6.jpg?v=800" class="w-full h-full object-cover" alt="Post 6">
+            <img src="images/post6.jpg?v=900" class="w-full h-full object-cover" alt="Post 6">
             <svg id="popStar-like6" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           
@@ -666,7 +674,7 @@
         <article id="post-7" class="rounded-3xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden shadow-lg transition relative">
           <div class="flex items-center justify-between px-4 py-3">
             <div class="flex items-center gap-2.5">
-              <img src="images/post6.jpg?v=800" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg?v=900" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -682,7 +690,7 @@
 <div class="vfx-marker hidden absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute bottom-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
 <div class="vfx-marker hidden absolute bottom-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-            <img src="images/post7.jpg?v=800" class="w-full h-full object-cover" alt="Post 7">
+            <img src="images/post7.jpg?v=900" class="w-full h-full object-cover" alt="Post 7">
             <svg id="popStar-like7" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           
@@ -734,7 +742,7 @@
         <svg class="w-6 h-6 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
       </button>
       <button class="p-1 rounded-full border-2 border-white">
-        <img id="bottomNavAvatar" src="images/post6.jpg?v=800" class="w-5 h-5 rounded-full object-cover">
+        <img id="bottomNavAvatar" src="images/post6.jpg?v=900" class="w-5 h-5 rounded-full object-cover">
       </button>
     </nav>
 
@@ -860,7 +868,7 @@
         </div>
         <div>
           <label class="block font-semibold mb-1">Avatar URL / Profile Picture:</label>
-          <input id="editAvatarUrl" type="text" value="images/post6.jpg?v=800" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
+          <input id="editAvatarUrl" type="text" value="images/post6.jpg?v=900" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
         </div>
         
         <div class="grid grid-cols-2 gap-2">
@@ -876,7 +884,7 @@
 
         <div>
           <label class="block font-semibold mb-1">Carousel Post 5 Images (Comma separated URLs):</label>
-          <textarea id="editCarouselUrls" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white h-20">images/carousel_1.jpg?v=800, images/carousel_2.jpg?v=800, images/carousel_3.jpg?v=800, images/carousel_4.jpg?v=800, images/carousel_5.jpg?v=800</textarea>
+          <textarea id="editCarouselUrls" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white h-20">images/carousel_1.jpg?v=900, images/carousel_2.jpg?v=900, images/carousel_3.jpg?v=900, images/carousel_4.jpg?v=900, images/carousel_5.jpg?v=900</textarea>
         </div>
 
         <div class="flex gap-2 mt-4">
@@ -1326,8 +1334,8 @@
         };
 
         const jsonStr = JSON.stringify(statePayload);
-        localStorage.setItem('picshare_film_prop_v2_page_state_v6', jsonStr);
-        sessionStorage.setItem('picshare_film_prop_v2_page_state_v6', jsonStr);
+        localStorage.setItem('picshare_film_prop_v2_page_state_v7', jsonStr);
+        sessionStorage.setItem('picshare_film_prop_v2_page_state_v7', jsonStr);
         showSaveToast();
       } catch (e) {
         console.error('LocalStorage save error:', e);
@@ -1336,7 +1344,7 @@
 
     function loadStorageState() {
       try {
-        const raw = localStorage.getItem('picshare_film_prop_v2_page_state_v6') || sessionStorage.getItem('picshare_film_prop_v2_page_state_v6');
+        const raw = localStorage.getItem('picshare_film_prop_v2_page_state_v7') || sessionStorage.getItem('picshare_film_prop_v2_page_state_v7');
         if (!raw) return;
         const saved = JSON.parse(raw);
 
@@ -1445,8 +1453,8 @@
 
     function resetStorageState() {
       if (confirm('Reset all changes back to initial scene defaults?')) {
-        localStorage.removeItem('picshare_film_prop_v2_page_state_v6');
-        sessionStorage.removeItem('picshare_film_prop_v2_page_state_v6');
+        localStorage.removeItem('picshare_film_prop_v2_page_state_v7');
+        sessionStorage.removeItem('picshare_film_prop_v2_page_state_v7');
         window.location.reload();
       }
     }
