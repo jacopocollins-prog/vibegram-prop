@@ -133,7 +133,7 @@
       }
     }
   
-    /* VFX Screen Replacement & Chroma Key Styles (100% Solid Color, Zero Text, Ultra-Visible Markers) */
+    /* VFX Screen Replacement & Chroma Key Styles (Scoped strictly to #phoneFrame) */
     .vfx-mode-green {
       --vfx-bg: #00ff00 !important;
     }
@@ -144,27 +144,31 @@
       --vfx-bg: #808080 !important;
     }
 
-    /* Container Background Fills & Border Removal */
-    body[class*="vfx-mode-"],
+    /* Keep PC Desktop Body Background Dark Black (#050505) */
+    body[class*="vfx-mode-"] {
+      background-color: #050505 !important;
+    }
+
+    /* Container Background Fills & Border Removal (Strictly inside #phoneFrame) */
     body[class*="vfx-mode-"] #phoneFrame,
-    body[class*="vfx-mode-"] header,
-    body[class*="vfx-mode-"] nav,
-    body[class*="vfx-mode-"] main,
-    body[class*="vfx-mode-"] section,
-    body[class*="vfx-mode-"] article,
-    body[class*="vfx-mode-"] #feedContainer,
-    body[class*="vfx-mode-"] #gridContainer,
-    body[class*="vfx-mode-"] .carousel-slide,
-    body[class*="vfx-mode-"] div,
-    body[class*="vfx-mode-"] span,
-    body[class*="vfx-mode-"] p,
-    body[class*="vfx-mode-"] h1,
-    body[class*="vfx-mode-"] h2,
-    body[class*="vfx-mode-"] h3,
-    body[class*="vfx-mode-"] a,
-    body[class*="vfx-mode-"] input,
-    body[class*="vfx-mode-"] textarea,
-    body[class*="vfx-mode-"] button {
+    body[class*="vfx-mode-"] #phoneFrame header,
+    body[class*="vfx-mode-"] #phoneFrame nav,
+    body[class*="vfx-mode-"] #phoneFrame main,
+    body[class*="vfx-mode-"] #phoneFrame section,
+    body[class*="vfx-mode-"] #phoneFrame article,
+    body[class*="vfx-mode-"] #phoneFrame #feedContainer,
+    body[class*="vfx-mode-"] #phoneFrame #gridContainer,
+    body[class*="vfx-mode-"] #phoneFrame .carousel-slide,
+    body[class*="vfx-mode-"] #phoneFrame div:not(.vfx-marker),
+    body[class*="vfx-mode-"] #phoneFrame span:not(.vfx-marker *),
+    body[class*="vfx-mode-"] #phoneFrame p,
+    body[class*="vfx-mode-"] #phoneFrame h1,
+    body[class*="vfx-mode-"] #phoneFrame h2,
+    body[class*="vfx-mode-"] #phoneFrame h3,
+    body[class*="vfx-mode-"] #phoneFrame a,
+    body[class*="vfx-mode-"] #phoneFrame input,
+    body[class*="vfx-mode-"] #phoneFrame textarea,
+    body[class*="vfx-mode-"] #phoneFrame button {
       background-color: var(--vfx-bg) !important;
       background: var(--vfx-bg) !important;
       border-color: var(--vfx-bg) !important;
@@ -173,36 +177,43 @@
       outline: none !important;
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
+      opacity: 1 !important;
+      visibility: visible !important;
     }
 
-    /* ABSOLUTELY HIDE ALL TEXT, NUMBERS, STATS, LOCATIONS, DATES, BUTTONS */
-    body[class*="vfx-mode-"] #phoneFrame *:not(.vfx-marker):not(.vfx-marker *):not(.vfx-marker-svg):not(.vfx-marker-svg *) {
+    /* ABSOLUTELY HIDE ALL TEXT, NUMBERS, STATS, LOCATIONS, DATES */
+    body[class*="vfx-mode-"] #phoneFrame div:not(.vfx-marker),
+    body[class*="vfx-mode-"] #phoneFrame span:not(.vfx-marker *),
+    body[class*="vfx-mode-"] #phoneFrame p,
+    body[class*="vfx-mode-"] #phoneFrame h1,
+    body[class*="vfx-mode-"] #phoneFrame h2,
+    body[class*="vfx-mode-"] #phoneFrame h3,
+    body[class*="vfx-mode-"] #phoneFrame a,
+    body[class*="vfx-mode-"] #phoneFrame input,
+    body[class*="vfx-mode-"] #phoneFrame textarea,
+    body[class*="vfx-mode-"] #phoneFrame button {
       color: transparent !important;
       -webkit-text-fill-color: transparent !important;
       fill: transparent !important;
       stroke: transparent !important;
       border-color: transparent !important;
-      border: none !important;
-      box-shadow: none !important;
       text-shadow: none !important;
-      opacity: 0 !important;
     }
 
     /* HIDE ALL IMAGES & NON-MARKER SVGS */
-    body[class*="vfx-mode-"] img,
-    body[class*="vfx-mode-"] svg:not(.vfx-marker-svg) {
+    body[class*="vfx-mode-"] #phoneFrame img,
+    body[class*="vfx-mode-"] #phoneFrame svg:not(.vfx-marker-svg) {
       display: none !important;
-      opacity: 0 !important;
       visibility: hidden !important;
     }
 
-    /* TRACKING MARKERS: 100% OPAQUE & VISIBLE AT Z-INDEX 9999 */
+    /* TRACKING MARKERS: 100% OPAQUE BLACK CROSSES AT Z-INDEX 9999 */
     .vfx-marker {
       display: none !important;
     }
 
-    body[class*="vfx-mode-"] .vfx-marker,
-    body[class*="vfx-mode-"] div.vfx-marker {
+    body[class*="vfx-mode-"] #phoneFrame .vfx-marker,
+    body[class*="vfx-mode-"] #phoneFrame div.vfx-marker {
       display: flex !important;
       opacity: 1 !important;
       visibility: visible !important;
@@ -210,15 +221,15 @@
       pointer-events: none !important;
     }
 
-    body[class*="vfx-mode-"] .vfx-marker-svg,
-    body[class*="vfx-mode-"] svg.vfx-marker-svg {
+    body[class*="vfx-mode-"] #phoneFrame .vfx-marker-svg,
+    body[class*="vfx-mode-"] #phoneFrame svg.vfx-marker-svg {
       display: block !important;
       opacity: 1 !important;
       visibility: visible !important;
       z-index: 9999 !important;
     }
 
-    body[class*="vfx-mode-"] .vfx-marker-svg * {
+    body[class*="vfx-mode-"] #phoneFrame .vfx-marker-svg * {
       display: block !important;
       opacity: 1 !important;
       visibility: visible !important;
