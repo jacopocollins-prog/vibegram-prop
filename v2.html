@@ -1199,7 +1199,7 @@
 
     // PERSISTENCE ENGINE FOR V2 PAGE
     
-    // VFX Chroma & Tracking Mode Manager
+        // VFX Chroma & Tracking Mode Manager
     let currentVfxMode = 'normal'; // 'normal', 'green', 'blue', 'grey'
 
     function setVfxMode(mode) {
@@ -1228,14 +1228,6 @@
     }
 
     function showVfxToast(mode) {
-      let toast = document.getElementById('vfxToastPill');
-      if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'vfxToastPill';
-        toast.className = 'fixed top-14 left-1/2 -translate-x-1/2 z-50 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-2xl backdrop-blur-md opacity-0 transition-opacity duration-300 pointer-events-none border border-white/20';
-        document.body.appendChild(toast);
-      }
-      
       const labels = {
         normal: 'UI Mode: Normal Instagram',
         green: 'VFX Mode: Green Screen ðŸŸ¢',
@@ -1249,10 +1241,17 @@
         grey: 'bg-zinc-600'
       };
 
-      toast.className = ixed top-14 left-1/2 -translate-x-1/2 z-50 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-2xl backdrop-blur-md opacity-100 transition-opacity duration-300 pointer-events-none border border-white/20 ;
+      let toast = document.getElementById('vfxToastPill');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'vfxToastPill';
+        document.body.appendChild(toast);
+      }
+      
+            toast.className = "fixed top-14 left-1/2 -translate-x-1/2 z-50 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-2xl backdrop-blur-md opacity-100 transition-opacity duration-300 pointer-events-none border border-white/20 " + (bgColors[mode] || "bg-zinc-800");
       toast.innerText = labels[mode] || mode;
 
-      setTimeout(() => { toast.style.opacity = '0'; }, 1500);
+      setTimeout(() => { if (toast) toast.style.opacity = '0'; }, 1500);
     }
 
     // Keyboard Shortcuts for Film Set Crew
@@ -1419,7 +1418,7 @@
       if (!toast) {
         toast = document.createElement('div');
         toast.id = 'saveToastPill';
-        toast.className = 'fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-emerald-600/90 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-lg backdrop-blur-md opacity-0 transition-opacity duration-300 pointer-events-none';
+            toast.className = "fixed top-14 left-1/2 -translate-x-1/2 z-50 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-2xl backdrop-blur-md opacity-100 transition-opacity duration-300 pointer-events-none border border-white/20 " + (bgColors[mode] || "bg-zinc-800");
         toast.innerText = 'Saved ✓';
         document.body.appendChild(toast);
       }
