@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="de" class="h-full">
+<html lang="it" class="h-full">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>PicShare V2 - Scenografia Film</title>
+  <title>PicShare - Scenografia Film</title>
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -12,7 +12,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="PicShare V2">
+  <meta name="apple-mobile-web-app-title" content="PicShare">
   <link rel="manifest" href="manifest.json">
 
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
@@ -81,7 +81,6 @@
 
     .light-theme article {
       background-color: #ffffff !important;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
     }
 
     .light-theme #feedTabBtn {
@@ -132,108 +131,6 @@
         border: none !important;
       }
     }
-  
-    /* VFX Screen Replacement & Chroma Key Styles (100% Solid Color, Zero Text, Ultra-Visible Markers) */
-    .vfx-mode-green {
-      --vfx-bg: #00ff00 !important;
-    }
-    .vfx-mode-blue {
-      --vfx-bg: #0047bb !important;
-    }
-    .vfx-mode-grey {
-      --vfx-bg: #808080 !important;
-    }
-
-    /* Container Background Fills & Border Removal */
-    body[class*="vfx-mode-"],
-    body[class*="vfx-mode-"] #phoneFrame,
-    body[class*="vfx-mode-"] header,
-    body[class*="vfx-mode-"] nav,
-    body[class*="vfx-mode-"] main,
-    body[class*="vfx-mode-"] section,
-    body[class*="vfx-mode-"] article,
-    body[class*="vfx-mode-"] #feedContainer,
-    body[class*="vfx-mode-"] #gridContainer,
-    body[class*="vfx-mode-"] .carousel-slide,
-    body[class*="vfx-mode-"] div,
-    body[class*="vfx-mode-"] span,
-    body[class*="vfx-mode-"] p,
-    body[class*="vfx-mode-"] h1,
-    body[class*="vfx-mode-"] h2,
-    body[class*="vfx-mode-"] h3,
-    body[class*="vfx-mode-"] a,
-    body[class*="vfx-mode-"] input,
-    body[class*="vfx-mode-"] textarea,
-    body[class*="vfx-mode-"] button {
-      background-color: var(--vfx-bg) !important;
-      background: var(--vfx-bg) !important;
-      border-color: var(--vfx-bg) !important;
-      border: none !important;
-      box-shadow: none !important;
-      outline: none !important;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-    }
-
-    /* ABSOLUTELY HIDE ALL TEXT, NUMBERS, STATS, LOCATIONS, DATES, BUTTONS */
-    body[class*="vfx-mode-"] #phoneFrame *:not(.vfx-marker):not(.vfx-marker *):not(.vfx-marker-svg):not(.vfx-marker-svg *) {
-      color: transparent !important;
-      -webkit-text-fill-color: transparent !important;
-      fill: transparent !important;
-      stroke: transparent !important;
-      border-color: transparent !important;
-      border: none !important;
-      box-shadow: none !important;
-      text-shadow: none !important;
-      opacity: 0 !important;
-    }
-
-    /* HIDE ALL IMAGES & NON-MARKER SVGS */
-    body[class*="vfx-mode-"] img,
-    body[class*="vfx-mode-"] svg:not(.vfx-marker-svg) {
-      display: none !important;
-      opacity: 0 !important;
-      visibility: hidden !important;
-    }
-
-    /* TRACKING MARKERS: 100% OPAQUE & VISIBLE AT Z-INDEX 9999 */
-    .vfx-marker {
-      display: none !important;
-    }
-
-    body[class*="vfx-mode-"] .vfx-marker,
-    body[class*="vfx-mode-"] div.vfx-marker {
-      display: flex !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-      z-index: 9999 !important;
-      pointer-events: none !important;
-    }
-
-    body[class*="vfx-mode-"] .vfx-marker-svg,
-    body[class*="vfx-mode-"] svg.vfx-marker-svg {
-      display: block !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-      z-index: 9999 !important;
-    }
-
-    body[class*="vfx-mode-"] .vfx-marker-svg * {
-      display: block !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-      color: #000000 !important;
-      stroke: #000000 !important;
-      fill: #000000 !important;
-      z-index: 9999 !important;
-    }
-
-    body[class*="vfx-mode-"] #vfxToastPill,
-    body[class*="vfx-mode-"] #saveToastPill {
-      display: none !important;
-      opacity: 0 !important;
-      visibility: hidden !important;
-    }
   </style>
 </head>
 <body class="h-full flex justify-center items-center overflow-hidden bg-zinc-950">
@@ -256,7 +153,7 @@
       </div>
     </div>
 
-    <!-- App Header (PicShare V2 - Brand Clearance Safe) -->
+    <!-- App Header (PicShare - Brand Clearance Safe) -->
     <header class="sticky top-0 z-20 flex justify-between items-center px-4 py-3 border-b border-zinc-800/60 backdrop-blur-md bg-opacity-90" style="background-color: var(--bg-app); border-color: var(--border-color);">
       <div class="flex items-center gap-3">
         <button id="backBtn" class="p-1 text-zinc-400 hover:text-white transition">
@@ -285,39 +182,37 @@
     <!-- Scrollable Profile Content & Post Feed -->
     <main class="flex-1 overflow-y-auto no-scrollbar pb-16">
       
-      <!-- VERSION 2 PROFILE HEADER (CENTERED LARGE AVATAR + KONTAKTE LEFT + BEITRÄGE RIGHT) -->
-      <section class="p-4 border-b border-zinc-800/40 relative vfx-section-header" style="border-color: var(--border-color);">
-<div class="vfx-marker absolute top-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22" stroke="#000000"/><line x1="2" y1="12" x2="22" y2="12" stroke="#000000"/><circle cx="12" cy="12" r="3" fill="#000000" stroke="#000000"/></svg></div>
-<div class="vfx-marker absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22" stroke="#000000"/><line x1="2" y1="12" x2="22" y2="12" stroke="#000000"/><circle cx="12" cy="12" r="3" fill="#000000" stroke="#000000"/></svg></div>
-        <!-- Centered Profile Layout: Left Kontakte | Center Avatar | Right Beitrage -->
-        <div class="flex items-center justify-around text-center my-1 vfx-hide-on-active">
-          
-          <!-- Left Stat: Kontakte (Connessioni) -->
-          <div class="w-1/3 flex flex-col items-center">
-            <div id="statContacts" class="font-bold text-lg text-white">5.432</div>
-            <div class="text-xs text-zinc-400 font-medium tracking-wide">Kontakte</div>
-          </div>
-
-          <!-- Centered Large Avatar -->
-          <div class="relative group cursor-pointer flex-shrink-0 flex items-center justify-center">
-            <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1 bg-gradient-to-tr from-emerald-500 via-teal-500 to-cyan-600 shadow-xl relative flex items-center justify-center">
-              <img id="profileAvatar" src="images/post6.jpg?v=999999" alt="Avatar" class="w-full h-full rounded-full object-cover border-2 border-black" style="border-color: var(--bg-app);">
-              <div class="vfx-marker absolute inset-0 m-auto z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22" stroke="#000000"/><line x1="2" y1="12" x2="22" y2="12" stroke="#000000"/><circle cx="12" cy="12" r="3" fill="#000000" stroke="#000000"/></svg></div>
+      <!-- Profile Header Summary -->
+      <section class="p-4 border-b border-zinc-800/40" style="border-color: var(--border-color);">
+        <div class="flex items-center justify-between gap-4">
+          <!-- Profile Avatar with Story Highlight Ring -->
+          <div class="relative group cursor-pointer">
+            <div class="w-20 h-20 rounded-full p-0.5 bg-gradient-to-tr from-emerald-500 via-teal-500 to-cyan-600">
+              <img id="profileAvatar" src="images/post6.jpg?v=500" alt="Avatar" class="w-full h-full rounded-full object-cover border-2 border-black" style="border-color: var(--bg-app);">
             </div>
           </div>
 
-          <!-- Right Stat: Beiträge (Posts) -->
-          <div class="w-1/3 flex flex-col items-center">
-            <div id="statPosts" class="font-bold text-lg text-white">7</div>
-            <div class="text-xs text-zinc-400 font-medium tracking-wide">Beitr&auml;ge</div>
+          <!-- Stats Counters -->
+          <div class="flex-1 flex justify-around text-center">
+            <div>
+              <div id="statPosts" class="font-bold text-base">7</div>
+              <div class="text-xs text-zinc-400">Beitr&auml;ge</div>
+            </div>
+            <div>
+              <div id="statFollowers" class="font-bold text-base">5.432</div>
+              <div class="text-xs text-zinc-400">Follower</div>
+            </div>
+            <div>
+              <div id="statFollowing" class="font-bold text-base">3.874</div>
+              <div class="text-xs text-zinc-400">Gefolgt</div>
+            </div>
           </div>
-
         </div>
 
-        <!-- Bio & Name (Centered Alignment for V2 Design) -->
-        <div class="mt-4 text-center vfx-hide-on-active">
-          <h1 id="profileDisplayName" class="font-bold text-base">Alex Vance</h1>
-          <p id="profileBio" class="text-xs leading-relaxed mt-1 opacity-90 max-w-xs mx-auto">
+        <!-- Bio & Name (Fictional Character Clearance Safe) -->
+        <div class="mt-3">
+          <h1 id="profileDisplayName" class="font-bold text-sm">Alex Vance</h1>
+          <p id="profileBio" class="text-xs leading-relaxed mt-1 opacity-90">
             Cinematography & Landscape Photography 📷<br>
             Exploring light, shadow & visual stories 🎬<br>
             📍 Milan / Rome
@@ -325,63 +220,67 @@
           <a id="profileLink" href="#" onclick="return false;" class="text-xs text-emerald-400 font-semibold block mt-1 hover:underline">picshare.net/alex_vance</a>
         </div>
 
-        <!-- V2 Action Buttons: Verbinden (Connetti) & Nachricht (Messaggia) -->
-        <div class="flex gap-2.5 mt-4 vfx-hide-on-active">
-          <button id="connectBtn" onclick="toggleConnect()" class="flex-1 py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition shadow-md">
-            Verbinden
+        <!-- Follow & Action Buttons -->
+        <div class="flex gap-2 mt-4">
+          <button id="followBtn" onclick="toggleFollow()" class="flex-1 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition">
+            Folgen
           </button>
-          <button class="flex-1 py-2 rounded-xl bg-zinc-800 text-xs font-semibold text-zinc-200 hover:bg-zinc-700 transition border border-zinc-700/50">
+          <button class="flex-1 py-1.5 rounded-lg bg-zinc-800 text-xs font-semibold text-zinc-200 hover:bg-zinc-700 transition">
             Nachricht
+          </button>
+          <button class="px-2.5 py-1.5 rounded-lg bg-zinc-800 text-xs text-zinc-200 hover:bg-zinc-700 transition">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
           </button>
         </div>
       </section>
 
-      <!-- Profile View Tabs (Grid vs Feed) -->
+      <!-- Profile View Tabs (Grid vs Vertical Feed) -->
       <div class="flex border-b border-zinc-800/60 text-zinc-500 font-semibold text-xs" style="border-color: var(--border-color);">
         <button id="gridTabBtn" onclick="switchTab('grid')" class="flex-1 py-3 flex justify-center items-center gap-2 border-b-2 border-transparent text-zinc-500 hover:text-white">
           <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z"/></svg>
         </button>
+        <!-- Active Vertical Feed Tab -->
         <button id="feedTabBtn" onclick="switchTab('feed')" class="flex-1 py-3 flex justify-center items-center gap-2 border-b-2 border-white text-white">
           <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M3 4h18v2H3zm0 7h18v2H3zm0 7h18v2H3z"/></svg>
         </button>
       </div>
 
       <!-- PROFILE 3-COLUMN GRID VIEW -->
-      <div id="gridContainer" class="grid grid-cols-3 gap-1 p-1 bg-black hidden">
-        <div class="relative aspect-square cursor-pointer overflow-hidden rounded-lg group" onclick="scrollToPost('post-1')">
-          <img src="images/post1.jpg?v=999999" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+      <div id="gridContainer" class="grid grid-cols-3 gap-0.5 bg-black hidden">
+        <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-1')">
+          <img src="images/post1.jpg?v=500" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
         </div>
-        <div class="relative aspect-square cursor-pointer overflow-hidden rounded-lg group" onclick="scrollToPost('post-2')">
-          <img src="images/post2.jpg?v=999999" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+        <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-2')">
+          <img src="images/post2.jpg?v=500" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
         </div>
-        <div class="relative aspect-square cursor-pointer overflow-hidden rounded-lg group" onclick="scrollToPost('post-3')">
-          <img src="images/post3.jpg?v=999999" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+        <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-3')">
+          <img src="images/post3.jpg?v=500" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
         </div>
-        <div class="relative aspect-square cursor-pointer overflow-hidden rounded-lg group" onclick="scrollToPost('post-4')">
-          <img src="images/post4.jpg?v=999999" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+        <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-4')">
+          <img src="images/post4.jpg?v=500" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
         </div>
-        <div class="relative aspect-square cursor-pointer overflow-hidden rounded-lg group" onclick="scrollToPost('post-5')">
-          <img src="images/carousel_1.jpg?v=999999" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+        <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-5')">
+          <img src="images/carousel_1.jpg?v=500" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
           <div class="absolute top-1.5 right-1.5 bg-black/60 backdrop-blur-xs p-1 rounded-sm text-white">
             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
           </div>
         </div>
-        <div class="relative aspect-square cursor-pointer overflow-hidden rounded-lg group" onclick="scrollToPost('post-6')">
-          <img src="images/post6.jpg?v=999999" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+        <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-6')">
+          <img src="images/post6.jpg?v=500" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
         </div>
-        <div class="relative aspect-square cursor-pointer overflow-hidden rounded-lg group" onclick="scrollToPost('post-7')">
-          <img src="images/post7.jpg?v=999999" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+        <div class="relative aspect-square cursor-pointer overflow-hidden group" onclick="scrollToPost('post-7')">
+          <img src="images/post7.jpg?v=500" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
         </div>
       </div>
 
-      <!-- POST FEED LIST WITH ROUNDED CARDS (CORNICI STONDATE) -->
-      <div id="feedContainer" class="p-3 space-y-5">
+      <!-- POST FEED LIST -->
+      <div id="feedContainer" class="divide-y divide-zinc-900">
         
         <!-- POST 1 (Single Photo) -->
-        <article id="post-1" class="rounded-3xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden shadow-lg transition relative">
-          <div class="flex items-center justify-between px-4 py-3">
+        <article id="post-1" class="py-3 border-b border-zinc-900">
+          <div class="flex items-center justify-between px-3 py-2">
             <div class="flex items-center gap-2.5">
-              <img src="images/post6.jpg?v=999999" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg?v=500" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -390,32 +289,25 @@
                 <div class="text-[10px] text-zinc-400" id="location-post1">Milano, Navigli</div>
               </div>
             </div>
-            <button onclick="openSinglePostEditor(1)" class="text-zinc-400 hover:text-white p-2 active:scale-90 transition cursor-pointer" title="Edit Post Details"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+            <button onclick="openSinglePostEditor(1)" class="text-zinc-400 hover:text-white p-2 active:scale-90 active:opacity-50 transition cursor-pointer z-10" title="Beitragsdetails bearbeiten"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
-          <div class="relative aspect-square bg-zinc-900 overflow-hidden mx-2 rounded-2xl" onclick="handleDoubleTap(event, 'like1')">
-<div class="vfx-marker absolute top-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="#000000"/></svg></div>
-<div class="vfx-marker absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="#000000"/></svg></div>
-<div class="vfx-marker absolute inset-0 m-auto z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-8 h-8 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="3"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="4" fill="#000000"/></svg></div>
-<div class="vfx-marker absolute bottom-4 left-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="#000000"/></svg></div>
-<div class="vfx-marker absolute bottom-4 right-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="#000000"/></svg></div>
-            <img src="images/post1.jpg?v=999999" class="w-full h-full object-cover" alt="Post 1">
+          <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like1')">
+            <img src="images/post1.jpg?v=500" class="w-full h-full object-cover" alt="Post 1">
             <svg id="popStar-like1" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
-          
-          <!-- V2 Centered 3 Action Buttons: Star (Like), Message, Bookmark (Save) -->
-          <div class="px-3 py-2.5 flex justify-center items-center gap-10 border-t border-b border-zinc-800/40 my-2">
-            <button onclick="toggleLike('like1')" class="transition transform active:scale-125 p-1">
-              <svg id="iconLike-like1" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </button>
-            <button class="transition hover:text-zinc-400 p-1">
-              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="toggleBookmark(this)" class="transition p-1">
-              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
-            </button>
+          <div class="px-3 pt-3 pb-1 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+              <!-- Star Like Icon (Legal Clearance: Star instead of Heart) -->
+              <button onclick="toggleLike('like1')" class="transition transform active:scale-125">
+                <svg id="iconLike-like1" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </button>
+              <button onclick="openComments('Sunset vibes in Milano 🌃')" class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></button>
+              <!-- Message Arrow Icon (Legal Clearance: Neutral Arrow instead of Instagram DM Airplane) -->
+              <button class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+            <button onclick="toggleBookmark(this)" class="transition"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
           </div>
-
-          <div class="px-4 pb-4 text-xs">
+          <div class="px-3 text-xs">
             <div class="font-bold text-xs" id="countLike-like1">1.240 Sterne</div>
             <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90" id="caption-post1"> Sunset reflections over Navigli. Golden hour 🌆✨</span></div>
             <button onclick="openComments('Sunset vibes')" class="text-zinc-500 text-[11px] mt-1 block">Alle 34 Kommentare anzeigen</button>
@@ -424,10 +316,10 @@
         </article>
 
         <!-- POST 2 (Single Photo) -->
-        <article id="post-2" class="rounded-3xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden shadow-lg transition relative">
-          <div class="flex items-center justify-between px-4 py-3">
+        <article id="post-2" class="py-3 border-b border-zinc-900">
+          <div class="flex items-center justify-between px-3 py-2">
             <div class="flex items-center gap-2.5">
-              <img src="images/post6.jpg?v=999999" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg?v=500" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -436,31 +328,23 @@
                 <div class="text-[10px] text-zinc-400" id="location-post2">Torino, Architettura</div>
               </div>
             </div>
-            <button onclick="openSinglePostEditor(2)" class="text-zinc-400 hover:text-white p-2 active:scale-90 transition cursor-pointer" title="Edit Post Details"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+            <button onclick="openSinglePostEditor(2)" class="text-zinc-400 hover:text-white p-2 active:scale-90 active:opacity-50 transition cursor-pointer z-10" title="Beitragsdetails bearbeiten"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
-          <div class="relative aspect-square bg-zinc-900 overflow-hidden mx-2 rounded-2xl" onclick="handleDoubleTap(event, 'like2')">
-<div class="vfx-marker absolute top-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="#000000"/></svg></div>
-<div class="vfx-marker absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="#000000"/></svg></div>
-<div class="vfx-marker absolute inset-0 m-auto z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-8 h-8 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="3"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="4" fill="#000000"/></svg></div>
-<div class="vfx-marker absolute bottom-4 left-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="#000000"/></svg></div>
-<div class="vfx-marker absolute bottom-4 right-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="#000000"/></svg></div>
-            <img src="images/post2.jpg?v=999999" class="w-full h-full object-cover" alt="Post 2">
+          <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like2')">
+            <img src="images/post2.jpg?v=500" class="w-full h-full object-cover" alt="Post 2">
             <svg id="popStar-like2" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
-          
-          <div class="px-3 py-2.5 flex justify-center items-center gap-10 border-t border-b border-zinc-800/40 my-2">
-            <button onclick="toggleLike('like2')" class="transition transform active:scale-125 p-1">
-              <svg id="iconLike-like2" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </button>
-            <button class="transition hover:text-zinc-400 p-1">
-              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="toggleBookmark(this)" class="transition p-1">
-              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
-            </button>
+          <div class="px-3 pt-3 pb-1 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+              <button onclick="toggleLike('like2')" class="transition transform active:scale-125">
+                <svg id="iconLike-like2" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </button>
+              <button onclick="openComments('Urban geometry')" class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></button>
+              <button class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+            <button onclick="toggleBookmark(this)" class="transition"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
           </div>
-
-          <div class="px-4 pb-4 text-xs">
+          <div class="px-3 text-xs">
             <div class="font-bold text-xs" id="countLike-like2">2.105 Sterne</div>
             <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90" id="caption-post2"> Geometric shadows & steel lines. 🏢 Architectural framing study.</span></div>
             <button onclick="openComments('Urban geometry')" class="text-zinc-500 text-[11px] mt-1 block">Alle 48 Kommentare anzeigen</button>
@@ -469,10 +353,10 @@
         </article>
 
         <!-- POST 3 (Single Photo) -->
-        <article id="post-3" class="rounded-3xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden shadow-lg transition relative">
-          <div class="flex items-center justify-between px-4 py-3">
+        <article id="post-3" class="py-3 border-b border-zinc-900">
+          <div class="flex items-center justify-between px-3 py-2">
             <div class="flex items-center gap-2.5">
-              <img src="images/post6.jpg?v=999999" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg?v=500" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -481,30 +365,23 @@
                 <div class="text-[10px] text-zinc-400" id="location-post3">Studio Acoustic Session</div>
               </div>
             </div>
-            <button onclick="openSinglePostEditor(3)" class="text-zinc-400 hover:text-white p-2 active:scale-90 transition cursor-pointer" title="Edit Post Details"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+            <button onclick="openSinglePostEditor(3)" class="text-zinc-400 hover:text-white p-2 active:scale-90 active:opacity-50 transition cursor-pointer z-10" title="Beitragsdetails bearbeiten"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
-          <div class="relative aspect-square bg-zinc-900 overflow-hidden mx-2 rounded-2xl" onclick="handleDoubleTap(event, 'like3')">
-<div class="vfx-marker absolute top-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-4 left-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-4 right-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-            <img src="images/post3.jpg?v=999999" class="w-full h-full object-cover" alt="Post 3">
+          <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like3')">
+            <img src="images/post3.jpg?v=500" class="w-full h-full object-cover" alt="Post 3">
             <svg id="popStar-like3" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
-          
-          <div class="px-3 py-2.5 flex justify-center items-center gap-10 border-t border-b border-zinc-800/40 my-2">
-            <button onclick="toggleLike('like3')" class="transition transform active:scale-125 p-1">
-              <svg id="iconLike-like3" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </button>
-            <button class="transition hover:text-zinc-400 p-1">
-              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="toggleBookmark(this)" class="transition p-1">
-              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
-            </button>
+          <div class="px-3 pt-3 pb-1 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+              <button onclick="toggleLike('like3')" class="transition transform active:scale-125">
+                <svg id="iconLike-like3" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </button>
+              <button onclick="openComments('Studio Session')" class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></button>
+              <button class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+            <button onclick="toggleBookmark(this)" class="transition"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
           </div>
-
-          <div class="px-4 pb-4 text-xs">
+          <div class="px-3 text-xs">
             <div class="font-bold text-xs" id="countLike-like3">954 Sterne</div>
             <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90" id="caption-post3"> Late night studio recording 🎸 Sound check complete.</span></div>
             <button onclick="openComments('Studio Session')" class="text-zinc-500 text-[11px] mt-1 block">Alle 19 Kommentare anzeigen</button>
@@ -513,10 +390,10 @@
         </article>
 
         <!-- POST 4 (Single Photo) -->
-        <article id="post-4" class="rounded-3xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden shadow-lg transition relative">
-          <div class="flex items-center justify-between px-4 py-3">
+        <article id="post-4" class="py-3 border-b border-zinc-900">
+          <div class="flex items-center justify-between px-3 py-2">
             <div class="flex items-center gap-2.5">
-              <img src="images/post6.jpg?v=999999" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg?v=500" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -525,30 +402,23 @@
                 <div class="text-[10px] text-zinc-400" id="location-post4">Lago di Como</div>
               </div>
             </div>
-            <button onclick="openSinglePostEditor(4)" class="text-zinc-400 hover:text-white p-2 active:scale-90 transition cursor-pointer" title="Edit Post Details"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+            <button onclick="openSinglePostEditor(4)" class="text-zinc-400 hover:text-white p-2 active:scale-90 active:opacity-50 transition cursor-pointer z-10" title="Beitragsdetails bearbeiten"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
-          <div class="relative aspect-square bg-zinc-900 overflow-hidden mx-2 rounded-2xl" onclick="handleDoubleTap(event, 'like4')">
-<div class="vfx-marker absolute top-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-4 left-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-4 right-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-            <img src="images/post4.jpg?v=999999" class="w-full h-full object-cover" alt="Post 4">
+          <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like4')">
+            <img src="images/post4.jpg?v=500" class="w-full h-full object-cover" alt="Post 4">
             <svg id="popStar-like4" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
-          
-          <div class="px-3 py-2.5 flex justify-center items-center gap-10 border-t border-b border-zinc-800/40 my-2">
-            <button onclick="toggleLike('like4')" class="transition transform active:scale-125 p-1">
-              <svg id="iconLike-like4" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </button>
-            <button class="transition hover:text-zinc-400 p-1">
-              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="toggleBookmark(this)" class="transition p-1">
-              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
-            </button>
+          <div class="px-3 pt-3 pb-1 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+              <button onclick="toggleLike('like4')" class="transition transform active:scale-125">
+                <svg id="iconLike-like4" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </button>
+              <button onclick="openComments('Lake Como escapade')" class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></button>
+              <button class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+            <button onclick="toggleBookmark(this)" class="transition"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
           </div>
-
-          <div class="px-4 pb-4 text-xs">
+          <div class="px-3 text-xs">
             <div class="font-bold text-xs" id="countLike-like4">3.410 Sterne</div>
             <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90" id="caption-post4"> Quiet morning horizon. Lake vibes & fresh air. 🌅🌊</span></div>
             <button onclick="openComments('Lake Como')" class="text-zinc-500 text-[11px] mt-1 block">Alle 62 Kommentare anzeigen</button>
@@ -556,11 +426,12 @@
           </div>
         </article>
 
-        <!-- POST 5: MULTI-IMAGE CAROUSEL POST (CLEARANCE SAFE SWIPE - 5 SLIDES) -->
-        <article id="post-5" class="rounded-3xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden shadow-lg transition relative">
-          <div class="flex items-center justify-between px-4 py-3">
+        <!-- POST 5: MULTI-IMAGE CAROUSEL POST (CLEARANCE SAFE & RE-ENGINEERED SMOOTH SWIPE - 6 PHOTOS) -->
+        <article id="post-5" class="py-3 border-b border-zinc-900">
+          <!-- Post Header -->
+          <div class="flex items-center justify-between px-3 py-2">
             <div class="flex items-center gap-2.5">
-              <img src="images/post6.jpg?v=999999" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg?v=500" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -569,76 +440,71 @@
                 <div class="text-[10px] text-zinc-400" id="location-post5">Rome, Italy • Cinematic Collection</div>
               </div>
             </div>
-            <button onclick="openSinglePostEditor(5)" class="text-zinc-400 hover:text-white p-2 active:scale-90 transition cursor-pointer" title="Edit Post Details"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+            <button onclick="openSinglePostEditor(5)" class="text-zinc-400 hover:text-white p-2 active:scale-90 active:opacity-50 transition cursor-pointer z-10" title="Beitragsdetails bearbeiten"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
 
-          <div class="relative aspect-square bg-black overflow-hidden mx-2 rounded-2xl select-none group" id="carouselWrapper"
-               onmousedown="handleSwipeStart(event)"
-               onmousemove="handleSwipeMove(event)"
-               onmouseup="handleSwipeEnd(event)"
+          <!-- CAROUSEL MEDIA CONTAINER WITH RE-ENGINEERED TOUCH SWIPE -->
+          <div class="relative aspect-square bg-black overflow-hidden group select-none" id="carouselWrapper"
+               onmousedown="handleSwipeStart(event)" 
+               onmousemove="handleSwipeMove(event)" 
+               onmouseup="handleSwipeEnd(event)" 
                onmouseleave="handleSwipeEnd(event)"
-               ontouchstart="handleSwipeStart(event)"
-               ontouchmove="handleSwipeMove(event)"
-               ontouchend="handleSwipeEnd(event)">`n<div class="absolute top-3 right-3 z-10 bg-black/70 backdrop-blur-md text-white text-[11px] font-semibold px-2.5 py-1 rounded-full border border-white/10 pointer-events-none">
+               ontouchstart="handleSwipeStart(event)" 
+               ontouchmove="handleSwipeMove(event)" 
+               ontouchend="handleSwipeEnd(event)">
+            
+            <!-- Carousel Counter Pill Badge -->
+            <div class="absolute top-3 right-3 z-10 bg-black/70 backdrop-blur-md text-white text-[11px] font-semibold px-2.5 py-1 rounded-full border border-white/10 pointer-events-none">
               <span id="carouselCounter">1/5</span>
             </div>
 
+            <!-- Carousel Track -->
             <div id="carouselTrack" class="carousel-container">
+              
+              <!-- Photo 1 -->
               <div class="carousel-slide relative">
-<div class="vfx-marker absolute top-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-4 left-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-4 right-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-8 h-8 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg></div>
-                <img src="images/carousel_1.jpg?v=999999" class="w-full h-full object-cover pointer-events-none" alt="Photo 1">
+                <img src="images/carousel_1.jpg?v=500" class="w-full h-full object-cover pointer-events-none" alt="Photo 1">
               </div>
+              <!-- Photo 2 -->
               <div class="carousel-slide relative">
-<div class="vfx-marker absolute top-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-4 left-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-4 right-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-8 h-8 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg></div>
-                <img src="images/carousel_2.jpg?v=999999" class="w-full h-full object-cover pointer-events-none" alt="Photo 2">
+                <img src="images/carousel_2.jpg?v=500" class="w-full h-full object-cover pointer-events-none" alt="Photo 2">
               </div>
+              <!-- Photo 3 -->
               <div class="carousel-slide relative">
-<div class="vfx-marker absolute top-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-4 left-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-4 right-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-8 h-8 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg></div>
-                <img src="images/carousel_3.jpg?v=999999" class="w-full h-full object-cover pointer-events-none" alt="Photo 3">
+                <img src="images/carousel_3.jpg?v=500" class="w-full h-full object-cover pointer-events-none" alt="Photo 3">
               </div>
+              <!-- Photo 4 -->
               <div class="carousel-slide relative">
-<div class="vfx-marker absolute top-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-4 left-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-4 right-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-8 h-8 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg></div>
-                <img src="images/carousel_4.jpg?v=999999" class="w-full h-full object-cover pointer-events-none" alt="Photo 4">
+                <img src="images/carousel_4.jpg?v=500" class="w-full h-full object-cover pointer-events-none" alt="Photo 4">
               </div>
+              <!-- Photo 5 -->
               <div class="carousel-slide relative">
-<div class="vfx-marker absolute top-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-4 left-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-4 right-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-8 h-8 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg></div>
-                <img src="images/carousel_5.jpg?v=999999" class="w-full h-full object-cover pointer-events-none" alt="Photo 5">
+                <img src="images/carousel_5.jpg?v=500" class="w-full h-full object-cover pointer-events-none" alt="Photo 5">
               </div>
+
             </div>
 
+            <!-- Double Tap Pop Star (Legal Clearance: Star instead of Heart) -->
             <svg id="popStar-like5" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none z-20" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+
           </div>
 
-          <div class="px-3 py-2.5 flex justify-center items-center gap-10 border-t border-b border-zinc-800/40 my-2 relative">
-            <button onclick="toggleLike('like5')" class="transition transform active:scale-125 p-1">
-              <svg id="iconLike-like5" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </button>
-            <button class="transition hover:text-zinc-400 p-1">
-              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
+          <!-- Pagination Dots & Action Toolbar -->
+          <div class="px-3 pt-3 pb-1 flex justify-between items-center relative">
+            <div class="flex items-center gap-4">
+              <button onclick="toggleLike('like5')" class="transition transform active:scale-125">
+                <svg id="iconLike-like5" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </button>
+              <button onclick="openComments('Behind the scenes in Rome 🎥')" class="transition hover:text-zinc-400">
+                <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+              </button>
+              <button class="transition hover:text-zinc-400">
+                <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
 
             <!-- Center Pagination Dots -->
-            <div class="absolute left-1/2 -translate-x-1/2 bottom-[-18px] flex gap-1.5" id="paginationDots">
+            <div class="absolute left-1/2 -translate-x-1/2 flex gap-1.5" id="paginationDots">
               <span class="w-2 h-2 rounded-full bg-emerald-500 transition-all duration-300"></span>
               <span class="w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300"></span>
               <span class="w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300"></span>
@@ -646,27 +512,27 @@
               <span class="w-1.5 h-1.5 rounded-full bg-zinc-600 transition-all duration-300"></span>
             </div>
 
-            <button onclick="toggleBookmark(this)" class="transition p-1">
+            <button onclick="toggleBookmark(this)" class="transition">
               <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
             </button>
           </div>
 
-          <div class="px-4 pb-4 text-xs mt-3">
+          <div class="px-3 text-xs">
             <div class="font-bold text-xs" id="countLike-like5">4.892 Sterne</div>
             <div class="mt-1">
               <span class="font-bold">alex_vance_art</span>
               <span class="opacity-90" id="caption-post5"> Full set series from Roman nights & mountain horizons. Wischen, um alle 5 Fotos zu sehen 🎬🌲📸</span>
             </div>
             <button onclick="openComments('Behind the scenes in Rome')" class="text-zinc-500 text-[11px] mt-1 block">Alle 112 Kommentare anzeigen</button>
-            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1" id="timeFooter-post5">VOR 1 WOCHE</div>
+            <div class="text-[10px] text-zinc-500 uppercase tracking-wider mt-1" id="timeFooter-post4">VOR 1 WOCHE</div>
           </div>
         </article>
 
         <!-- POST 6 (Single Photo) -->
-        <article id="post-6" class="rounded-3xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden shadow-lg transition relative">
-          <div class="flex items-center justify-between px-4 py-3">
+        <article id="post-6" class="py-3 border-b border-zinc-900">
+          <div class="flex items-center justify-between px-3 py-2">
             <div class="flex items-center gap-2.5">
-              <img src="images/post6.jpg?v=999999" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg?v=500" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -675,30 +541,23 @@
                 <div class="text-[10px] text-zinc-400" id="location-post6">Caffè Brera, Milano</div>
               </div>
             </div>
-            <button onclick="openSinglePostEditor(6)" class="text-zinc-400 hover:text-white p-2 active:scale-90 transition cursor-pointer" title="Edit Post Details"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+            <button onclick="openSinglePostEditor(6)" class="text-zinc-400 hover:text-white p-2 active:scale-90 active:opacity-50 transition cursor-pointer z-10" title="Beitragsdetails bearbeiten"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
-          <div class="relative aspect-square bg-zinc-900 overflow-hidden mx-2 rounded-2xl" onclick="handleDoubleTap(event, 'like6')">
-<div class="vfx-marker absolute top-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-4 left-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-4 right-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-            <img src="images/post6.jpg?v=999999" class="w-full h-full object-cover" alt="Post 6">
+          <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like6')">
+            <img src="images/post6.jpg?v=500" class="w-full h-full object-cover" alt="Post 6">
             <svg id="popStar-like6" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
-          
-          <div class="px-3 py-2.5 flex justify-center items-center gap-10 border-t border-b border-zinc-800/40 my-2">
-            <button onclick="toggleLike('like6')" class="transition transform active:scale-125 p-1">
-              <svg id="iconLike-like6" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </button>
-            <button class="transition hover:text-zinc-400 p-1">
-              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="toggleBookmark(this)" class="transition p-1">
-              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
-            </button>
+          <div class="px-3 pt-3 pb-1 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+              <button onclick="toggleLike('like6')" class="transition transform active:scale-125">
+                <svg id="iconLike-like6" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </button>
+              <button onclick="openComments('Morning espresso')" class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></button>
+              <button class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+            <button onclick="toggleBookmark(this)" class="transition"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
           </div>
-
-          <div class="px-4 pb-4 text-xs">
+          <div class="px-3 text-xs">
             <div class="font-bold text-xs" id="countLike-like6">1.820 Sterne</div>
             <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90" id="caption-post6"> Early morning coffee & screenplay notes in Brera. ☕📜</span></div>
             <button onclick="openComments('Morning espresso')" class="text-zinc-500 text-[11px] mt-1 block">Alle 28 Kommentare anzeigen</button>
@@ -707,10 +566,10 @@
         </article>
 
         <!-- POST 7 (Single Photo) -->
-        <article id="post-7" class="rounded-3xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden shadow-lg transition relative">
-          <div class="flex items-center justify-between px-4 py-3">
+        <article id="post-7" class="py-3 border-b border-zinc-900">
+          <div class="flex items-center justify-between px-3 py-2">
             <div class="flex items-center gap-2.5">
-              <img src="images/post6.jpg?v=999999" class="w-8 h-8 rounded-full object-cover">
+              <img src="images/post6.jpg?v=500" class="w-8 h-8 rounded-full object-cover">
               <div>
                 <div class="flex items-center gap-1 text-xs font-semibold">
                   <span>alex_vance_art</span>
@@ -719,30 +578,23 @@
                 <div class="text-[10px] text-zinc-400" id="location-post7">Analog Lab</div>
               </div>
             </div>
-            <button onclick="openSinglePostEditor(7)" class="text-zinc-400 hover:text-white p-2 active:scale-90 transition cursor-pointer" title="Edit Post Details"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
+            <button onclick="openSinglePostEditor(7)" class="text-zinc-400 hover:text-white p-2 active:scale-90 active:opacity-50 transition cursor-pointer z-10" title="Beitragsdetails bearbeiten"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></button>
           </div>
-          <div class="relative aspect-square bg-zinc-900 overflow-hidden mx-2 rounded-2xl" onclick="handleDoubleTap(event, 'like7')">
-<div class="vfx-marker absolute top-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-10 left-6 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-4 right-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-            <img src="images/post7.jpg?v=999999" class="w-full h-full object-cover" alt="Post 7">
+          <div class="relative aspect-square bg-zinc-900 overflow-hidden" onclick="handleDoubleTap(event, 'like7')">
+            <img src="images/post7.jpg?v=500" class="w-full h-full object-cover" alt="Post 7">
             <svg id="popStar-like7" class="absolute inset-0 m-auto w-24 h-24 text-amber-400 fill-current drop-shadow-lg opacity-0 pointer-events-none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
-          
-          <div class="px-3 py-2.5 flex justify-center items-center gap-10 border-t border-b border-zinc-800/40 my-2">
-            <button onclick="toggleLike('like7')" class="transition transform active:scale-125 p-1">
-              <svg id="iconLike-like7" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </button>
-            <button class="transition hover:text-zinc-400 p-1">
-              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="toggleBookmark(this)" class="transition p-1">
-              <svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
-            </button>
+          <div class="px-3 pt-3 pb-1 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+              <button onclick="toggleLike('like7')" class="transition transform active:scale-125">
+                <svg id="iconLike-like7" class="w-6 h-6 stroke-current stroke-2 fill-none hover:text-amber-400" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </button>
+              <button onclick="openComments('Analog 35mm film')" class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></button>
+              <button class="transition hover:text-zinc-400"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+            <button onclick="toggleBookmark(this)" class="transition"><svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
           </div>
-
-          <div class="px-4 pb-4 text-xs">
+          <div class="px-3 text-xs">
             <div class="font-bold text-xs" id="countLike-like7">2.910 Sterne</div>
             <div class="mt-1"><span class="font-bold">alex_vance_art</span><span class="opacity-90" id="caption-post7"> Developing vintage 35mm rolls in the darkroom. Film texture forever. 🎞️📷</span></div>
             <button onclick="openComments('Analog 35mm film')" class="text-zinc-500 text-[11px] mt-1 block">Alle 41 Kommentare anzeigen</button>
@@ -753,14 +605,12 @@
       </div>
     </main>
 
-    
-    
-    <!-- FLOATING DISCREET FULLSCREEN BUTTON -->
+    <!-- FLOATING DISCREET FULLSCREEN BUTTON (SAFE FROM TOP NOTCH & BROWSER ADDRESS BAR) -->
     <button onclick="requestAppFullscreen()" class="absolute bottom-16 right-4 z-30 p-3 rounded-full bg-zinc-800/90 text-white shadow-xl border border-zinc-700/80 backdrop-blur-md active:scale-95 transition" title="Attiva Schermo Intero">
       <svg class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
     </button>
 
-    <!-- Bottom Navigation Bar -->
+    <!-- Bottom Navigation Bar (Legal Clearance Safe Icons) -->
     <nav class="absolute bottom-0 inset-x-0 h-14 border-t border-zinc-800/80 backdrop-blur-lg flex justify-around items-center z-20" style="background-color: var(--bg-app); border-color: var(--border-color);">
       <button class="p-2 text-white hover:opacity-75 transition">
         <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -775,17 +625,17 @@
         <svg class="w-6 h-6 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
       </button>
       <button class="p-1 rounded-full border-2 border-white">
-        <img id="bottomNavAvatar" src="images/post6.jpg?v=999999" class="w-5 h-5 rounded-full object-cover">
+        <img id="bottomNavAvatar" src="images/post6.jpg?v=500" class="w-5 h-5 rounded-full object-cover">
       </button>
     </nav>
 
     <!-- Comments Drawer Modal -->
-    <div id="commentsModal" style="display: none;" class="absolute inset-0 bg-black/80 backdrop-blur-sm z-40 flex flex-col justify-end transition-opacity duration-300">
+    <div id="commentsModal" class="absolute inset-0 bg-black/80 backdrop-blur-sm z-40 hidden flex flex-col justify-end transition-opacity duration-300">
       <div class="h-[75%] rounded-t-3xl border-t border-zinc-700 flex flex-col p-4" style="background-color: var(--bg-card); color: var(--text-main);">
         <div class="w-12 h-1 bg-zinc-600 rounded-full mx-auto mb-3 cursor-pointer" onclick="closeComments()"></div>
         <div class="flex justify-between items-center border-b border-zinc-800 pb-3 mb-3">
           <h3 class="font-bold text-sm">Kommentare</h3>
-          <button onclick="closeComments()" class="text-zinc-400 hover:text-white">&#10005;</button>
+          <button onclick="closeComments()" class="text-zinc-400 hover:text-white">✕</button>
         </div>
         
         <div class="flex-1 overflow-y-auto space-y-4 no-scrollbar pr-1">
@@ -803,6 +653,13 @@
               <div class="text-[10px] text-zinc-500 mt-1 flex gap-3"><span>4h</span><span>Antworten</span></div>
             </div>
           </div>
+          <div class="flex gap-3 text-xs">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&q=80" class="w-7 h-7 rounded-full object-cover">
+            <div>
+              <div><span class="font-bold">giulia_art</span> <span class="opacity-90">La 3a foto del carosello è da copertina di un album! ⭐</span></div>
+              <div class="text-[10px] text-zinc-500 mt-1 flex gap-3"><span>1g</span><span>Antworten</span></div>
+            </div>
+          </div>
         </div>
 
         <div class="pt-3 border-t border-zinc-800 flex items-center gap-2">
@@ -812,8 +669,8 @@
       </div>
     </div>
 
-    <!-- SINGLE POST EDITOR MODAL -->
-    <div id="singlePostEditorModal" style="display: none;" class="absolute inset-0 bg-black/90 backdrop-blur-md z-50 flex flex-col p-5 overflow-y-auto text-xs text-white">
+        <!-- SINGLE POST EDITOR MODAL (TRIGGERED BY THREE DOTS ...) -->
+    <div id="singlePostEditorModal" class="absolute inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex flex-col p-5 overflow-y-auto text-xs text-white">
       <div class="flex justify-between items-center border-b border-zinc-700 pb-3 mb-4">
         <h2 class="text-sm font-bold text-amber-400 flex items-center gap-2">
           <span>&#9881;&#65039;</span> Edit Post Details <span id="editingPostNumBadge" class="text-zinc-400 font-normal text-xs">(Post #1)</span>
@@ -862,29 +719,13 @@
     </div>
 
     <!-- PROP CONFIGURATION / SCENOGRAPHY EDITOR MODAL -->
-    <div id="propEditorModal" style="display: none;" class="absolute inset-0 bg-black/90 backdrop-blur-md z-50 flex flex-col p-5 overflow-y-auto text-xs text-white">
+    <div id="propEditorModal" class="absolute inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex flex-col p-5 overflow-y-auto text-xs text-white">
       <div class="flex justify-between items-center border-b border-zinc-700 pb-3 mb-4">
-        <h2 class="text-sm font-bold text-emerald-400">🎬 Scenography Panel V2 - Character & Prop Data</h2>
+        <h2 class="text-sm font-bold text-emerald-400">🎬 Scenography Panel - Character & Prop Data</h2>
         <button onclick="togglePropEditor()" class="text-zinc-400 hover:text-white text-base">&#10005;</button>
       </div>
       
       <p class="text-zinc-400 mb-4">Edit character details and scene images for filming:</p>
-
-        <!-- VFX Mode Selector for Film Crew -->
-        <div class="p-3 bg-zinc-800/80 border border-emerald-500/40 rounded-xl mb-3">
-          <label class="block font-bold text-emerald-400 mb-1 flex items-center gap-1.5">
-            <span>ðŸŽ¬</span> VFX Screen Replacement & Chroma Key Mode:
-          </label>
-          <select id="vfxModeSelect" onchange="setVfxMode(this.value)" class="w-full bg-zinc-900 border border-zinc-700 rounded px-3 py-2 text-white font-semibold focus:outline-none focus:border-emerald-400">
-            <option value="normal">Off (Normal Instagram UI)</option>
-            <option value="green">ðŸŸ¢ VFX Green Screen (#00FF00) + Tracking Points</option>
-            <option value="blue">ðŸ”µ VFX Blue Screen (#0047BB) + Tracking Points</option>
-            <option value="grey">âšª VFX Studio Grey (#808080) + Tracking Points</option>
-          </select>
-          <p class="text-[10px] text-zinc-400 mt-1.5 leading-tight">
-            <strong>Hotkeys on set:</strong> Press <strong>V</strong> to cycle modes, <strong>G</strong> (Green), <strong>B</strong> (Blue), <strong>X</strong> (Grey), <strong>N</strong> (Normal).
-          </p>
-        </div>
       
       <div class="space-y-3">
         <div>
@@ -901,23 +742,11 @@
         </div>
         <div>
           <label class="block font-semibold mb-1">Avatar URL / Profile Picture:</label>
-          <input id="editAvatarUrl" type="text" value="images/post6.jpg?v=999999" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
+          <input id="editAvatarUrl" type="text" value="images/post6.jpg?v=500" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
         </div>
-        
-        <div class="grid grid-cols-2 gap-2">
-          <div>
-            <label class="block font-semibold mb-1 text-zinc-300">Kontakte:</label>
-            <input id="editContactsInput" type="text" value="5.432" class="w-full bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-white">
-          </div>
-          <div>
-            <label class="block font-semibold mb-1 text-zinc-300">Beitr&auml;ge:</label>
-            <input id="editPostsInput" type="text" value="7" class="w-full bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-white">
-          </div>
-        </div>
-
         <div>
           <label class="block font-semibold mb-1">Carousel Post 5 Images (Comma separated URLs):</label>
-          <textarea id="editCarouselUrls" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white h-20">images/carousel_1.jpg?v=999999, images/carousel_2.jpg?v=999999, images/carousel_3.jpg?v=999999, images/carousel_4.jpg?v=999999, images/carousel_5.jpg?v=999999</textarea>
+          <textarea id="editCarouselUrls" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white h-20">images/carousel_1.jpg?v=600, images/carousel_2.jpg?v=600, images/carousel_3.jpg?v=600, images/carousel_4.jpg?v=600, images/carousel_5.jpg?v=600</textarea>
         </div>
 
         <div class="flex gap-2 mt-4">
@@ -933,12 +762,12 @@
 
   </div>
 
-  <!-- JAVASCRIPT LOGIC V2 -->
+  <!-- JAVASCRIPT LOGIC -->
   <script>
-    // State management V2
+    // State management
     let currentSlide = 0;
     let totalSlides = 5;
-    let isConnected = false;
+    let isFollowing = false;
     let likesState = {
       like1: { count: 1240, liked: false },
       like2: { count: 2105, liked: false },
@@ -949,7 +778,7 @@
       like7: { count: 2910, liked: false }
     };
 
-    // Touch / Mouse Drag Swipe logic
+    // Re-engineered Touch / Mouse Drag Swipe logic for 100% Guaranteed Smoothness
     let swipeStartX = 0;
     let swipeStartY = 0;
     let isSwiping = false;
@@ -969,6 +798,7 @@
       const diffX = currentX - swipeStartX;
       const diffY = currentY - swipeStartY;
 
+      // Allow vertical scroll if scrolling down, lock horizontal if swiping carousel
       if (Math.abs(diffX) > Math.abs(diffY)) {
         if (e.cancelable) e.preventDefault();
         const track = document.getElementById('carouselTrack');
@@ -998,6 +828,7 @@
       }
     }
 
+    // Update Carousel position & dots
     function updateCarousel() {
       const track = document.getElementById('carouselTrack');
       const counter = document.getElementById('carouselCounter');
@@ -1008,6 +839,7 @@
         counter.innerText = `${currentSlide + 1}/${totalSlides}`;
       }
 
+      // Update Dots
       const dotsContainer = document.getElementById('paginationDots');
       if (dotsContainer) {
         dotsContainer.innerHTML = Array.from({length: totalSlides}).map((_, i) => `
@@ -1016,17 +848,20 @@
       }
     }
 
+    // Fullscreen API Helper for Movie Prop
     function requestAppFullscreen() {
       const docEl = document.documentElement;
       if (!document.fullscreenElement && !document.webkitFullscreenElement) {
         if (docEl.requestFullscreen) docEl.requestFullscreen();
         else if (docEl.webkitRequestFullscreen) docEl.webkitRequestFullscreen();
+        else if (docEl.msRequestFullscreen) docEl.msRequestFullscreen();
       } else {
         if (document.exitFullscreen) document.exitFullscreen();
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
       }
     }
 
+    // Double Tap Star Animation (Clearance Compliant: Star Icon)
     let lastTap = 0;
     function handleDoubleTap(e, likeId) {
       const now = new Date().getTime();
@@ -1035,7 +870,7 @@
         const popStar = document.getElementById(`popStar-${likeId}`);
         if (popStar) {
           popStar.classList.remove('star-pop');
-          void popStar.offsetWidth;
+          void popStar.offsetWidth; // Trigger reflow
           popStar.classList.add('star-pop');
         }
 
@@ -1046,6 +881,7 @@
       lastTap = now;
     }
 
+    // Toggle Star Like
     function toggleLike(likeId) {
       const state = likesState[likeId];
       state.liked = !state.liked;
@@ -1068,6 +904,7 @@
       saveStorageState();
     }
 
+    // Toggle Bookmark
     function toggleBookmark(btn) {
       const svg = btn.querySelector('svg');
       if (svg.classList.contains('fill-none')) {
@@ -1079,6 +916,7 @@
       }
     }
 
+    // Switch Profile View Tab (Grid vs Feed)
     function switchTab(mode) {
       const gridContainer = document.getElementById('gridContainer');
       const feedContainer = document.getElementById('feedContainer');
@@ -1108,20 +946,21 @@
       }, 50);
     }
 
-    // Toggle Connect (Verbinden -> Verbunden)
-    function toggleConnect() {
-      isConnected = !isConnected;
-      const btn = document.getElementById('connectBtn');
-      if (isConnected) {
-        btn.innerText = 'Verbunden';
-        btn.className = 'flex-1 py-2 rounded-xl bg-zinc-800 text-xs font-semibold text-zinc-200 hover:bg-zinc-700 transition border border-zinc-700/50';
+    // Toggle Follow (German Instagram standard: Folgen -> Gefolgt)
+    function toggleFollow() {
+      isFollowing = !isFollowing;
+      const btn = document.getElementById('followBtn');
+      if (isFollowing) {
+        btn.innerText = 'Gefolgt';
+        btn.className = 'flex-1 py-1.5 rounded-lg bg-zinc-800 text-xs font-semibold text-zinc-200 hover:bg-zinc-700 transition';
       } else {
-        btn.innerText = 'Verbinden';
-        btn.className = 'flex-1 py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition shadow-md';
+        btn.innerText = 'Folgen';
+        btn.className = 'flex-1 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition';
       }
       saveStorageState();
     }
 
+    // Single Post Editor Modal Logic (Three dots trigger)
     let currentEditingPostNum = null;
 
     function openSinglePostEditor(postNum) {
@@ -1156,12 +995,12 @@
       }
 
       const modal = document.getElementById('singlePostEditorModal');
-      if (modal) modal.style.display = 'flex';
+      if (modal) modal.classList.remove('hidden');
     }
 
     function closeSinglePostEditor() {
       const modal = document.getElementById('singlePostEditorModal');
-      if (modal) modal.style.display = 'none';
+      if (modal) modal.classList.add('hidden');
       currentEditingPostNum = null;
     }
 
@@ -1199,21 +1038,24 @@
       closeSinglePostEditor();
     }
 
+    // Comments Modal
     function openComments(title) {
-      document.getElementById('commentsModal').style.display = 'flex';
+      document.getElementById('commentsModal').classList.remove('hidden');
     }
     function closeComments() {
-      document.getElementById('commentsModal').style.display = 'none';
+      document.getElementById('commentsModal').classList.add('hidden');
     }
 
+    // Theme Toggle (Light/Dark mode)
     function toggleTheme() {
       document.body.classList.toggle('light-theme');
       document.getElementById('themeIconSun').classList.toggle('hidden');
       document.getElementById('themeIconMoon').classList.toggle('hidden');
     }
 
+    // Prop Config Editor
     function togglePropEditor() {
-      const m = document.getElementById('propEditorModal'); if (m.style.display === 'flex') m.style.display = 'none'; else m.style.display = 'flex';
+      document.getElementById('propEditorModal').classList.toggle('hidden');
     }
 
     function savePropData() {
@@ -1221,94 +1063,29 @@
       const displayName = document.getElementById('editDisplayName').value;
       const bio = document.getElementById('editBio').value;
       const avatarUrl = document.getElementById('editAvatarUrl').value;
-      const statContacts = document.getElementById('editContactsInput') ? document.getElementById('editContactsInput').value : '5.432';
-      const statPosts = document.getElementById('editPostsInput') ? document.getElementById('editPostsInput').value : '7';
       
       document.getElementById('headerUsername').innerText = username;
       document.getElementById('profileDisplayName').innerText = displayName;
       document.getElementById('profileBio').innerHTML = bio.replace(/\n/g, '<br>');
       document.getElementById('profileAvatar').src = avatarUrl;
       document.getElementById('bottomNavAvatar').src = avatarUrl;
-      if (document.getElementById('statContacts')) document.getElementById('statContacts').innerText = statContacts;
-      if (document.getElementById('statPosts')) document.getElementById('statPosts').innerText = statPosts;
 
+      // Update Carousel Images
       const carouselUrls = document.getElementById('editCarouselUrls').value.split(',').map(s => s.trim());
       if (carouselUrls.length > 0) {
         const carouselTrack = document.getElementById('carouselTrack');
-        if (carouselTrack) {
-          carouselTrack.innerHTML = carouselUrls.map(url => `
-            <div class="carousel-slide relative">
-<div class="vfx-marker absolute top-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-10 left-6 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute bottom-10 right-6 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
-<div class="vfx-marker absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-8 h-8 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg></div>
-              <img src="${url}" class="w-full h-full object-cover pointer-events-none">
-            </div>
-          `).join('');
-        }
+        carouselTrack.innerHTML = carouselUrls.map(url => `
+          <div class="carousel-slide relative">
+            <img src="${url}" class="w-full h-full object-cover pointer-events-none">
+          </div>
+        `).join('');
       }
 
       saveStorageState();
       togglePropEditor();
     }
 
-    // PERSISTENCE ENGINE FOR V2 PAGE
-    
-        // VFX Chroma & Tracking Mode Manager
-        // VFX Chroma & Tracking Mode Manager
-    let currentVfxMode = 'normal'; // 'normal', 'green', 'blue', 'grey'
-
-    function setVfxMode(mode, skipSave = false) {
-      currentVfxMode = mode;
-      document.body.classList.remove('vfx-mode-green', 'vfx-mode-blue', 'vfx-mode-grey');
-      
-      if (mode === 'green') {
-        document.body.classList.add('vfx-mode-green');
-      } else if (mode === 'blue') {
-        document.body.classList.add('vfx-mode-blue');
-      } else if (mode === 'grey') {
-        document.body.classList.add('vfx-mode-grey');
-      }
-
-      const selectEl = document.getElementById('vfxModeSelect');
-      if (selectEl) selectEl.value = mode;
-
-      if (!skipSave) {
-        saveStorageState();
-      }
-    }
-
-    function cycleVfxMode() {
-      const modes = ['normal', 'green', 'blue', 'grey'];
-      const nextIdx = (modes.indexOf(currentVfxMode) + 1) % modes.length;
-      setVfxMode(modes[nextIdx]);
-    }
-
-    function showVfxToast(mode) {
-      // Toast disabled for 100% clean camera screen
-    }
-
-    // PURE TRIPLE CLICK GESTURE (Works 100% on PC Mouse & Mobile Touchscreens)
-    let tripleClickCount = 0;
-    let tripleClickTimer = null;
-
-    window.addEventListener('click', (e) => {
-      if (e.target.closest('#propEditorModal') || e.target.closest('#singlePostEditorModal')) return;
-
-      tripleClickCount++;
-      clearTimeout(tripleClickTimer);
-
-      if (tripleClickCount >= 3) {
-        cycleVfxMode();
-        tripleClickCount = 0;
-      } else {
-        tripleClickTimer = setTimeout(() => {
-          tripleClickCount = 0;
-        }, 650);
-      }
-    }, true);
-
+    // LOCAL STORAGE PERSISTENCE ENGINE FOR LIVE FILM PROP DATA (V2 STORAGE KEY)
     function saveStorageState() {
       try {
         const postsData = {};
@@ -1333,22 +1110,22 @@
           displayName: document.getElementById('profileDisplayName').innerText,
           bio: document.getElementById('profileBio').innerHTML.replace(/<br\s*[\/]?>/gi, '\n'),
           avatarUrl: document.getElementById('profileAvatar').src,
-          statContacts: document.getElementById('statContacts') ? document.getElementById('statContacts').innerText : '5.432',
-          statPosts: document.getElementById('statPosts') ? document.getElementById('statPosts').innerText : '7',
+          statPosts: document.getElementById('statPosts').innerText,
+          statFollowers: document.getElementById('statFollowers').innerText,
+          statFollowing: document.getElementById('statFollowing').innerText,
           carouselUrls: document.getElementById('editCarouselUrls') ? document.getElementById('editCarouselUrls').value : ''
         };
 
         const statePayload = {
-          isConnected: isConnected,
+          isFollowing: isFollowing,
           likesState: likesState,
           postsData: postsData,
-          propData: propData,
-          vfxMode: currentVfxMode
+          propData: propData
         };
 
         const jsonStr = JSON.stringify(statePayload);
-        localStorage.setItem('picshare_film_prop_v2_page_state_v1000000', jsonStr);
-        sessionStorage.setItem('picshare_film_prop_v2_page_state_v1000000', jsonStr);
+        localStorage.setItem('picshare_film_prop_v3', jsonStr);
+        sessionStorage.setItem('picshare_film_prop_v3', jsonStr);
         showSaveToast();
       } catch (e) {
         console.error('LocalStorage save error:', e);
@@ -1357,25 +1134,27 @@
 
     function loadStorageState() {
       try {
-        localStorage.removeItem('picshare_film_prop_v2_page_state_v999');
-        localStorage.removeItem('picshare_film_prop_v2_page_state_v9999');
-        localStorage.removeItem('picshare_film_prop_v2_page_state_v999999');
-        const raw = localStorage.getItem('picshare_film_prop_v2_page_state_v1000000') || sessionStorage.getItem('picshare_film_prop_v2_page_state_v1000000');
+        // Clean legacy keys if present
+        localStorage.removeItem('picshare_film_prop_state');
+        sessionStorage.removeItem('picshare_film_prop_state');
+        localStorage.removeItem('picshare_film_prop_v2');
+        sessionStorage.removeItem('picshare_film_prop_v2');
+
+        const raw = localStorage.getItem('picshare_film_prop_v3') || sessionStorage.getItem('picshare_film_prop_v3');
         if (!raw) return;
         const saved = JSON.parse(raw);
 
-        if (saved.vfxMode) { setVfxMode(saved.vfxMode, true); }
-        // 1. Connect State
-        if (typeof saved.isConnected === 'boolean') {
-          isConnected = saved.isConnected;
-          const btn = document.getElementById('connectBtn');
+        // 1. Follow State
+        if (typeof saved.isFollowing === 'boolean') {
+          isFollowing = saved.isFollowing;
+          const btn = document.getElementById('followBtn');
           if (btn) {
-            if (isConnected) {
-              btn.innerText = 'Verbunden';
-              btn.className = 'flex-1 py-2 rounded-xl bg-zinc-800 text-xs font-semibold text-zinc-200 hover:bg-zinc-700 transition border border-zinc-700/50';
+            if (isFollowing) {
+              btn.innerText = 'Gefolgt';
+              btn.className = 'flex-1 py-1.5 rounded-lg bg-zinc-800 text-xs font-semibold text-zinc-200 hover:bg-zinc-700 transition';
             } else {
-              btn.innerText = 'Verbinden';
-              btn.className = 'flex-1 py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition shadow-md';
+              btn.innerText = 'Folgen';
+              btn.className = 'flex-1 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition';
             }
           }
         }
@@ -1422,8 +1201,9 @@
           if (pd.username) document.getElementById('headerUsername').innerText = pd.username;
           if (pd.displayName) document.getElementById('profileDisplayName').innerText = pd.displayName;
           if (pd.bio) document.getElementById('profileBio').innerHTML = pd.bio.replace(/\n/g, '<br>');
-          if (pd.statContacts) document.getElementById('statContacts').innerText = pd.statContacts;
           if (pd.statPosts) document.getElementById('statPosts').innerText = pd.statPosts;
+          if (pd.statFollowers) document.getElementById('statFollowers').innerText = pd.statFollowers;
+          if (pd.statFollowing) document.getElementById('statFollowing').innerText = pd.statFollowing;
           if (pd.avatarUrl) {
             document.getElementById('profileAvatar').src = pd.avatarUrl;
             document.getElementById('bottomNavAvatar').src = pd.avatarUrl;
@@ -1437,11 +1217,6 @@
               if (carouselTrack) {
                 carouselTrack.innerHTML = urlsArr.map(url => `
                   <div class="carousel-slide relative">
-                    <div class="vfx-marker absolute top-3 left-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="#000000"/></svg></div>
-                    <div class="vfx-marker absolute top-3 right-3 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="#000000"/></svg></div>
-                    <div class="vfx-marker absolute inset-0 m-auto z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-8 h-8 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="3"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="4" fill="#000000"/></svg></div>
-                    <div class="vfx-marker absolute bottom-4 left-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="#000000"/></svg></div>
-                    <div class="vfx-marker absolute bottom-4 right-4 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-7 h-7 text-black drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="3" fill="#000000"/></svg></div>
                     <img src="${url}" class="w-full h-full object-cover pointer-events-none">
                   </div>
                 `).join('');
@@ -1454,27 +1229,30 @@
       }
     }
 
-        function showSaveToast() {
+    function showSaveToast() {
       let toast = document.getElementById('saveToastPill');
       if (!toast) {
         toast = document.createElement('div');
         toast.id = 'saveToastPill';
         toast.className = 'fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-emerald-600/90 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-lg backdrop-blur-md opacity-0 transition-opacity duration-300 pointer-events-none';
-        toast.innerText = 'Saved âœ“';
+        toast.innerText = 'Saved ✓';
         document.body.appendChild(toast);
       }
       toast.style.opacity = '1';
-      setTimeout(() => { if (toast) toast.style.opacity = '0'; }, 1200);
+      setTimeout(() => { toast.style.opacity = '0'; }, 1200);
     }
 
     function resetStorageState() {
       if (confirm('Reset all changes back to initial scene defaults?')) {
-        localStorage.removeItem('picshare_film_prop_v2_page_state_v999');
-        sessionStorage.removeItem('picshare_film_prop_v2_page_state_v999');
+        localStorage.removeItem('picshare_film_prop_v2');
+        sessionStorage.removeItem('picshare_film_prop_v2');
+        localStorage.removeItem('picshare_film_prop_state');
+        sessionStorage.removeItem('picshare_film_prop_state');
         window.location.reload();
       }
     }
 
+    // Automatically load saved state on launch & page show
     window.addEventListener('DOMContentLoaded', loadStorageState);
     window.addEventListener('load', loadStorageState);
     window.addEventListener('pageshow', loadStorageState);
