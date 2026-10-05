@@ -1346,18 +1346,29 @@
       // Toast disabled for 100% clean camera screen
     }
 
-    // BULLETPROOF GESTURE ENGINE (PC Mouse + iOS Safari + Android Touchscreen)
+    // FLAWLESS TRIPLE-TAP GESTURE ENGINE (Accidental-Trigger Free)
     let tapCount = 0;
     let tapTimer = null;
-    let lastTapTime = 0;
+    let lastTapTimestamp = 0;
 
-    function handleScreenTap(e) {
-      if (e.target && e.target.closest && (e.target.closest("#propEditorModal") || e.target.closest("#singlePostEditorModal"))) {
-        return;
+    function handleGlobalTap(e) {
+      // 1. Never trigger on modals, inputs, textareas, buttons or links
+      if (e.target && e.target.closest) {
+        if (e.target.closest("#propEditorModal") || 
+            e.target.closest("#singlePostEditorModal") || 
+            e.target.closest("#commentsModal") || 
+            e.target.closest("input") || 
+            e.target.closest("textarea") || 
+            e.target.closest("button") || 
+            e.target.closest("a")) {
+          tapCount = 0;
+          return;
+        }
       }
+
       const now = Date.now();
-      if (now - lastTapTime < 50) return;
-      lastTapTime = now;
+      if (now - lastTapTimestamp < 40) return; // Deduplicate dual touch/click events
+      lastTapTimestamp = now;
 
       tapCount++;
       clearTimeout(tapTimer);
@@ -1368,12 +1379,16 @@
       } else {
         tapTimer = setTimeout(() => {
           tapCount = 0;
-        }, 650);
+        }, 450);
       }
     }
 
-    window.addEventListener("pointerdown", handleScreenTap, { capture: true, passive: true });
-    window.addEventListener("click", handleScreenTap, { capture: true, passive: true });
+    window.addEventListener("click", handleGlobalTap, { capture: true });
+    window.addEventListener("touchstart", (e) => {
+      if (document.body.className.includes("vfx-mode-")) {
+        handleGlobalTap(e);
+      }
+    }, { capture: true, passive: true });
     // KEYBOARD HOTKEYS ON SET FOR FILM CREW (V = Cycle, G = Green, B = Blue, X = Grey, N = Normal)
     window.addEventListener("keydown", (e) => {
       if (["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) return;
