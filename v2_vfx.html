@@ -1333,24 +1333,15 @@
 
     function setVfxMode(mode, skipSave = false) {
       currentVfxMode = mode;
-      document.body.classList.remove('vfx-mode-green', 'vfx-mode-blue', 'vfx-mode-grey');
-      
-      if (mode === 'green') {
-        document.body.classList.add('vfx-mode-green');
-      } else if (mode === 'blue') {
-        document.body.classList.add('vfx-mode-blue');
-      } else if (mode === 'grey') {
-        document.body.classList.add('vfx-mode-grey');
+      const cleanClasses = document.body.className.split(" ").filter(c => c && !c.startsWith("vfx-mode-") && c !== "vfx-active");
+      if (mode === "green" || mode === "blue" || mode === "grey") {
+        cleanClasses.push("vfx-active", "vfx-mode-" + mode);
       }
-
-      const selectEl = document.getElementById('vfxModeSelect');
-            <option value="normal">Off (Normal Instagram UI)</option>
-            <option value="green">&#129008; VFX Green Screen (#00FF00) + Tracking Points</option>
-            <option value="blue">&#128309; VFX Blue Screen (#0047BB) + Tracking Points</option>
-            <option value="grey">&#9898; VFX Studio Grey (#808080) + Tracking Points</option>
-      }
+      document.body.className = cleanClasses.join(" ");
+      const selectEl = document.getElementById("vfxModeSelect");
+      if (selectEl) selectEl.value = mode;
+      if (!skipSave) { saveStorageState(); }
     }
-
     function cycleVfxMode() {
       const modes = ['normal', 'green', 'blue', 'grey'];
       const nextIdx = (modes.indexOf(currentVfxMode) + 1) % modes.length;
