@@ -199,10 +199,6 @@
     }
 
     body[class*="vfx-mode-"] #phoneFrame {
-      background-color: var(--vfx-bg) !important;
-      background: var(--vfx-bg) !important;
-      background-image: none !important;
-      border-color: var(--vfx-bg) !important;
       cursor: pointer !important;
       touch-action: manipulation !important;
       pointer-events: auto !important;
@@ -211,6 +207,37 @@
     /* Disable pointer events on all phone contents during VFX mode so taps don't trigger underlying buttons/modals */
     body[class*="vfx-mode-"] #phoneFrame * {
       pointer-events: none !important;
+    }
+
+    /* Bulletproof Solid Fill inside #phoneFrame for Green, Blue, Grey VFX */
+    body.vfx-mode-green #phoneFrame,
+    body.vfx-mode-green #phoneFrame *:not(.vfx-marker):not(.vfx-marker *) {
+      background-color: #00ff00 !important;
+      background: #00ff00 !important;
+      background-image: none !important;
+      border-color: #00ff00 !important;
+      box-shadow: none !important;
+      outline: none !important;
+    }
+
+    body.vfx-mode-blue #phoneFrame,
+    body.vfx-mode-blue #phoneFrame *:not(.vfx-marker):not(.vfx-marker *) {
+      background-color: #0047bb !important;
+      background: #0047bb !important;
+      background-image: none !important;
+      border-color: #0047bb !important;
+      box-shadow: none !important;
+      outline: none !important;
+    }
+
+    body.vfx-mode-grey #phoneFrame,
+    body.vfx-mode-grey #phoneFrame *:not(.vfx-marker):not(.vfx-marker *) {
+      background-color: #808080 !important;
+      background: #808080 !important;
+      background-image: none !important;
+      border-color: #808080 !important;
+      box-shadow: none !important;
+      outline: none !important;
     }
 
     /* Container Background Fills & Border Removal (Strictly inside #phoneFrame) */
@@ -232,6 +259,7 @@
     body[class*="vfx-mode-"] #phoneFrame a,
     body[class*="vfx-mode-"] #phoneFrame input,
     body[class*="vfx-mode-"] #phoneFrame textarea,
+    body[class*="vfx-mode-"] #phoneFrame select,
     body[class*="vfx-mode-"] #phoneFrame button {
       background-color: var(--vfx-bg) !important;
       background: var(--vfx-bg) !important;
@@ -256,6 +284,7 @@
     body[class*="vfx-mode-"] #phoneFrame a,
     body[class*="vfx-mode-"] #phoneFrame input,
     body[class*="vfx-mode-"] #phoneFrame textarea,
+    body[class*="vfx-mode-"] #phoneFrame select,
     body[class*="vfx-mode-"] #phoneFrame button {
       color: transparent !important;
       -webkit-text-fill-color: transparent !important;
@@ -265,7 +294,9 @@
       text-shadow: none !important;
     }
 
-    /* HIDE ALL IMAGES & NON-MARKER SVGS & CAROUSEL PILL */
+    /* HIDE ALL IMAGES, NON-MARKER SVGS, SELECT DROPDOWN & CAROUSEL PILL */
+    body[class*="vfx-mode-"] #phoneFrame #vfxModeSelect,
+    body[class*="vfx-mode-"] #phoneFrame select,
     body[class*="vfx-mode-"] #phoneFrame #carouselCounterPill,
     body[class*="vfx-mode-"] #phoneFrame #carouselCounter,
     body[class*="vfx-mode-"] #phoneFrame #paginationDots,
@@ -1352,6 +1383,21 @@
           cleanClasses.push("vfx-active", "vfx-mode-" + mode);
         }
         document.body.className = cleanClasses.join(" ");
+
+        const colors = { green: '#00ff00', blue: '#0047bb', grey: '#808080' };
+        const frame = document.getElementById('phoneFrame');
+        if (colors[mode]) {
+          if (frame) {
+            frame.style.setProperty('background-color', colors[mode], 'important');
+            frame.style.setProperty('--bg-app', colors[mode]);
+          }
+        } else {
+          if (frame) {
+            frame.style.removeProperty('background-color');
+            frame.style.setProperty('--bg-app', (document.body.getAttribute('data-theme') === 'light') ? '#ffffff' : '#050505');
+          }
+        }
+
         const selectEl = document.getElementById("vfxModeSelect");
         if (selectEl) selectEl.value = mode;
         if (!skipSave) { saveStorageState(); }
