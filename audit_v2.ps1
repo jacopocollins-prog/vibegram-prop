@@ -27,11 +27,11 @@ if ($content -notmatch '\.vfx-marker-svg circle' -or $content -notmatch 'fill: #
 # 3. Check Header Markers
 if ($content -match '<section class="p-4 border-b border-zinc-800/40 relative vfx-section-header"[\s\S]*?</section>') {
     $headerHtml = $Matches[0]
-    $top_left = ([regex]::Matches($headerHtml, "top-4 left-4")).Count
-    $top_right = ([regex]::Matches($headerHtml, "top-4 right-4")).Count
+    $top_left = ([regex]::Matches($headerHtml, "top-6 left-6")).Count
+    $top_right = ([regex]::Matches($headerHtml, "top-6 right-6")).Count
     $avatar_center = ([regex]::Matches($headerHtml, "inset-0 m-auto")).Count
-    if ($top_left -ne 1) { $issues += "Header top-4 left-4 count is $top_left (expected 1)" }
-    if ($top_right -ne 1) { $issues += "Header top-4 right-4 count is $top_right (expected 1)" }
+    if ($top_left -ne 1) { $issues += "Header top-6 left-6 count is $top_left (expected 1)" }
+    if ($top_right -ne 1) { $issues += "Header top-6 right-6 count is $top_right (expected 1)" }
     if ($avatar_center -lt 1) { $issues += "Header center marker missing" }
 } else {
     $issues += "Could not find header section"
