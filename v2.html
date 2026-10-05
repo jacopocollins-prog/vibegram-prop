@@ -17,33 +17,43 @@
 
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <style>
-    /* Ultra-sleek, elegant dark scrollbar for modals */
+    /* Ultra-sleek, elegant dark scrollbar for modals & textareas */
     #propEditorModal::-webkit-scrollbar,
     #singlePostEditorModal::-webkit-scrollbar,
-    #commentsModal::-webkit-scrollbar {
-      width: 4px;
+    #commentsModal::-webkit-scrollbar,
+    textarea::-webkit-scrollbar,
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px !important;
+      height: 4px !important;
     }
     #propEditorModal::-webkit-scrollbar-track,
     #singlePostEditorModal::-webkit-scrollbar-track,
-    #commentsModal::-webkit-scrollbar-track {
-      background: rgba(15, 15, 15, 0.6);
-      border-radius: 8px;
+    #commentsModal::-webkit-scrollbar-track,
+    textarea::-webkit-scrollbar-track,
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(15, 15, 15, 0.6) !important;
+      border-radius: 8px !important;
     }
     #propEditorModal::-webkit-scrollbar-thumb,
     #singlePostEditorModal::-webkit-scrollbar-thumb,
-    #commentsModal::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
+    #commentsModal::-webkit-scrollbar-thumb,
+    textarea::-webkit-scrollbar-thumb,
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2) !important;
+      border-radius: 8px !important;
     }
     #propEditorModal::-webkit-scrollbar-thumb:hover,
     #singlePostEditorModal::-webkit-scrollbar-thumb:hover,
-    #commentsModal::-webkit-scrollbar-thumb:hover {
-      background: rgba(16, 185, 129, 0.6);
+    #commentsModal::-webkit-scrollbar-thumb:hover,
+    textarea::-webkit-scrollbar-thumb:hover,
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: rgba(16, 185, 129, 0.6) !important;
     }
-    #propEditorModal,
-    #singlePostEditorModal,
-    #commentsModal {
-      scrollbar-width: thin;
+    textarea {
+      resize: none !important;
+      scrollbar-width: thin !important;
+      scrollbar-color: rgba(255, 255, 255, 0.2) rgba(15, 15, 15, 0.6) !important;
+    }
       scrollbar-color: rgba(255, 255, 255, 0.2) rgba(15, 15, 15, 0.6);
     }
 
@@ -925,46 +935,46 @@
     </div>
 
     <!-- PROP CONFIGURATION / SCENOGRAPHY EDITOR MODAL -->
-    <div id="propEditorModal" style="display: none;" class="absolute inset-0 bg-black/95 backdrop-blur-md z-50 flex flex-col p-5 overflow-y-auto text-xs text-white">
+    <div id="propEditorModal" style="display: none;" class="absolute inset-0 bg-black/95 backdrop-blur-md z-50 flex flex-col p-5 overflow-y-auto text-xs text-white custom-scrollbar">
       <div class="flex justify-between items-center border-b border-zinc-700/80 pb-3 mb-4">
-        <h2 class="text-sm font-bold text-emerald-400">&#127916; Pannello Scenografia / Prop Settings V2</h2>
+        <h2 class="text-sm font-bold text-emerald-400">&#127916; Scenography &amp; Prop Settings V2</h2>
         <button onclick="togglePropEditor()" class="text-zinc-400 hover:text-white text-base font-bold p-1">&#10005;</button>
       </div>
       
-      <p class="text-zinc-400 mb-4">Modifica le informazioni del profilo e le immagini di scena per le riprese:</p>
+      <p class="text-zinc-400 mb-4">Edit profile details and scene media for filming:</p>
 
         <!-- VFX Mode Selector for Film Crew -->
         <div class="p-3.5 bg-zinc-900/90 border border-emerald-500/50 rounded-xl mb-4 shadow-lg">
           <label class="block font-bold text-emerald-400 mb-1.5 flex items-center gap-1.5 text-xs">
-            <span>&#127916;</span> Modalit&agrave; Schermo VFX / Replacement Chroma Key:
+            <span>&#127916;</span> VFX Screen Replacement &amp; Chroma Key Mode:
           </label>
           <select id="vfxModeSelect" onchange="setVfxMode(this.value)" class="w-full bg-zinc-950 border border-zinc-700 rounded-lg px-3 py-2 text-white font-semibold focus:outline-none focus:border-emerald-400 cursor-pointer">
-            <option value="normal">Off (Interfaccia Normale PicShare)</option>
-            <option value="green">&#129008; VFX Green Screen (#00FF00) + Punti di Tracciamento</option>
-            <option value="blue">&#128309; VFX Blue Screen (#0047BB) + Punti di Tracciamento</option>
-            <option value="grey">&#9898; VFX Studio Grey (#808080) + Punti di Tracciamento</option>
+            <option value="normal">Off (Normal Instagram UI)</option>
+            <option value="green">&#129008; VFX Green Screen (#00FF00) + Tracking Points</option>
+            <option value="blue">&#128309; VFX Blue Screen (#0047BB) + Tracking Points</option>
+            <option value="grey">&#9898; VFX Studio Grey (#808080) + Tracking Points</option>
           </select>
           <p class="text-[10px] text-zinc-400 mt-2 leading-tight">
-            <strong>Scorciatoie sul set:</strong> Triplo clic rapido sullo schermo oppure tastiera: <strong>V</strong> (Cicla modalit&agrave;), <strong>G</strong> (Verde), <strong>B</strong> (Blu), <strong>X</strong> (Grigio), <strong>N</strong> (Normale).
+            <strong>Set Hotkeys:</strong> Quick triple-click screen or press <strong>V</strong> (Cycle), <strong>G</strong> (Green), <strong>B</strong> (Blue), <strong>X</strong> (Grey), <strong>N</strong> (Normal).
           </p>
         </div>
       
       <div class="space-y-4">
         <div>
-          <label class="block font-semibold mb-1 text-zinc-200">Nome Utente / Username (@username):</label>
+          <label class="block font-semibold mb-1 text-zinc-200">Username (@username):</label>
           <input id="editUsername" type="text" value="alex_vance_art" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-400">
         </div>
         <div>
-          <label class="block font-semibold mb-1 text-zinc-200">Nome Visualizzato / Display Name:</label>
+          <label class="block font-semibold mb-1 text-zinc-200">Display Name:</label>
           <input id="editDisplayName" type="text" value="Alex Vance" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-400">
         </div>
         <div>
-          <label class="block font-semibold mb-1 text-zinc-200">Biografia Profilo / Bio:</label>
-          <textarea id="editBio" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white h-16 focus:outline-none focus:border-emerald-400">Cinematography &amp; Landscape Photography &#128247;&#10;Exploring light, shadow &amp; visual stories &#127916;&#10;&#128205; Milan / Rome</textarea>
+          <label class="block font-semibold mb-1 text-zinc-200">Profile Bio:</label>
+          <textarea id="editBio" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white h-16 focus:outline-none focus:border-emerald-400 resize-none custom-scrollbar">Cinematography &amp; Landscape Photography &#128247;&#10;Exploring light, shadow &amp; visual stories &#127916;&#10;&#128205; Milan / Rome</textarea>
         </div>
         <div>
-          <label class="block font-semibold mb-1 text-zinc-200">Foto Profilo / Profile Picture (URL):</label>
-          <p class="text-[10px] text-zinc-400 mb-1.5">Incolla il link o il percorso dell'immagine per la foto profilo dell'avatar (es: images/post6.jpg):</p>
+          <label class="block font-semibold mb-1 text-zinc-200">Profile Picture (URL):</label>
+          <p class="text-[10px] text-zinc-400 mb-1.5">Paste avatar image URL (e.g. images/post6.jpg):</p>
           <input id="editAvatarUrl" type="text" value="images/post6.jpg?v=999999" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-400">
         </div>
         
@@ -980,17 +990,17 @@
         </div>
 
         <div>
-          <label class="block font-semibold mb-1 text-zinc-200">Immagini Post Carosello (Post 5) / Carousel Images:</label>
-          <p class="text-[10px] text-zinc-400 mb-1.5">Incolla i link delle 5 immagini del carosello separati da virgola (es: foto1.jpg, foto2.jpg, foto3.jpg, foto4.jpg, foto5.jpg):</p>
-          <textarea id="editCarouselUrls" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white h-20 focus:outline-none focus:border-emerald-400">images/carousel_1.jpg?v=999999, images/carousel_2.jpg?v=999999, images/carousel_3.jpg?v=999999, images/carousel_4.jpg?v=999999, images/carousel_5.jpg?v=999999</textarea>
+          <label class="block font-semibold mb-1 text-zinc-200">Carousel Images (Post 5):</label>
+          <p class="text-[10px] text-zinc-400 mb-1.5">Paste 5 image URLs separated by comma (e.g. img1.jpg, img2.jpg, img3.jpg, img4.jpg, img5.jpg):</p>
+          <textarea id="editCarouselUrls" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white h-20 focus:outline-none focus:border-emerald-400 resize-none custom-scrollbar">images/carousel_1.jpg?v=999999, images/carousel_2.jpg?v=999999, images/carousel_3.jpg?v=999999, images/carousel_4.jpg?v=999999, images/carousel_5.jpg?v=999999</textarea>
         </div>
 
         <div class="flex gap-2.5 mt-5 pt-2 border-t border-zinc-800">
           <button onclick="savePropData()" class="flex-1 py-2.5 rounded-lg bg-emerald-600 font-bold text-white text-xs hover:bg-emerald-500 transition shadow-md">
-            Salva &amp; Applica Modifiche
+            Save &amp; Apply Changes
           </button>
-          <button onclick="resetStorageState()" class="py-2.5 px-3 rounded-lg bg-red-900/60 text-red-300 font-semibold text-xs hover:bg-red-800 transition" title="Ripristina le impostazioni predefinite della scena">
-            Reset Predefiniti
+          <button onclick="resetStorageState()" class="py-2.5 px-3 rounded-lg bg-red-900/60 text-red-300 font-semibold text-xs hover:bg-red-800 transition" title="Reset all custom scene edits">
+            Reset Defaults
           </button>
         </div>
       </div>
@@ -1334,10 +1344,10 @@
       }
 
       const selectEl = document.getElementById('vfxModeSelect');
-      if (selectEl) selectEl.value = mode;
-
-      if (!skipSave) {
-        saveStorageState();
+            <option value="normal">Off (Normal Instagram UI)</option>
+            <option value="green">&#129008; VFX Green Screen (#00FF00) + Tracking Points</option>
+            <option value="blue">&#128309; VFX Blue Screen (#0047BB) + Tracking Points</option>
+            <option value="grey">&#9898; VFX Studio Grey (#808080) + Tracking Points</option>
       }
     }
 
