@@ -945,31 +945,14 @@
 
         <!-- VFX Mode Selector for Film Crew -->
         <div class="p-3.5 bg-zinc-900/90 border border-emerald-500/50 rounded-xl mb-4 shadow-lg">
-          <label class="block font-bold text-emerald-400 mb-2 flex items-center gap-1.5 text-xs">
-            <span>&#127916;</span> VFX Screen Replacement &amp; Chroma Key Mode:
+          <label class="block font-bold text-emerald-400 mb-1.5 flex items-center gap-1.5 text-xs">
+            <span>&#x1F3AC;</span> VFX Screen Replacement &amp; Chroma Key Mode:
           </label>
-          
-          <!-- Visual Color Selection Buttons with CSS Pure Colored Dots -->
-          <div class="grid grid-cols-4 gap-2 mb-3">
-            <button type="button" onclick="setVfxMode('normal')" class="py-2 px-1 rounded-lg bg-zinc-800 border border-zinc-700 text-[11px] font-bold text-zinc-300 hover:bg-zinc-700 transition flex items-center justify-center gap-1.5">
-              Off
-            </button>
-            <button type="button" onclick="setVfxMode('green')" class="py-2 px-1 rounded-lg bg-zinc-800 border border-emerald-500/80 text-[11px] font-bold text-emerald-400 hover:bg-zinc-700 transition flex items-center justify-center gap-1.5">
-              <span class="w-3.5 h-3.5 rounded-full bg-[#00FF00] inline-block border border-black/50 shadow-[0_0_6px_#00FF00]"></span> Green
-            </button>
-            <button type="button" onclick="setVfxMode('blue')" class="py-2 px-1 rounded-lg bg-zinc-800 border border-blue-500/80 text-[11px] font-bold text-blue-400 hover:bg-zinc-700 transition flex items-center justify-center gap-1.5">
-              <span class="w-3.5 h-3.5 rounded-full bg-[#0047BB] inline-block border border-black/50 shadow-[0_0_6px_#0047BB]"></span> Blue
-            </button>
-            <button type="button" onclick="setVfxMode('grey')" class="py-2 px-1 rounded-lg bg-zinc-800 border border-zinc-500/80 text-[11px] font-bold text-zinc-300 hover:bg-zinc-700 transition flex items-center justify-center gap-1.5">
-              <span class="w-3.5 h-3.5 rounded-full bg-[#808080] inline-block border border-black/50 shadow-[0_0_6px_#808080]"></span> Grey
-            </button>
-          </div>
-
           <select id="vfxModeSelect" onchange="setVfxMode(this.value)" class="w-full bg-zinc-950 border border-zinc-700 rounded-lg px-3 py-2 text-white font-semibold focus:outline-none focus:border-emerald-400 cursor-pointer">
             <option value="normal">Off (Normal Instagram UI)</option>
-            <option value="green">&#129008; VFX Green Screen (#00FF00) + Tracking Points</option>
-            <option value="blue">&#128309; VFX Blue Screen (#0047BB) + Tracking Points</option>
-            <option value="grey">&#9898; VFX Studio Grey (#808080) + Tracking Points</option>
+            <option value="green">&#x1F7E2; VFX Green Screen (#00FF00) + Tracking Points</option>
+            <option value="blue">&#x1F535; VFX Blue Screen (#0047BB) + Tracking Points</option>
+            <option value="grey">&#x26AA; VFX Studio Grey (#808080) + Tracking Points</option>
           </select>
           <p class="text-[10px] text-zinc-400 mt-2 leading-tight">
             <strong>Set Hotkeys:</strong> Quick triple-click screen or press <strong>V</strong> (Cycle), <strong>G</strong> (Green), <strong>B</strong> (Blue), <strong>X</strong> (Grey), <strong>N</strong> (Normal).
