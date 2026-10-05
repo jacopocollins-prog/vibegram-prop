@@ -1401,7 +1401,7 @@
       } else {
         tapTimer = setTimeout(() => {
           tapCount = 0;
-        }, 550);
+        }, 1200);
       }
     }
 
@@ -1414,11 +1414,22 @@
     // Click events for desktop mice (safely ignore synthetic clicks following touchstart)
     window.addEventListener("click", (e) => {
       if (Date.now() - lastTouchTime < 600) return;
+      const isVfxActive = (currentVfxMode && currentVfxMode !== 'normal') || document.body.className.includes("vfx-mode-");
+      // On desktop PC: clicking outside the phone frame immediately exits VFX mode
+      if (isVfxActive && e.target && !e.target.closest("#phoneFrame")) {
+        setVfxMode("normal");
+        tapCount = 0;
+        return;
+      }
       handleGlobalTap(e);
     }, { capture: true });
 
-    // KEYBOARD HOTKEYS ON SET FOR FILM CREW (V = Cycle, G = Green, B = Blue, X = Grey, N = Normal)
+    // KEYBOARD HOTKEYS ON SET FOR FILM CREW (V = Cycle, G = Green, B = Blue, X = Grey, N = Normal, ESC = Exit)
     window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        setVfxMode("normal");
+        return;
+      }
       if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) return;
       const key = e.key.toLowerCase();
       if (key === "v") cycleVfxMode();
@@ -1461,13 +1472,12 @@
           isConnected: isConnected,
           likesState: likesState,
           postsData: postsData,
-          propData: propData,
-          vfxMode: currentVfxMode
+          propData: propData
         };
 
         const jsonStr = JSON.stringify(statePayload);
-        localStorage.setItem('picshare_film_prop_v2_page_state_v4000000', jsonStr);
-        sessionStorage.setItem('picshare_film_prop_v2_page_state_v4000000', jsonStr);
+        localStorage.setItem('picshare_film_prop_v2_page_state_v5000000', jsonStr);
+        sessionStorage.setItem('picshare_film_prop_v2_page_state_v5000000', jsonStr);
         showSaveToast();
       } catch (e) {
         console.error('LocalStorage save error:', e);
@@ -1479,16 +1489,18 @@
         const keysToRemove = [];
         for (let i = 0; i < localStorage.length; i++) {
           const k = localStorage.key(i);
-          if (k && k.startsWith('picshare_film_prop_v2') && !k.endsWith('v4000000')) {
+          if (k && k.startsWith('picshare_film_prop_v2') && !k.endsWith('v5000000')) {
             keysToRemove.push(k);
           }
         }
         keysToRemove.forEach(function(k) { localStorage.removeItem(k); });
-        const raw = localStorage.getItem('picshare_film_prop_v2_page_state_v4000000') || sessionStorage.getItem('picshare_film_prop_v2_page_state_v4000000');
+        
+        // Ensure VFX mode is ALWAYS reset to normal on fresh page load
+        setVfxMode('normal', true);
+
+        const raw = localStorage.getItem('picshare_film_prop_v2_page_state_v5000000') || sessionStorage.getItem('picshare_film_prop_v2_page_state_v5000000');
         if (!raw) return;
         const saved = JSON.parse(raw);
-
-        if (saved.vfxMode) { setVfxMode(saved.vfxMode, true); }
         // 1. Connect State
         if (typeof saved.isConnected === 'boolean') {
           isConnected = saved.isConnected;
