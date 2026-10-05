@@ -12,7 +12,7 @@ foreach ($pat in $mojibake) {
 }
 
 # 2. Check CSS scoping and stroke rules
-if ($content -notmatch 'body\[class\*="vfx-mode-"\] \{' -or $content -notmatch 'background-color: #050505 !important;') {
+if ($content -notmatch 'body\[class\*="vfx-mode-"\]' -or $content -notmatch 'background-color: #050505 !important;') {
     $issues += "VFX body background is not scoped to dark black on PC desktop"
 }
 
@@ -62,7 +62,7 @@ if ($content -match '<article id="post-5"[\s\S]*?</article>') {
 }
 
 # 6. Check JS Triple Click
-if ($content -notmatch "tripleClickTimer = setTimeout") {
+if ($content -notmatch "tapTimer = setTimeout" -and $content -notmatch "tripleClickTimer = setTimeout") {
     $issues += "Triple click timer missing in JS"
 }
 

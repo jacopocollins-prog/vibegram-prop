@@ -194,8 +194,12 @@
       -webkit-animation: none !important;
     }
 
-    body[class*="vfx-mode-"] {
+    body[class*="vfx-mode-"],
+    body[class*="vfx-mode-"] #phoneFrame {
       background-color: #050505 !important;
+      cursor: pointer !important;
+      touch-action: manipulation !important;
+    }
     }
 
     /* Container Background Fills & Border Removal (Strictly inside #phoneFrame) */
@@ -1318,46 +1322,58 @@
     let currentVfxMode = 'normal'; // 'normal', 'green', 'blue', 'grey'
 
     function setVfxMode(mode, skipSave = false) {
-      currentVfxMode = mode;
-      const cleanClasses = document.body.className.split(" ").filter(c => c && !c.startsWith("vfx-mode-") && c !== "vfx-active");
-      if (mode === "green" || mode === "blue" || mode === "grey") {
-        cleanClasses.push("vfx-active", "vfx-mode-" + mode);
+      try {
+        currentVfxMode = mode;
+        const cleanClasses = document.body.className.split(" ").filter(c => c && !c.startsWith("vfx-mode-") && c !== "vfx-active");
+        if (mode === "green" || mode === "blue" || mode === "grey") {
+          cleanClasses.push("vfx-active", "vfx-mode-" + mode);
+        }
+        document.body.className = cleanClasses.join(" ");
+        const selectEl = document.getElementById("vfxModeSelect");
+        if (selectEl) selectEl.value = mode;
+        if (!skipSave) { saveStorageState(); }
+      } catch (err) {
+        console.error("setVfxMode error:", err);
       }
-      document.body.className = cleanClasses.join(" ");
-      const selectEl = document.getElementById("vfxModeSelect");
-      if (selectEl) selectEl.value = mode;
-      if (!skipSave) { saveStorageState(); }
     }
     function cycleVfxMode() {
-      const modes = ['normal', 'green', 'blue', 'grey'];
-      const nextIdx = (modes.indexOf(currentVfxMode) + 1) % modes.length;
+      const modes = ["normal", "green", "blue", "grey"];
+      const currentIdx = modes.indexOf(currentVfxMode);
+      const nextIdx = (currentIdx === -1 ? 0 : currentIdx + 1) % modes.length;
       setVfxMode(modes[nextIdx]);
     }
-
     function showVfxToast(mode) {
       // Toast disabled for 100% clean camera screen
     }
 
-    // PURE TRIPLE CLICK GESTURE (Works 100% on PC Mouse & Mobile Touchscreens)
-    let tripleClickCount = 0;
-    let tripleClickTimer = null;
+    // BULLETPROOF GESTURE ENGINE (PC Mouse + iOS Safari + Android Touchscreen)
+    let tapCount = 0;
+    let tapTimer = null;
+    let lastTapTime = 0;
 
-    window.addEventListener('click', (e) => {
-      if (e.target.closest('#propEditorModal') || e.target.closest('#singlePostEditorModal')) return;
+    function handleScreenTap(e) {
+      if (e.target && e.target.closest && (e.target.closest("#propEditorModal") || e.target.closest("#singlePostEditorModal"))) {
+        return;
+      }
+      const now = Date.now();
+      if (now - lastTapTime < 50) return;
+      lastTapTime = now;
 
-      tripleClickCount++;
-      clearTimeout(tripleClickTimer);
+      tapCount++;
+      clearTimeout(tapTimer);
 
-      if (tripleClickCount >= 3) {
+      if (tapCount >= 3) {
         cycleVfxMode();
-        tripleClickCount = 0;
+        tapCount = 0;
       } else {
-        tripleClickTimer = setTimeout(() => {
-          tripleClickCount = 0;
+        tapTimer = setTimeout(() => {
+          tapCount = 0;
         }, 650);
       }
-    }, true);
+    }
 
+    window.addEventListener("pointerdown", handleScreenTap, { capture: true, passive: true });
+    window.addEventListener("click", handleScreenTap, { capture: true, passive: true });
     // KEYBOARD HOTKEYS ON SET FOR FILM CREW (V = Cycle, G = Green, B = Blue, X = Grey, N = Normal)
     window.addEventListener("keydown", (e) => {
       if (["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) return;
