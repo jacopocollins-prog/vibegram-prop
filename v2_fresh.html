@@ -17,6 +17,36 @@
 
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <style>
+    /* Ultra-sleek, elegant dark scrollbar for modals */
+    #propEditorModal::-webkit-scrollbar,
+    #singlePostEditorModal::-webkit-scrollbar,
+    #commentsModal::-webkit-scrollbar {
+      width: 4px;
+    }
+    #propEditorModal::-webkit-scrollbar-track,
+    #singlePostEditorModal::-webkit-scrollbar-track,
+    #commentsModal::-webkit-scrollbar-track {
+      background: rgba(15, 15, 15, 0.6);
+      border-radius: 8px;
+    }
+    #propEditorModal::-webkit-scrollbar-thumb,
+    #singlePostEditorModal::-webkit-scrollbar-thumb,
+    #commentsModal::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+    }
+    #propEditorModal::-webkit-scrollbar-thumb:hover,
+    #singlePostEditorModal::-webkit-scrollbar-thumb:hover,
+    #commentsModal::-webkit-scrollbar-thumb:hover {
+      background: rgba(16, 185, 129, 0.6);
+    }
+    #propEditorModal,
+    #singlePostEditorModal,
+    #commentsModal {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.2) rgba(15, 15, 15, 0.6);
+    }
+
     /* Hide scrollbars for clean native app feel */
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -133,7 +163,7 @@
       }
     }
   
-            <span>&#127916;</span> VFX Screen Replacement & Chroma Key Mode:
+
     .vfx-mode-green {
       --vfx-bg: #00ff00 !important;
     }
@@ -895,77 +925,76 @@
     </div>
 
     <!-- PROP CONFIGURATION / SCENOGRAPHY EDITOR MODAL -->
-    <div id="propEditorModal" style="display: none;" class="absolute inset-0 bg-black/90 backdrop-blur-md z-50 flex flex-col p-5 overflow-y-auto text-xs text-white">
-      <div class="flex justify-between items-center border-b border-zinc-700 pb-3 mb-4">
-        <h2 class="text-sm font-bold text-emerald-400">&#127916; Scenography Panel V2 - Character & Prop Data</h2>
-        <button onclick="togglePropEditor()" class="text-zinc-400 hover:text-white text-base">&#10005;</button>
+    <div id="propEditorModal" style="display: none;" class="absolute inset-0 bg-black/95 backdrop-blur-md z-50 flex flex-col p-5 overflow-y-auto text-xs text-white">
+      <div class="flex justify-between items-center border-b border-zinc-700/80 pb-3 mb-4">
+        <h2 class="text-sm font-bold text-emerald-400">&#127916; Pannello Scenografia / Prop Settings V2</h2>
+        <button onclick="togglePropEditor()" class="text-zinc-400 hover:text-white text-base font-bold p-1">&#10005;</button>
       </div>
       
-      <p class="text-zinc-400 mb-4">Edit character details and scene images for filming:</p>
+      <p class="text-zinc-400 mb-4">Modifica le informazioni del profilo e le immagini di scena per le riprese:</p>
 
         <!-- VFX Mode Selector for Film Crew -->
-        <div class="p-3 bg-zinc-800/80 border border-emerald-500/40 rounded-xl mb-3">
-          <label class="block font-bold text-emerald-400 mb-1 flex items-center gap-1.5">
-            <span>&#127916;</span> VFX Screen Replacement & Chroma Key Mode:
+        <div class="p-3.5 bg-zinc-900/90 border border-emerald-500/50 rounded-xl mb-4 shadow-lg">
+          <label class="block font-bold text-emerald-400 mb-1.5 flex items-center gap-1.5 text-xs">
+            <span>&#127916;</span> Modalit&agrave; Schermo VFX / Replacement Chroma Key:
           </label>
-          <select id="vfxModeSelect" onchange="setVfxMode(this.value)" class="w-full bg-zinc-900 border border-zinc-700 rounded px-3 py-2 text-white font-semibold focus:outline-none focus:border-emerald-400">
-            <option value="normal">Off (Normal Instagram UI)</option>
-            <option value="green">&#129008; VFX Green Screen (#00FF00) + Tracking Points</option>
-            <option value="blue">&#128309; VFX Blue Screen (#0047BB) + Tracking Points</option>
-            <option value="grey">&#9898; VFX Studio Grey (#808080) + Tracking Points</option>
+          <select id="vfxModeSelect" onchange="setVfxMode(this.value)" class="w-full bg-zinc-950 border border-zinc-700 rounded-lg px-3 py-2 text-white font-semibold focus:outline-none focus:border-emerald-400 cursor-pointer">
+            <option value="normal">Off (Interfaccia Normale PicShare)</option>
+            <option value="green">&#129008; VFX Green Screen (#00FF00) + Punti di Tracciamento</option>
+            <option value="blue">&#128309; VFX Blue Screen (#0047BB) + Punti di Tracciamento</option>
+            <option value="grey">&#9898; VFX Studio Grey (#808080) + Punti di Tracciamento</option>
           </select>
-          <p class="text-[10px] text-zinc-400 mt-1.5 leading-tight">
-            <strong>Hotkeys on set:</strong> Press <strong>V</strong> to cycle modes, <strong>G</strong> (Green), <strong>B</strong> (Blue), <strong>X</strong> (Grey), <strong>N</strong> (Normal).
+          <p class="text-[10px] text-zinc-400 mt-2 leading-tight">
+            <strong>Scorciatoie sul set:</strong> Triplo clic rapido sullo schermo oppure tastiera: <strong>V</strong> (Cicla modalit&agrave;), <strong>G</strong> (Verde), <strong>B</strong> (Blu), <strong>X</strong> (Grigio), <strong>N</strong> (Normale).
           </p>
         </div>
       
-      <div class="space-y-3">
+      <div class="space-y-4">
         <div>
-          <label class="block font-semibold mb-1">Username (@username):</label>
-          <input id="editUsername" type="text" value="alex_vance_art" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
+          <label class="block font-semibold mb-1 text-zinc-200">Nome Utente / Username (@username):</label>
+          <input id="editUsername" type="text" value="alex_vance_art" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-400">
         </div>
         <div>
-          <label class="block font-semibold mb-1">Display Name:</label>
-          <input id="editDisplayName" type="text" value="Alex Vance" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
+          <label class="block font-semibold mb-1 text-zinc-200">Nome Visualizzato / Display Name:</label>
+          <input id="editDisplayName" type="text" value="Alex Vance" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-400">
         </div>
         <div>
-          <label class="block font-semibold mb-1">Profile Bio:</label>
-          <textarea id="editBio" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white h-16">Cinematography &amp; Landscape Photography &#128247;&#10;Exploring light, shadow &amp; visual stories &#127916;&#10;&#128205; Milan / Rome</textarea>
+          <label class="block font-semibold mb-1 text-zinc-200">Biografia Profilo / Bio:</label>
+          <textarea id="editBio" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white h-16 focus:outline-none focus:border-emerald-400">Cinematography &amp; Landscape Photography &#128247;&#10;Exploring light, shadow &amp; visual stories &#127916;&#10;&#128205; Milan / Rome</textarea>
         </div>
         <div>
-          <label class="block font-semibold mb-1">Avatar URL / Profile Picture:</label>
-          <input id="editAvatarUrl" type="text" value="images/post6.jpg?v=999999" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white">
+          <label class="block font-semibold mb-1 text-zinc-200">Foto Profilo / Profile Picture (URL):</label>
+          <p class="text-[10px] text-zinc-400 mb-1.5">Incolla il link o il percorso dell'immagine per la foto profilo dell'avatar (es: images/post6.jpg):</p>
+          <input id="editAvatarUrl" type="text" value="images/post6.jpg?v=999999" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-400">
         </div>
         
-        <div class="grid grid-cols-2 gap-2">
+        <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block font-semibold mb-1 text-zinc-300">Kontakte:</label>
-            <input id="editContactsInput" type="text" value="5.432" class="w-full bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-white">
+            <label class="block font-semibold mb-1 text-zinc-300">Contacts:</label>
+            <input id="editContactsInput" type="text" value="5.432" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-400">
           </div>
           <div>
-            <label class="block font-semibold mb-1 text-zinc-300">Beitr&auml;ge:</label>
-            <input id="editPostsInput" type="text" value="7" class="w-full bg-zinc-800 border border-zinc-700 rounded px-2 py-1.5 text-white">
+            <label class="block font-semibold mb-1 text-zinc-300">Posts:</label>
+            <input id="editPostsInput" type="text" value="7" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-400">
           </div>
         </div>
 
         <div>
-          <label class="block font-semibold mb-1">Carousel Post 5 Images (Comma separated URLs):</label>
-          <textarea id="editCarouselUrls" class="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-white h-20">images/carousel_1.jpg?v=999999, images/carousel_2.jpg?v=999999, images/carousel_3.jpg?v=999999, images/carousel_4.jpg?v=999999, images/carousel_5.jpg?v=999999</textarea>
+          <label class="block font-semibold mb-1 text-zinc-200">Immagini Post Carosello (Post 5) / Carousel Images:</label>
+          <p class="text-[10px] text-zinc-400 mb-1.5">Incolla i link delle 5 immagini del carosello separati da virgola (es: foto1.jpg, foto2.jpg, foto3.jpg, foto4.jpg, foto5.jpg):</p>
+          <textarea id="editCarouselUrls" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white h-20 focus:outline-none focus:border-emerald-400">images/carousel_1.jpg?v=999999, images/carousel_2.jpg?v=999999, images/carousel_3.jpg?v=999999, images/carousel_4.jpg?v=999999, images/carousel_5.jpg?v=999999</textarea>
         </div>
 
-        <div class="flex gap-2 mt-4">
-          <button onclick="savePropData()" class="flex-1 py-2.5 rounded bg-emerald-600 font-bold text-white text-xs hover:bg-emerald-500 transition">
-            Save & Apply Prop Changes
+        <div class="flex gap-2.5 mt-5 pt-2 border-t border-zinc-800">
+          <button onclick="savePropData()" class="flex-1 py-2.5 rounded-lg bg-emerald-600 font-bold text-white text-xs hover:bg-emerald-500 transition shadow-md">
+            Salva &amp; Applica Modifiche
           </button>
-          <button onclick="resetStorageState()" class="py-2.5 px-3 rounded bg-red-900/60 text-red-300 font-semibold text-xs hover:bg-red-800 transition" title="Reset all custom scene edits">
-            Reset Defaults
+          <button onclick="resetStorageState()" class="py-2.5 px-3 rounded-lg bg-red-900/60 text-red-300 font-semibold text-xs hover:bg-red-800 transition" title="Ripristina le impostazioni predefinite della scena">
+            Reset Predefiniti
           </button>
         </div>
       </div>
     </div>
-
-  </div>
-
   <!-- JAVASCRIPT LOGIC V2 -->
   <script>
     // State management V2
@@ -1175,7 +1204,7 @@
       const likesInput = document.getElementById('editPostLikesInput');
 
       if (locInput) locInput.value = locEl ? locEl.innerText.trim() : '';
-      if (headerTimeInput) headerTimeInput.value = headerTimeEl ? headerTimeEl.innerText.replace(/^[\u2022\s]+/, '').replace(/^[•\s]+/, '').trim() : '';
+      if (headerTimeInput) headerTimeInput.value = headerTimeEl ? headerTimeEl.innerText.replace(/^[\u2022\s]+/, '').replace(/^[â€¢\s]+/, '').trim() : '';
       if (footerTimeInput) footerTimeInput.value = footerTimeEl ? footerTimeEl.innerText.trim() : '';
       if (captionInput) captionInput.value = captionEl ? captionEl.innerText.trim() : '';
 
@@ -1354,7 +1383,7 @@
 
           postsData['post' + i] = {
             location: locEl ? locEl.innerText.trim() : '',
-            headerTime: headerTimeEl ? headerTimeEl.innerText.replace(/^[\u2022\s]+/, '').replace(/^[•\s]+/, '').trim() : '',
+            headerTime: headerTimeEl ? headerTimeEl.innerText.replace(/^[\u2022\s]+/, '').replace(/^[â€¢\s]+/, '').trim() : '',
             footerTime: footerTimeEl ? footerTimeEl.innerText.trim() : '',
             caption: captionEl ? captionEl.innerText.trim() : '',
             likesCount: likesState['like' + i] ? likesState['like' + i].count : 0
