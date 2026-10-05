@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="de" class="h-full">
 <head>
   <meta charset="UTF-8">
@@ -229,13 +229,25 @@
       z-index: 9999 !important;
     }
 
-    body[class*="vfx-mode-"] #phoneFrame .vfx-marker-svg * {
+    body[class*="vfx-mode-"] #phoneFrame .vfx-marker-svg line,
+    body[class*="vfx-mode-"] #phoneFrame svg.vfx-marker-svg line {
       display: block !important;
       opacity: 1 !important;
       visibility: visible !important;
-      color: #000000 !important;
       stroke: #000000 !important;
+      stroke-width: 2.5px !important;
+      stroke-linecap: round !important;
+      z-index: 9999 !important;
+    }
+
+    body[class*="vfx-mode-"] #phoneFrame .vfx-marker-svg circle,
+    body[class*="vfx-mode-"] #phoneFrame svg.vfx-marker-svg circle {
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
       fill: #000000 !important;
+      stroke: #000000 !important;
+      stroke-width: 1px !important;
       z-index: 9999 !important;
     }
 
@@ -1471,7 +1483,7 @@
         toast = document.createElement('div');
         toast.id = 'saveToastPill';
         toast.className = 'fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-emerald-600/90 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-lg backdrop-blur-md opacity-0 transition-opacity duration-300 pointer-events-none';
-        toast.innerText = 'Saved âœ“';
+        toast.innerText = 'Saved \u2713';
         document.body.appendChild(toast);
       }
       toast.style.opacity = '1';
@@ -1480,8 +1492,8 @@
 
     function resetStorageState() {
       if (confirm('Reset all changes back to initial scene defaults?')) {
-        localStorage.removeItem('picshare_film_prop_v2_page_state_v999');
-        sessionStorage.removeItem('picshare_film_prop_v2_page_state_v999');
+        localStorage.clear();
+        sessionStorage.clear();
         window.location.reload();
       }
     }
