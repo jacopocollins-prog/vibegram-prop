@@ -943,21 +943,7 @@
       
       <p class="text-zinc-400 mb-4">Edit profile details and scene media for filming:</p>
 
-        <!-- VFX Mode Selector for Film Crew -->
-        <div class="p-3.5 bg-zinc-900/90 border border-emerald-500/50 rounded-xl mb-4 shadow-lg">
-          <label class="block font-bold text-emerald-400 mb-1.5 flex items-center gap-1.5 text-xs">
-            <span>&#x1F3AC;</span> VFX Screen Replacement &amp; Chroma Key Mode:
-          </label>
-          <select id="vfxModeSelect" onchange="setVfxMode(this.value)" class="w-full bg-zinc-950 border border-zinc-700 rounded-lg px-3 py-2 text-white font-semibold focus:outline-none focus:border-emerald-400 cursor-pointer">
-            <option value="normal">Off (Normal Instagram UI)</option>
-            <option value="green">&#x1F7E2; VFX Green Screen (#00FF00) + Tracking Points</option>
-            <option value="blue">&#x1F535; VFX Blue Screen (#0047BB) + Tracking Points</option>
-            <option value="grey">&#x26AA; VFX Studio Grey (#808080) + Tracking Points</option>
-          </select>
-          <p class="text-[10px] text-zinc-400 mt-2 leading-tight">
-            <strong>Set Hotkeys:</strong> Quick triple-click screen or press <strong>V</strong> (Cycle), <strong>G</strong> (Green), <strong>B</strong> (Blue), <strong>X</strong> (Grey), <strong>N</strong> (Normal).
-          </p>
-        </div>
+        
       
       <div class="space-y-4">
         <div>
@@ -1371,6 +1357,17 @@
         }, 650);
       }
     }, true);
+
+    // KEYBOARD HOTKEYS ON SET FOR FILM CREW (V = Cycle, G = Green, B = Blue, X = Grey, N = Normal)
+    window.addEventListener("keydown", (e) => {
+      if (["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) return;
+      const key = e.key.toLowerCase();
+      if (key === "v") cycleVfxMode();
+      else if (key === "g") setVfxMode("green");
+      else if (key === "b") setVfxMode("blue");
+      else if (key === "x") setVfxMode("grey");
+      else if (key === "n") setVfxMode("normal");
+    });
 
     function saveStorageState() {
       try {
