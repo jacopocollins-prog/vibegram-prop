@@ -133,6 +133,7 @@
       }
     }
   
+            <span>&#127916;</span> VFX Screen Replacement & Chroma Key Mode:
     .vfx-mode-green {
       --vfx-bg: #00ff00 !important;
     }
@@ -144,11 +145,9 @@
     }
 
     /* Keep PC Desktop Body Background Dark Black (#050505) */
-    /* Disable all CSS transitions & animations in VFX mode for 100% glitch-free instant switching */
+    /* Disable transitions in VFX mode for 0ms instant glitch-free color switching */
     body[class*="vfx-mode-"],
-    body[class*="vfx-mode-"] *,
-    body.vfx-active,
-    body.vfx-active * {
+    body[class*="vfx-mode-"] * {
       transition: none !important;
       -webkit-transition: none !important;
       animation: none !important;
@@ -211,6 +210,8 @@
     }
 
     /* HIDE ALL IMAGES & NON-MARKER SVGS */
+    body[class*="vfx-mode-"] #phoneFrame #carouselCounter,
+    body[class*="vfx-mode-"] #phoneFrame #paginationDots,
     body[class*="vfx-mode-"] #phoneFrame img,
     body[class*="vfx-mode-"] #phoneFrame svg:not(.vfx-marker-svg) {
       display: none !important;
@@ -905,6 +906,7 @@
         <!-- VFX Mode Selector for Film Crew -->
         <div class="p-3 bg-zinc-800/80 border border-emerald-500/40 rounded-xl mb-3">
           <label class="block font-bold text-emerald-400 mb-1 flex items-center gap-1.5">
+            <span>&#127916;</span> VFX Screen Replacement & Chroma Key Mode:
           </label>
           <select id="vfxModeSelect" onchange="setVfxMode(this.value)" class="w-full bg-zinc-900 border border-zinc-700 rounded px-3 py-2 text-white font-semibold focus:outline-none focus:border-emerald-400">
             <option value="normal">Off (Normal Instagram UI)</option>
@@ -1292,15 +1294,24 @@
 
     function setVfxMode(mode, skipSave = false) {
       currentVfxMode = mode;
-      const cleanClasses = document.body.className.split(" ").filter(c => c && !c.startsWith("vfx-mode-") && c !== "vfx-active");
-      if (mode === "green" || mode === "blue" || mode === "grey") {
-        cleanClasses.push("vfx-active", "vfx-mode-" + mode);
+      document.body.classList.remove('vfx-mode-green', 'vfx-mode-blue', 'vfx-mode-grey');
+      
+      if (mode === 'green') {
+        document.body.classList.add('vfx-mode-green');
+      } else if (mode === 'blue') {
+        document.body.classList.add('vfx-mode-blue');
+      } else if (mode === 'grey') {
+        document.body.classList.add('vfx-mode-grey');
       }
-      document.body.className = cleanClasses.join(" ");
-      const selectEl = document.getElementById("vfxModeSelect");
+
+      const selectEl = document.getElementById('vfxModeSelect');
       if (selectEl) selectEl.value = mode;
-      if (!skipSave) { saveStorageState(); }
+
+      if (!skipSave) {
+        saveStorageState();
+      }
     }
+
     function cycleVfxMode() {
       const modes = ['normal', 'green', 'blue', 'grey'];
       const nextIdx = (modes.indexOf(currentVfxMode) + 1) % modes.length;
