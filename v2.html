@@ -412,7 +412,13 @@
     body[class*="vfx-mode-"] #phoneFrame header *:not(.vfx-marker):not(.vfx-marker *),
     body[class*="vfx-mode-"] #phoneFrame nav *:not(.vfx-marker):not(.vfx-marker *),
     body[class*="vfx-mode-"] #phoneFrame .tab-btn *:not(.vfx-marker):not(.vfx-marker *),
-    body[class*="vfx-mode-"] #phoneFrame section.vfx-section-header *:not(.vfx-marker):not(.vfx-marker *),
+    body[class*="vfx-mode-"] #phoneFrame section.vfx-section-header #statContacts,
+    body[class*="vfx-mode-"] #phoneFrame section.vfx-section-header #statPosts,
+    body[class*="vfx-mode-"] #phoneFrame section.vfx-section-header .text-xs,
+    body[class*="vfx-mode-"] #phoneFrame section.vfx-section-header h1,
+    body[class*="vfx-mode-"] #phoneFrame section.vfx-section-header p,
+    body[class*="vfx-mode-"] #phoneFrame section.vfx-section-header a,
+    body[class*="vfx-mode-"] #phoneFrame section.vfx-section-header button,
     body[class*="vfx-mode-"] #phoneFrame article > div:not(.relative) *:not(.vfx-marker):not(.vfx-marker *) {
       visibility: hidden !important;
       opacity: 0 !important;
@@ -437,12 +443,16 @@
       outline: none !important;
     }
 
+    /* Round avatar container in header: solid chroma background and opacity 1 to show the center cross */
+    body[class*="vfx-mode-"] #phoneFrame section.vfx-section-header div:has(> .vfx-marker),
     body[class*="vfx-mode-"] #phoneFrame section.vfx-section-header .rounded-full {
       background: var(--vfx-bg) !important;
       background-color: var(--vfx-bg) !important;
       background-image: none !important;
       border-color: var(--vfx-bg) !important;
       box-shadow: none !important;
+      opacity: 1 !important;
+      visibility: visible !important;
     }
 
     /* Force all non-marker text, spans, emojis to 0 opacity & transparent */
