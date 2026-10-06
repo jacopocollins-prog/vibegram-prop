@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" id="metaThemeColor" content="#050505">
   <title>PicShare V2 - Scenografia Film</title>
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
@@ -66,7 +67,7 @@
       display: flex;
       width: 100%;
       height: 100%;
-      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
       will-change: transform;
       touch-action: pan-y pinch-zoom;
     }
@@ -207,10 +208,23 @@
     @media (max-width: 640px) {
       #phoneFrame {
         max-width: 100vw !important;
+        width: 100vw !important;
         height: 100vh !important;
+        height: 100dvh !important;
         max-height: 100vh !important;
+        max-height: 100dvh !important;
         border-radius: 0 !important;
         border: none !important;
+        box-shadow: none !important;
+      }
+      body[class*="vfx-mode-"],
+      html {
+        background-color: var(--vfx-bg) !important;
+        background: var(--vfx-bg) !important;
+      }
+      body[class*="vfx-mode-"] {
+        padding: 0 !important;
+        margin: 0 !important;
       }
     }
   
@@ -226,13 +240,19 @@
     }
 
     /* Keep PC Desktop Body Background Dark Black (#050505) */
-    /* Disable transitions in VFX mode for 0ms instant glitch-free color switching */
+    /* Disable transitions in VFX mode for 0ms instant glitch-free color switching, but preserve carousel glide */
     body[class*="vfx-mode-"],
-    body[class*="vfx-mode-"] * {
+    body[class*="vfx-mode-"] *:not(#carouselTrack):not(.carousel-container) {
       transition: none !important;
       -webkit-transition: none !important;
       animation: none !important;
       -webkit-animation: none !important;
+    }
+
+    /* Preserve fluid, elegant Instagram-like swipe in VFX mode */
+    body[class*="vfx-mode-"] #carouselTrack,
+    body[class*="vfx-mode-"] .carousel-container {
+      transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1) !important;
     }
 
     body[class*="vfx-mode-"] {
@@ -372,6 +392,90 @@
       display: none !important;
       visibility: hidden !important;
       opacity: 0 !important;
+    }
+
+    /* 100% CLEAN CHROMA SCREEN: Absolutely eliminate emojis, buttons, bars, headers & dividers */
+    body[class*="vfx-mode-"] #phoneFrame header,
+    body[class*="vfx-mode-"] #phoneFrame nav,
+    body[class*="vfx-mode-"] #phoneFrame .tab-indicator,
+    body[class*="vfx-mode-"] #phoneFrame #tabIndicatorBar,
+    body[class*="vfx-mode-"] #phoneFrame #profileTabsContainer,
+    body[class*="vfx-mode-"] #phoneFrame .tab-btn,
+    body[class*="vfx-mode-"] #phoneFrame #requestAppFullscreen,
+    body[class*="vfx-mode-"] #phoneFrame button:not(.tab-btn),
+    body[class*="vfx-mode-"] #phoneFrame .vfx-hide-on-active,
+    body[class*="vfx-mode-"] #phoneFrame #commentsModal,
+    body[class*="vfx-mode-"] #phoneFrame #propEditorModal,
+    body[class*="vfx-mode-"] #phoneFrame #singlePostEditorModal,
+    body[class*="vfx-mode-"] #phoneFrame #vfxToastPill,
+    body[class*="vfx-mode-"] #phoneFrame #saveToastPill,
+    body[class*="vfx-mode-"] #phoneFrame article > div.flex.items-center.justify-between,
+    body[class*="vfx-mode-"] #phoneFrame article > div.border-t.border-b,
+    body[class*="vfx-mode-"] #phoneFrame article > div.px-3,
+    body[class*="vfx-mode-"] #phoneFrame article > div.px-4.pb-4,
+    body[class*="vfx-mode-"] #phoneFrame section.vfx-section-header #statContacts,
+    body[class*="vfx-mode-"] #phoneFrame section.vfx-section-header #statPosts,
+    body[class*="vfx-mode-"] #phoneFrame section.vfx-section-header .text-xs,
+    body[class*="vfx-mode-"] #phoneFrame section.vfx-section-header .mt-4,
+    body[class*="vfx-mode-"] #phoneFrame section.vfx-section-header .flex.gap-2\.5 {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      max-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+      overflow: hidden !important;
+    }
+
+    /* Remove article card borders, dividers, outlines, and box-shadows in VFX mode */
+    body[class*="vfx-mode-"] #phoneFrame article {
+      background: var(--vfx-bg) !important;
+      background-color: var(--vfx-bg) !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+    }
+
+    body[class*="vfx-mode-"] #phoneFrame .aspect-square {
+      background: var(--vfx-bg) !important;
+      background-color: var(--vfx-bg) !important;
+      border: none !important;
+      box-shadow: none !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      border-radius: 1.25rem !important;
+    }
+
+    body[class*="vfx-mode-"] #phoneFrame section.vfx-section-header {
+      border: none !important;
+      background: var(--vfx-bg) !important;
+      background-color: var(--vfx-bg) !important;
+    }
+
+    body[class*="vfx-mode-"] #phoneFrame section.vfx-section-header .rounded-full {
+      background: var(--vfx-bg) !important;
+      background-color: var(--vfx-bg) !important;
+      background-image: none !important;
+      border-color: var(--vfx-bg) !important;
+      box-shadow: none !important;
+    }
+
+    /* Force all text, spans, emojis to 0 size and transparent */
+    body[class*="vfx-mode-"] #phoneFrame p,
+    body[class*="vfx-mode-"] #phoneFrame h1,
+    body[class*="vfx-mode-"] #phoneFrame h2,
+    body[class*="vfx-mode-"] #phoneFrame h3,
+    body[class*="vfx-mode-"] #phoneFrame a,
+    body[class*="vfx-mode-"] #phoneFrame span:not(.vfx-marker *),
+    body[class*="vfx-mode-"] #phoneFrame button {
+      font-size: 0 !important;
+      line-height: 0 !important;
+      color: transparent !important;
+      -webkit-text-fill-color: transparent !important;
+      visibility: hidden !important;
     }
 
     /* TRACKING MARKERS: 100% OPAQUE BLACK CROSSES AT Z-INDEX 9999 */
@@ -528,7 +632,7 @@
       </section>
 
       <!-- Profile View Tabs (Grid vs Feed) -->
-      <div class="relative flex border-b border-zinc-800/60 font-semibold text-xs" style="border-color: var(--border-color);">
+      <div id="profileTabsContainer" class="relative flex border-b border-zinc-800/60 font-semibold text-xs" style="border-color: var(--border-color);">
         <button id="gridTabBtn" onclick="switchTab('grid')" class="tab-btn flex-1 py-3 flex justify-center items-center gap-2">
           <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z"/></svg>
         </button>
@@ -1150,8 +1254,13 @@
         if (e.cancelable) e.preventDefault();
         const track = document.getElementById('carouselTrack');
         if (track) {
-          const containerWidth = track.clientWidth;
-          const movePercent = -currentSlide * 100 + (diffX / containerWidth) * 100;
+          const containerWidth = track.clientWidth || 350;
+          let effectiveDiffX = diffX;
+          // Smooth rubber-band resistance when dragging past ends
+          if ((currentSlide === 0 && diffX > 0) || (currentSlide === totalSlides - 1 && diffX < 0)) {
+            effectiveDiffX = diffX * 0.35;
+          }
+          const movePercent = -currentSlide * 100 + (effectiveDiffX / containerWidth) * 100;
           track.style.transform = `translateX(${movePercent}%)`;
         }
       }
@@ -1162,13 +1271,14 @@
       isSwiping = false;
       const track = document.getElementById('carouselTrack');
       if (track) {
-        track.style.transition = 'transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1)';
+        track.style.transition = 'transform 0.45s cubic-bezier(0.25, 1, 0.5, 1)';
         const endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
         const diffX = endX - swipeStartX;
 
-        if (diffX < -30 && currentSlide < totalSlides - 1) {
+        const threshold = 40;
+        if (diffX < -threshold && currentSlide < totalSlides - 1) {
           currentSlide++;
-        } else if (diffX > 30 && currentSlide > 0) {
+        } else if (diffX > threshold && currentSlide > 0) {
           currentSlide--;
         }
         updateCarousel();
@@ -1179,6 +1289,7 @@
       const track = document.getElementById('carouselTrack');
       const counter = document.getElementById('carouselCounter');
       if (track) {
+        track.style.transition = 'transform 0.45s cubic-bezier(0.25, 1, 0.5, 1)';
         track.style.transform = `translateX(-${currentSlide * 100}%)`;
       }
       if (counter) {
@@ -1456,16 +1567,30 @@
 
         const colors = { green: '#00ff00', blue: '#0047bb', grey: '#808080' };
         const frame = document.getElementById('phoneFrame');
+        const metaTheme = document.getElementById('metaThemeColor') || document.querySelector('meta[name="theme-color"]');
         if (colors[mode]) {
+          const col = colors[mode];
           if (frame) {
-            frame.style.setProperty('background-color', colors[mode], 'important');
-            frame.style.setProperty('--bg-app', colors[mode]);
+            frame.style.setProperty('background-color', col, 'important');
+            frame.style.setProperty('--bg-app', col);
+          }
+          if (metaTheme) metaTheme.setAttribute('content', col);
+          if (window.innerWidth <= 640) {
+            document.documentElement.style.setProperty('background-color', col, 'important');
+            document.body.style.setProperty('background-color', col, 'important');
+          } else {
+            document.documentElement.style.removeProperty('background-color');
+            document.body.style.removeProperty('background-color');
           }
         } else {
+          const normalBg = (document.body.getAttribute('data-theme') === 'light') ? '#ffffff' : '#050505';
           if (frame) {
             frame.style.removeProperty('background-color');
-            frame.style.setProperty('--bg-app', (document.body.getAttribute('data-theme') === 'light') ? '#ffffff' : '#050505');
+            frame.style.setProperty('--bg-app', normalBg);
           }
+          if (metaTheme) metaTheme.setAttribute('content', normalBg);
+          document.documentElement.style.removeProperty('background-color');
+          document.body.style.removeProperty('background-color');
         }
 
         if (!skipSave) { saveStorageState(); }
