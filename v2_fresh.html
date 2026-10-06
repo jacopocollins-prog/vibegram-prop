@@ -126,13 +126,48 @@
     }
 
     .tab-btn {
-      border-bottom: 2px solid transparent !important;
       color: var(--text-muted) !important;
-      transition: color 0.15s ease, border-color 0.15s ease;
+      transition: color 0.25s ease;
+      position: relative;
     }
     .tab-btn.active {
-      border-bottom: 2px solid var(--text-main) !important;
       color: var(--text-main) !important;
+    }
+    .tab-btn:hover {
+      color: var(--text-main) !important;
+    }
+
+    .tab-indicator {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50%;
+      height: 2px;
+      background-color: var(--text-main);
+      transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+      pointer-events: none;
+      border-radius: 9999px;
+    }
+    .tab-indicator.tab-grid {
+      transform: translateX(0%);
+    }
+    .tab-indicator.tab-feed {
+      transform: translateX(100%);
+    }
+
+    /* Light Theme Post 5 Carousel Counter Pill */
+    #carouselCounterPill {
+      transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    }
+    .light-theme #carouselCounterPill {
+      background-color: rgba(255, 255, 255, 0.88) !important;
+      color: #111111 !important;
+      border-color: rgba(0, 0, 0, 0.12) !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+    }
+    .light-theme #carouselCounterPill span,
+    .light-theme #carouselCounter {
+      color: #111111 !important;
     }
 
     .light-theme .text-white {
@@ -493,13 +528,15 @@
       </section>
 
       <!-- Profile View Tabs (Grid vs Feed) -->
-      <div class="flex border-b border-zinc-800/60 font-semibold text-xs" style="border-color: var(--border-color);">
+      <div class="relative flex border-b border-zinc-800/60 font-semibold text-xs" style="border-color: var(--border-color);">
         <button id="gridTabBtn" onclick="switchTab('grid')" class="tab-btn flex-1 py-3 flex justify-center items-center gap-2">
           <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z"/></svg>
         </button>
         <button id="feedTabBtn" onclick="switchTab('feed')" class="tab-btn active flex-1 py-3 flex justify-center items-center gap-2">
           <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M3 4h18v2H3zm0 7h18v2H3zm0 7h18v2H3z"/></svg>
         </button>
+        <!-- Elegant Sliding Active Tab Indicator -->
+        <div id="tabIndicatorBar" class="tab-indicator tab-feed"></div>
       </div>
 
       <!-- PROFILE 3-COLUMN GRID VIEW -->
@@ -1224,17 +1261,26 @@
       const feedContainer = document.getElementById('feedContainer');
       const gridTabBtn = document.getElementById('gridTabBtn');
       const feedTabBtn = document.getElementById('feedTabBtn');
+      const tabIndicator = document.getElementById('tabIndicatorBar');
 
       if (mode === 'grid') {
         gridContainer.classList.remove('hidden');
         feedContainer.classList.add('hidden');
         gridTabBtn.classList.add('active');
         feedTabBtn.classList.remove('active');
+        if (tabIndicator) {
+          tabIndicator.classList.remove('tab-feed');
+          tabIndicator.classList.add('tab-grid');
+        }
       } else {
         gridContainer.classList.add('hidden');
         feedContainer.classList.remove('hidden');
         feedTabBtn.classList.add('active');
         gridTabBtn.classList.remove('active');
+        if (tabIndicator) {
+          tabIndicator.classList.remove('tab-grid');
+          tabIndicator.classList.add('tab-feed');
+        }
       }
     }
 
