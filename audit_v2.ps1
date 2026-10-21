@@ -37,8 +37,8 @@ if ($content -match '<section class="p-4 border-b border-zinc-800/40 relative vf
     $issues += "Could not find header section"
 }
 
-# 4. Single posts (1,2,3,4,6,7)
-$singlePosts = @(1, 2, 3, 4, 6, 7)
+# 4. Single posts (1,2 and 4..33)
+$singlePosts = @(1, 2) + @(4..33)
 foreach ($postId in $singlePosts) {
     if ($content -match "(?s)<article id=`"post-$postId`".*?</article>") {
         $postHtml = $Matches[0]
@@ -49,16 +49,30 @@ foreach ($postId in $singlePosts) {
         if ($postHtml -match 'class="vfx-marker[^"]*?\b(inset-0|top-1/2)\b') {
             $issues += "Post $postId contains a center marker! Single posts must NOT have center markers."
         }
+    } else {
+        $issues += "Missing <article id=`"post-$postId`">"
     }
 }
 
-# 5. Post 5 Carousel
-if ($content -match '<article id="post-5"[\s\S]*?</article>') {
-    $post5Html = $Matches[0]
-    $slidesCount = ([regex]::Matches($post5Html, 'class="carousel-slide relative"')).Count
+# 5. Post 3 Carousel
+if ($content -match '<article id="post-3"[\s\S]*?</article>') {
+    $post3Html = $Matches[0]
+    $slidesCount = ([regex]::Matches($post3Html, 'class="carousel-slide relative"')).Count
     if ($slidesCount -ne 5) {
-        $issues += "Post 5 carousel has $slidesCount slides (expected 5)"
+        $issues += "Post 3 carousel has $slidesCount slides (expected 5)"
     }
+    $cMarkers = ([regex]::Matches($post3Html, 'class="vfx-marker ')).Count
+    if ($cMarkers -ne 25) {
+        $issues += "Post 3 carousel has $cMarkers markers (expected 25 = 5 slides x 5 markers)"
+    }
+} else {
+    $issues += "Missing Post 3 carousel"
+}
+
+# 5b. Check Grid View has all 33 tiles
+$gridTileCount = ([regex]::Matches($content, 'id="gridImg-post\d+"')).Count
+if ($gridTileCount -ne 33) {
+    $issues += "Grid View has $gridTileCount tiles (expected 33)"
 }
 
 # 6. Check JS Triple Click
