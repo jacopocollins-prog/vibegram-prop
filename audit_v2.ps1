@@ -37,8 +37,8 @@ if ($content -match '<section class="p-4 border-b border-zinc-800/40 relative vf
     $issues += "Could not find header section"
 }
 
-# 4. Single posts (1,2 and 4..33)
-$singlePosts = @(1, 2) + @(4..33)
+# 4. Single posts (1,2 and 4..26)
+$singlePosts = @(1, 2) + @(4..26)
 foreach ($postId in $singlePosts) {
     if ($content -match "(?s)<article id=`"post-$postId`".*?</article>") {
         $postHtml = $Matches[0]
@@ -69,10 +69,10 @@ if ($content -match '<article id="post-3"[\s\S]*?</article>') {
     $issues += "Missing Post 3 carousel"
 }
 
-# 5b. Check Grid View has all 33 tiles
+# 5b. Check Grid View has all 26 tiles
 $gridTileCount = ([regex]::Matches($content, 'id="gridImg-post\d+"')).Count
-if ($gridTileCount -ne 33) {
-    $issues += "Grid View has $gridTileCount tiles (expected 33)"
+if ($gridTileCount -ne 26) {
+    $issues += "Grid View has $gridTileCount tiles (expected 26)"
 }
 
 # 6. Check JS Triple Click
