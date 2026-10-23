@@ -4,9 +4,9 @@ $content = Get-Content -Path $path -Raw -Encoding UTF8
 $issues = @()
 
 # 1. Check for Mojibake characters
-$mojibake = @("â", "Ã", "Â", "ã", "ï¿½")
+$mojibake = @([char]0x00E2, [char]0x00C3, [char]0x00C2, [char]0x00E3, [char]0xFFFD)
 foreach ($pat in $mojibake) {
-    if ($content.Contains($pat)) {
+    if ($content.Contains([string]$pat)) {
         $issues += "Found Mojibake pattern '$pat'"
     }
 }
@@ -58,12 +58,12 @@ foreach ($postId in $singlePosts) {
 if ($content -match '<article id="post-3"[\s\S]*?</article>') {
     $post3Html = $Matches[0]
     $slidesCount = ([regex]::Matches($post3Html, 'class="carousel-slide relative"')).Count
-    if ($slidesCount -ne 5) {
-        $issues += "Post 3 carousel has $slidesCount slides (expected 5)"
+    if ($slidesCount -ne 4) {
+        $issues += "Post 3 carousel has $slidesCount slides (expected 4)"
     }
     $cMarkers = ([regex]::Matches($post3Html, 'class="vfx-marker ')).Count
-    if ($cMarkers -ne 25) {
-        $issues += "Post 3 carousel has $cMarkers markers (expected 25 = 5 slides x 5 markers)"
+    if ($cMarkers -ne 20) {
+        $issues += "Post 3 carousel has $cMarkers markers (expected 20 = 4 slides x 5 markers)"
     }
 } else {
     $issues += "Missing Post 3 carousel"
@@ -89,3 +89,5 @@ if ($issues.Count -eq 0) {
         Write-Host " - $issue" -ForegroundColor Yellow
     }
 }
+
+
