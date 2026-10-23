@@ -2502,7 +2502,7 @@
       }, 2500);
     }
 
-    function savePropData() {
+        function savePropData() {
       const username = document.getElementById('editUsername').value;
       const displayName = document.getElementById('editDisplayName').value;
       const bio = document.getElementById('editBio').value;
@@ -2521,20 +2521,6 @@
       // Update username and avatar across ALL posts in feed
       document.querySelectorAll('.post-username').forEach(function(el) { el.innerText = username; });
       document.querySelectorAll('.post-avatar').forEach(function(img) { img.src = avatarUrl; });
-      const username = document.getElementById('editUsername').value;
-      const displayName = document.getElementById('editDisplayName').value;
-      const bio = document.getElementById('editBio').value;
-      const avatarUrl = document.getElementById('editAvatarUrl').value;
-      const statContacts = document.getElementById('editContactsInput') ? document.getElementById('editContactsInput').value : '5.432';
-      const statPosts = document.getElementById('editPostsInput') ? document.getElementById('editPostsInput').value : '26';
-      
-      document.getElementById('headerUsername').innerText = username;
-      document.getElementById('profileDisplayName').innerText = displayName;
-      document.getElementById('profileBio').innerHTML = bio.replace(/\n/g, '<br>');
-      document.getElementById('profileAvatar').src = avatarUrl;
-      document.getElementById('bottomNavAvatar').src = avatarUrl;
-      if (document.getElementById('statContacts')) document.getElementById('statContacts').innerText = statContacts;
-      if (document.getElementById('statPosts')) document.getElementById('statPosts').innerText = statPosts;
 
       const carouselUrls = document.getElementById('editCarouselUrls').value.split(',').map(s => s.trim()).filter(Boolean);
       if (carouselUrls.length > 0) {
@@ -2779,7 +2765,7 @@
             console.error('URL Hash import error:', he);
           }
         }
-      try {
+
         const keysToRemove = [];
         for (let i = 0; i < localStorage.length; i++) {
           const k = localStorage.key(i);
@@ -2927,6 +2913,7 @@
   </script>
 </body>
 </html>
+
 
 
 
