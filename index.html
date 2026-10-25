@@ -401,8 +401,10 @@
     body[class*="vfx-mode-"] #phoneFrame #commentsModal,
     body[class*="vfx-mode-"] #phoneFrame #propEditorModal,
     body[class*="vfx-mode-"] #phoneFrame #singlePostEditorModal,
+    body[class*="vfx-mode-"] #phoneFrame #sceneShareModal,
     body[class*="vfx-mode-"] #phoneFrame #vfxToastPill,
-    body[class*="vfx-mode-"] #phoneFrame #saveToastPill {
+    body[class*="vfx-mode-"] #phoneFrame #saveToastPill,
+    body[class*="vfx-mode-"] #phoneFrame #syncedToastPill {
       display: none !important;
       visibility: hidden !important;
       opacity: 0 !important;
@@ -557,6 +559,11 @@
         <!-- Prop Config Editor Trigger -->
         <button onclick="togglePropEditor()" class="p-1.5 rounded-full bg-zinc-800/50 hover:bg-zinc-700 text-zinc-300 transition" title="Pannello Scenografia (Edit Data)">
           <svg class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        </button>
+
+        <!-- Share Scene Link Direct Button -->
+        <button onclick="copySceneShareLink()" class="p-1.5 rounded-full bg-zinc-800/50 hover:bg-zinc-700 text-zinc-300 transition" title="Condividi Scena / Copia Link per Altri Telefoni">
+          <svg class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
         </button>
 
         <!-- Theme Toggle -->
@@ -2080,6 +2087,46 @@
         </div>
       </div>
     </div>
+
+<!-- SCENE SHARE MODAL FOR CROSS-DEVICE SYNC -->
+    <div id="sceneShareModal" style="display: none;" class="absolute inset-0 bg-black/95 backdrop-blur-md z-50 flex flex-col p-5 overflow-y-auto text-xs text-white custom-scrollbar items-center justify-center">
+      <div class="w-full max-w-sm bg-zinc-900 border border-zinc-700/80 rounded-2xl p-5 shadow-2xl relative flex flex-col gap-3">
+        <div class="flex justify-between items-center border-b border-zinc-800 pb-2">
+          <div class="flex items-center gap-2">
+            <span class="text-emerald-400 text-base">&#128279;</span>
+            <h3 class="text-sm font-bold text-white">Invia Scena ad Altri Telefoni</h3>
+          </div>
+          <button type="button" onclick="closeShareModal()" class="text-zinc-400 hover:text-white text-base font-bold p-1">&#10005;</button>
+        </div>
+
+        <p class="text-[11px] text-zinc-300 leading-relaxed">
+          Tutte le modifiche (nome, bio, foto, like e orari) sono racchiuse in questo link. Aprendolo sull'altro telefono (attore/regista), il profilo apparirà identico e verrà salvato automaticamente.
+        </p>
+
+        <div id="shareModalCopiedBadge" style="display: none;" class="items-center gap-2 px-3 py-2 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 font-semibold text-[11px]">
+          <span>&#10003;</span> Link copiato negli appunti!
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label class="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">Link Scena Condivisibile:</label>
+          <div class="flex items-center gap-2">
+            <input id="shareModalUrlInput" type="text" readonly onclick="this.select()" class="flex-1 bg-zinc-950 border border-zinc-700/80 rounded-xl px-3 py-2 text-zinc-200 text-xs font-mono select-all focus:outline-none focus:border-emerald-500" />
+            <button type="button" onclick="manualCopyShareLink()" class="px-3 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white font-semibold text-xs transition border border-zinc-700">
+              Copia
+            </button>
+          </div>
+        </div>
+
+        <button id="btnNativeShare" type="button" onclick="triggerNativeShare()" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition shadow-lg active:scale-95">
+          <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          Condividi via WhatsApp / Messaggi / AirDrop
+        </button>
+
+        <button type="button" onclick="closeShareModal()" class="w-full py-2 rounded-xl bg-zinc-800/80 text-zinc-400 hover:text-white font-semibold text-xs transition">
+          Chiudi
+        </button>
+      </div>
+    </div>
   <!-- JAVASCRIPT LOGIC V2 -->
   <script>
     // State management V2
@@ -2361,15 +2408,21 @@
       currentEditingPostNum = null;
     }
 
-    function saveSinglePostData() {
+function applySinglePostDataFromInputs() {
       if (!currentEditingPostNum) return;
       const pNum = currentEditingPostNum;
 
-      const newLoc = document.getElementById('editPostLocationInput').value;
-      const newHeaderTime = document.getElementById('editPostTimeHeaderInput').value;
-      const newFooterTime = document.getElementById('editPostTimeFooterInput').value;
-      const newLikes = parseInt(document.getElementById('editPostLikesInput').value, 10);
-      const newCaption = document.getElementById('editPostCaptionInput').value;
+      const locInput = document.getElementById('editPostLocationInput');
+      const timeHeaderInput = document.getElementById('editPostTimeHeaderInput');
+      const timeFooterInput = document.getElementById('editPostTimeFooterInput');
+      const likesInput = document.getElementById('editPostLikesInput');
+      const captionInput = document.getElementById('editPostCaptionInput');
+
+      const newLoc = locInput ? locInput.value : '';
+      const newHeaderTime = timeHeaderInput ? timeHeaderInput.value : '';
+      const newFooterTime = timeFooterInput ? timeFooterInput.value : '';
+      const newLikes = parseInt(likesInput ? likesInput.value : 'NaN', 10);
+      const newCaption = captionInput ? captionInput.value : '';
 
       const locEl = document.getElementById('location-post' + pNum);
       const headerTimeEl = document.getElementById('timeHeader-post' + pNum);
@@ -2388,27 +2441,7 @@
         if (pNum === 3) {
           const cInput = document.getElementById('editCarouselUrls');
           if (cInput) cInput.value = rawVal;
-          const cUrls = rawVal.split(',').map(s => s.trim()).filter(Boolean);
-          if (cUrls.length > 0) {
-            totalSlides = cUrls.length;
-            if (currentSlide >= totalSlides) currentSlide = 0;
-            const carouselTrack = document.getElementById('carouselTrack');
-            if (carouselTrack) {
-              carouselTrack.innerHTML = cUrls.map(url => `
-                <div class="carousel-slide relative">
-<div class="vfx-marker absolute top-2 left-2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
-<div class="vfx-marker absolute top-2 right-2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
-<div class="vfx-marker absolute bottom-2 left-2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
-<div class="vfx-marker absolute bottom-2 right-2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
-<div class="vfx-marker absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
-                  <img src="${url}" class="w-full h-full object-cover pointer-events-none">
-                </div>
-              `).join('');
-            }
-            const gridThumb3 = document.getElementById('gridImg-post3');
-            if (gridThumb3) gridThumb3.src = cUrls[0];
-            updateCarousel();
-          }
+          applyPropDataFromInputs();
         } else {
           const imgEl = document.getElementById('img-post' + pNum);
           const gridImgEl = document.getElementById('gridImg-post' + pNum);
@@ -2420,12 +2453,14 @@
       if (!isNaN(newLikes)) {
         if (!likesState['like' + pNum]) likesState['like' + pNum] = { count: newLikes, liked: false };
         else likesState['like' + pNum].count = newLikes;
-        
         if (countEl) {
           countEl.innerText = newLikes.toLocaleString('de-DE') + ' Sterne';
         }
       }
+    }
 
+    function saveSinglePostData() {
+      applySinglePostDataFromInputs();
       saveStorageState();
       closeSinglePostEditor();
     }
@@ -2466,78 +2501,180 @@
       }
     }
 
-    function copySceneShareLink() {
-      saveStorageState();
-      const stateRaw = localStorage.getItem('picshare_film_prop_v2_page_state_v18000000');
-      if (!stateRaw) return;
-      const shareUrl = window.location.origin + window.location.pathname + '#scene=' + encodeURIComponent(stateRaw);
-      
+let currentShareUrl = '';
+
+    function copyToClipboardRobust(text) {
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(shareUrl).then(function() {
-          showShareToast();
-        }).catch(function() {
-          prompt("Copia questo link da aprire sull'altro telefono:", shareUrl);
-        });
-      } else {
-        prompt("Copia questo link da aprire sull'altro telefono:", shareUrl);
+        return navigator.clipboard.writeText(text).then(() => true).catch(() => fallbackCopy(text));
+      }
+      return Promise.resolve(fallbackCopy(text));
+    }
+
+    function fallbackCopy(text) {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.top = '0';
+        ta.style.left = '0';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        const ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        return ok;
+      } catch (e) {
+        return false;
       }
     }
 
-    function showShareToast() {
-      const toast = document.getElementById('shareToast');
-      if (!toast) return;
-      toast.classList.remove('opacity-0', 'pointer-events-none');
-      toast.classList.add('opacity-100');
-      setTimeout(function() {
-        toast.classList.remove('opacity-100');
-        toast.classList.add('opacity-0', 'pointer-events-none');
-      }, 2500);
+    function triggerNativeShare() {
+      if (navigator.share && currentShareUrl) {
+        navigator.share({
+          title: 'PicShare Scene Prop',
+          text: 'Ecco il link della scena per le riprese:',
+          url: currentShareUrl
+        }).catch(() => {});
+      }
     }
 
-        function savePropData() {
-      const username = document.getElementById('editUsername').value;
-      const displayName = document.getElementById('editDisplayName').value;
-      const bio = document.getElementById('editBio').value;
-      const avatarUrl = document.getElementById('editAvatarUrl').value;
-      const statContacts = document.getElementById('editContactsInput') ? document.getElementById('editContactsInput').value : '5.432';
-      const statPosts = document.getElementById('editPostsInput') ? document.getElementById('editPostsInput').value : '26';
-      
-      document.getElementById('headerUsername').innerText = username;
-      document.getElementById('profileDisplayName').innerText = displayName;
-      document.getElementById('profileBio').innerHTML = bio.replace(/\n/g, '<br>');
-      document.getElementById('profileAvatar').src = avatarUrl;
-      document.getElementById('bottomNavAvatar').src = avatarUrl;
-      if (document.getElementById('statContacts')) document.getElementById('statContacts').innerText = statContacts;
-      if (document.getElementById('statPosts')) document.getElementById('statPosts').innerText = statPosts;
+    function manualCopyShareLink() {
+      const input = document.getElementById('shareModalUrlInput');
+      if (input) {
+        input.focus();
+        input.select();
+      }
+      copyToClipboardRobust(currentShareUrl).then(ok => {
+        const badge = document.getElementById('shareModalCopiedBadge');
+        if (badge) {
+          badge.style.display = 'flex';
+          badge.innerHTML = ok ? '<span>&#10003;</span> Link ricopiato negli appunti!' : 'Seleziona e copia il link sopra';
+        }
+      });
+    }
 
-      // Update username and avatar across ALL posts in feed
-      document.querySelectorAll('.post-username').forEach(function(el) { el.innerText = username; });
-      document.querySelectorAll('.post-avatar').forEach(function(img) { img.src = avatarUrl; });
+    function openShareModal(url) {
+      currentShareUrl = url;
+      const modal = document.getElementById('sceneShareModal');
+      const input = document.getElementById('shareModalUrlInput');
+      const nativeBtn = document.getElementById('btnNativeShare');
+      const badge = document.getElementById('shareModalCopiedBadge');
 
-      const carouselUrls = document.getElementById('editCarouselUrls').value.split(',').map(s => s.trim()).filter(Boolean);
-      if (carouselUrls.length > 0) {
-        totalSlides = carouselUrls.length;
-        if (currentSlide >= totalSlides) currentSlide = 0;
-        const carouselTrack = document.getElementById('carouselTrack');
-        if (carouselTrack) {
-          carouselTrack.innerHTML = carouselUrls.map(url => `
-            <div class="carousel-slide relative">
+      if (input) input.value = url;
+      if (nativeBtn) {
+        if (navigator.share) nativeBtn.classList.remove('hidden');
+        else nativeBtn.classList.add('hidden');
+      }
+
+      copyToClipboardRobust(url).then(ok => {
+        if (badge) {
+          badge.style.display = 'flex';
+          badge.innerHTML = ok ? '<span>&#10003;</span> Link copiato negli appunti!' : 'Copia il link sottostante per inviarlo';
+        }
+      });
+
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeShareModal() {
+      const modal = document.getElementById('sceneShareModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function applyPropDataFromInputs() {
+      const usernameInput = document.getElementById('editUsername');
+      const displayNameInput = document.getElementById('editDisplayName');
+      const bioInput = document.getElementById('editBio');
+      const avatarUrlInput = document.getElementById('editAvatarUrl');
+      const contactsInput = document.getElementById('editContactsInput');
+      const postsInput = document.getElementById('editPostsInput');
+      const carouselUrlsInput = document.getElementById('editCarouselUrls');
+
+      const username = usernameInput ? usernameInput.value.trim() : '';
+      const displayName = displayNameInput ? displayNameInput.value.trim() : '';
+      const bio = bioInput ? bioInput.value : '';
+      const avatarUrl = avatarUrlInput ? avatarUrlInput.value.trim() : '';
+      const statContacts = contactsInput ? contactsInput.value.trim() : '5.432';
+      const statPosts = postsInput ? postsInput.value.trim() : '26';
+
+      if (username) {
+        const hu = document.getElementById('headerUsername');
+        if (hu) hu.innerText = username;
+        document.querySelectorAll('.post-username').forEach(function(el) { el.innerText = username; });
+        const pl = document.getElementById('profileLink');
+        if (pl) pl.innerText = 'picshare.net/' + username.replace(/^@/, '');
+      }
+      if (displayName) {
+        const dn = document.getElementById('profileDisplayName');
+        if (dn) dn.innerText = displayName;
+      }
+      if (bio !== undefined) {
+        const pb = document.getElementById('profileBio');
+        if (pb) pb.innerHTML = bio.replace(/\n/g, '<br>');
+      }
+      if (avatarUrl) {
+        const pa = document.getElementById('profileAvatar');
+        if (pa) pa.src = avatarUrl;
+        const bna = document.getElementById('bottomNavAvatar');
+        if (bna) bna.src = avatarUrl;
+        document.querySelectorAll('.post-avatar').forEach(function(img) { img.src = avatarUrl; });
+      }
+      if (statContacts && document.getElementById('statContacts')) {
+        document.getElementById('statContacts').innerText = statContacts;
+      }
+      if (statPosts && document.getElementById('statPosts')) {
+        document.getElementById('statPosts').innerText = statPosts;
+      }
+
+      if (carouselUrlsInput && carouselUrlsInput.value.trim()) {
+        const cUrls = carouselUrlsInput.value.split(',').map(s => s.trim()).filter(Boolean);
+        if (cUrls.length > 0) {
+          totalSlides = cUrls.length;
+          if (currentSlide >= totalSlides) currentSlide = 0;
+          const carouselTrack = document.getElementById('carouselTrack');
+          if (carouselTrack) {
+            carouselTrack.innerHTML = cUrls.map(url => `
+              <div class="carousel-slide relative">
 <div class="vfx-marker absolute top-2 left-2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
 <div class="vfx-marker absolute top-2 right-2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
 <div class="vfx-marker absolute bottom-2 left-2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
 <div class="vfx-marker absolute bottom-2 right-2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
 <div class="vfx-marker absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
                 <img src="${url}" class="w-full h-full object-cover pointer-events-none">
-            </div>
-          `).join('');
+              </div>
+            `).join('');
+          }
+          const gridThumb3 = document.getElementById('gridImg-post3');
+          if (gridThumb3) gridThumb3.src = cUrls[0];
+          updateCarousel();
         }
-        const gridThumb3 = document.getElementById('gridImg-post3');
-        if (gridThumb3) gridThumb3.src = carouselUrls[0];
-        updateCarousel();
       }
+    }
 
+    function savePropData() {
+      applyPropDataFromInputs();
       saveStorageState();
       togglePropEditor();
+    }
+
+    function copySceneShareLink() {
+      const propModal = document.getElementById('propEditorModal');
+      if (propModal && propModal.style.display === 'flex') {
+        applyPropDataFromInputs();
+      }
+      const postModal = document.getElementById('singlePostEditorModal');
+      if (postModal && postModal.style.display === 'flex') {
+        applySinglePostDataFromInputs();
+      }
+
+      saveStorageState(true);
+      const payload = generateSharePayload();
+      const jsonStr = JSON.stringify(payload);
+      const baseUrl = window.location.origin + window.location.pathname;
+      const shareUrl = baseUrl + '#s=' + encodeURIComponent(jsonStr);
+
+      openShareModal(shareUrl);
     }
 
     // PERSISTENCE ENGINE FOR V2 PAGE
@@ -2614,6 +2751,7 @@
       if (!isVfxActive && e.target && e.target.closest) {
         if (e.target.closest("#propEditorModal") || 
             e.target.closest("#singlePostEditorModal") || 
+            e.target.closest("#sceneShareModal") || 
             e.target.closest("#commentsModal") || 
             e.target.closest("input") || 
             e.target.closest("textarea") || 
@@ -2693,7 +2831,101 @@
       else if (key === "n") setVfxMode("normal");
     });
 
-    function saveStorageState() {
+let DEFAULT_SCENE_STATE = null;
+
+    function captureDefaults() {
+      if (DEFAULT_SCENE_STATE) return;
+      const posts = {};
+      for (let i = 1; i <= 26; i++) {
+        const locEl = document.getElementById('location-post' + i);
+        const headerTimeEl = document.getElementById('timeHeader-post' + i);
+        const footerTimeEl = document.getElementById('timeFooter-post' + i);
+        const captionEl = document.getElementById('caption-post' + i);
+        const imgEl = document.getElementById('img-post' + i);
+        posts['post' + i] = {
+          location: locEl ? locEl.innerText.trim() : '',
+          headerTime: headerTimeEl ? headerTimeEl.innerText.replace(/^[\u2022\s]+/, '').trim() : '',
+          footerTime: footerTimeEl ? footerTimeEl.innerText.trim() : '',
+          caption: captionEl ? captionEl.innerText.trim() : '',
+          imageUrl: imgEl ? (imgEl.getAttribute('src') || imgEl.src) : '',
+          likesCount: likesState['like' + i] ? likesState['like' + i].count : 0
+        };
+      }
+      const avEl = document.getElementById('profileAvatar');
+      DEFAULT_SCENE_STATE = {
+        username: document.getElementById('headerUsername') ? document.getElementById('headerUsername').innerText.trim() : 'alex_vance_art',
+        displayName: document.getElementById('profileDisplayName') ? document.getElementById('profileDisplayName').innerText.trim() : 'Alex Vance',
+        bio: document.getElementById('profileBio') ? document.getElementById('profileBio').innerHTML.replace(/<br\s*[\/]?>/gi, '\n').trim() : '',
+        avatarUrl: avEl ? (avEl.getAttribute('src') || avEl.src) : 'images/post6.jpg?v=pure_vibe12',
+        statContacts: document.getElementById('statContacts') ? document.getElementById('statContacts').innerText.trim() : '5.432',
+        statPosts: document.getElementById('statPosts') ? document.getElementById('statPosts').innerText.trim() : '26',
+        carouselUrls: document.getElementById('editCarouselUrls') ? document.getElementById('editCarouselUrls').value.trim() : '',
+        isConnected: false,
+        posts: posts
+      };
+    }
+
+    function generateSharePayload() {
+      captureDefaults();
+      const diff = {};
+      
+      const currentU = document.getElementById('headerUsername') ? document.getElementById('headerUsername').innerText.trim() : '';
+      const currentDn = document.getElementById('profileDisplayName') ? document.getElementById('profileDisplayName').innerText.trim() : '';
+      const currentBio = document.getElementById('profileBio') ? document.getElementById('profileBio').innerHTML.replace(/<br\s*[\/]?>/gi, '\n').trim() : '';
+      const avEl = document.getElementById('profileAvatar');
+      const currentAv = avEl ? (avEl.getAttribute('src') || avEl.src) : '';
+      const currentSc = document.getElementById('statContacts') ? document.getElementById('statContacts').innerText.trim() : '';
+      const currentSp = document.getElementById('statPosts') ? document.getElementById('statPosts').innerText.trim() : '';
+      const currentCu = document.getElementById('editCarouselUrls') ? document.getElementById('editCarouselUrls').value.trim() : '';
+
+      if (currentU && currentU !== DEFAULT_SCENE_STATE.username) diff.u = currentU;
+      if (currentDn && currentDn !== DEFAULT_SCENE_STATE.displayName) diff.dn = currentDn;
+      if (currentBio !== DEFAULT_SCENE_STATE.bio) diff.b = currentBio;
+      if (currentAv && currentAv !== DEFAULT_SCENE_STATE.avatarUrl) diff.av = currentAv;
+      if (currentSc && currentSc !== DEFAULT_SCENE_STATE.statContacts) diff.sc = currentSc;
+      if (currentSp && currentSp !== DEFAULT_SCENE_STATE.statPosts) diff.sp = currentSp;
+      if (currentCu && currentCu !== DEFAULT_SCENE_STATE.carouselUrls) diff.cu = currentCu;
+      if (isConnected) diff.conn = true;
+
+      const changedPosts = {};
+      for (let i = 1; i <= 26; i++) {
+        const defP = (DEFAULT_SCENE_STATE.posts && DEFAULT_SCENE_STATE.posts['post' + i]) ? DEFAULT_SCENE_STATE.posts['post' + i] : {};
+        const locEl = document.getElementById('location-post' + i);
+        const headerTimeEl = document.getElementById('timeHeader-post' + i);
+        const footerTimeEl = document.getElementById('timeFooter-post' + i);
+        const captionEl = document.getElementById('caption-post' + i);
+        const imgEl = document.getElementById('img-post' + i);
+
+        const cLoc = locEl ? locEl.innerText.trim() : '';
+        const cHt = headerTimeEl ? headerTimeEl.innerText.replace(/^[\u2022\s]+/, '').trim() : '';
+        const cFt = footerTimeEl ? footerTimeEl.innerText.trim() : '';
+        const cCap = captionEl ? captionEl.innerText.trim() : '';
+        const cImg = imgEl ? (imgEl.getAttribute('src') || imgEl.src) : '';
+        const cLikes = likesState['like' + i] ? likesState['like' + i].count : 0;
+        const cLiked = likesState['like' + i] ? !!likesState['like' + i].liked : false;
+
+        const pDiff = {};
+        if (cLoc && cLoc !== defP.location) pDiff.loc = cLoc;
+        if (cHt && cHt !== defP.headerTime) pDiff.ht = cHt;
+        if (cFt && cFt !== defP.footerTime) pDiff.ft = cFt;
+        if (cCap && cCap !== defP.caption) pDiff.cap = cCap;
+        if (cImg && cImg !== defP.imageUrl) pDiff.img = cImg;
+        if (cLikes !== defP.likesCount) pDiff.likes = cLikes;
+        if (cLiked) pDiff.liked = true;
+
+        if (Object.keys(pDiff).length > 0) {
+          changedPosts[i] = pDiff;
+        }
+      }
+
+      if (Object.keys(changedPosts).length > 0) {
+        diff.p = changedPosts;
+      }
+
+      return diff;
+    }
+
+    function saveStorageState(skipToast) {
       try {
         const postsData = {};
         for (let i = 1; i <= 26; i++) {
@@ -2719,7 +2951,7 @@
           bio: document.getElementById('profileBio').innerHTML.replace(/<br\s*[\/]?>/gi, '\n'),
           avatarUrl: document.getElementById('profileAvatar').src,
           statContacts: document.getElementById('statContacts') ? document.getElementById('statContacts').innerText : '5.432',
-          statPosts: document.getElementById('statPosts') ? document.getElementById('statPosts').innerText : '33',
+          statPosts: document.getElementById('statPosts') ? document.getElementById('statPosts').innerText : '26',
           carouselUrls: document.getElementById('editCarouselUrls') ? document.getElementById('editCarouselUrls').value : ''
         };
 
@@ -2733,31 +2965,279 @@
         const jsonStr = JSON.stringify(statePayload);
         localStorage.setItem('picshare_film_prop_v2_page_state_v18000000', jsonStr);
         sessionStorage.setItem('picshare_film_prop_v2_page_state_v18000000', jsonStr);
-        showSaveToast();
+        if (!skipToast) {
+          showSaveToast();
+        }
       } catch (e) {
         console.error('LocalStorage save error:', e);
       }
     }
 
-    function loadStorageState() {
-      try {
-        // Handle incoming scene state from URL hash (#scene=...) for cross-device syncing
-        if (window.location.hash && window.location.hash.startsWith('#scene=')) {
-          try {
-            const rawHash = decodeURIComponent(window.location.hash.substring(7));
-            const imported = JSON.parse(rawHash);
-            if (imported) {
-              localStorage.setItem('picshare_film_prop_v2_page_state_v18000000', JSON.stringify(imported));
-              sessionStorage.setItem('picshare_film_prop_v2_page_state_v18000000', JSON.stringify(imported));
-              if (window.history && window.history.replaceState) {
-                window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    function applyDiffPayload(diff) {
+      if (!diff) return;
+      if (diff.u) {
+        const hu = document.getElementById('headerUsername');
+        if (hu) hu.innerText = diff.u;
+        document.querySelectorAll('.post-username').forEach(function(el) { el.innerText = diff.u; });
+        const pl = document.getElementById('profileLink');
+        if (pl) pl.innerText = 'picshare.net/' + diff.u.replace(/^@/, '');
+        const inU = document.getElementById('editUsername');
+        if (inU) inU.value = diff.u;
+      }
+      if (diff.dn) {
+        const dn = document.getElementById('profileDisplayName');
+        if (dn) dn.innerText = diff.dn;
+        const inDn = document.getElementById('editDisplayName');
+        if (inDn) inDn.value = diff.dn;
+      }
+      if (diff.b !== undefined) {
+        const pb = document.getElementById('profileBio');
+        if (pb) pb.innerHTML = diff.b.replace(/\n/g, '<br>');
+        const inB = document.getElementById('editBio');
+        if (inB) inB.value = diff.b;
+      }
+      if (diff.av) {
+        const pa = document.getElementById('profileAvatar');
+        if (pa) pa.src = diff.av;
+        const bna = document.getElementById('bottomNavAvatar');
+        if (bna) bna.src = diff.av;
+        document.querySelectorAll('.post-avatar').forEach(function(img) { img.src = diff.av; });
+        const inAv = document.getElementById('editAvatarUrl');
+        if (inAv) inAv.value = diff.av;
+      }
+      if (diff.sc) {
+        const sc = document.getElementById('statContacts');
+        if (sc) sc.innerText = diff.sc;
+        const inSc = document.getElementById('editContactsInput');
+        if (inSc) inSc.value = diff.sc;
+      }
+      if (diff.sp) {
+        const sp = document.getElementById('statPosts');
+        if (sp) sp.innerText = diff.sp;
+        const inSp = document.getElementById('editPostsInput');
+        if (inSp) inSp.value = diff.sp;
+      }
+      if (diff.cu) {
+        const inCu = document.getElementById('editCarouselUrls');
+        if (inCu) inCu.value = diff.cu;
+        const urls = diff.cu.split(',').map(s => s.trim()).filter(Boolean);
+        if (urls.length > 0) {
+          totalSlides = urls.length;
+          if (currentSlide >= totalSlides) currentSlide = 0;
+          const track = document.getElementById('carouselTrack');
+          if (track) {
+            track.innerHTML = urls.map(url => `
+              <div class="carousel-slide relative">
+                <div class="vfx-marker absolute top-2 left-2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
+                <div class="vfx-marker absolute top-2 right-2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
+                <div class="vfx-marker absolute bottom-2 left-2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
+                <div class="vfx-marker absolute bottom-2 right-2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
+                <div class="vfx-marker absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
+                <img src="${url}" class="w-full h-full object-cover pointer-events-none">
+              </div>
+            `).join('');
+          }
+          const gridThumb3 = document.getElementById('gridImg-post3');
+          if (gridThumb3) gridThumb3.src = urls[0];
+          updateCarousel();
+        }
+      }
+      if (diff.conn !== undefined) {
+        isConnected = !!diff.conn;
+        const btn = document.getElementById('connectBtn');
+        if (btn) {
+          if (isConnected) {
+            btn.innerText = 'Verbunden';
+            btn.className = 'flex-1 py-2 rounded-xl bg-zinc-800 text-xs font-semibold text-zinc-200 hover:bg-zinc-700 transition border border-zinc-700/50';
+          } else {
+            btn.innerText = 'Verbinden';
+            btn.className = 'flex-1 py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition shadow-md';
+          }
+        }
+      }
+      if (diff.p) {
+        for (const postKey in diff.p) {
+          const pNum = parseInt(postKey, 10);
+          if (isNaN(pNum) || pNum < 1 || pNum > 26) continue;
+          const p = diff.p[postKey];
+          const locEl = document.getElementById('location-post' + pNum);
+          const headerTimeEl = document.getElementById('timeHeader-post' + pNum);
+          const footerTimeEl = document.getElementById('timeFooter-post' + pNum);
+          const captionEl = document.getElementById('caption-post' + pNum);
+          const countEl = document.getElementById('countLike-like' + pNum);
+          const imgEl = document.getElementById('img-post' + pNum);
+          const gridImgEl = document.getElementById('gridImg-post' + pNum);
+
+          if (locEl && p.loc !== undefined) locEl.innerText = p.loc;
+          if (headerTimeEl && p.ht !== undefined) headerTimeEl.innerText = p.ht ? '\u2022 ' + p.ht : '';
+          if (footerTimeEl && p.ft !== undefined) footerTimeEl.innerText = p.ft;
+          if (captionEl && p.cap !== undefined) captionEl.innerText = ' ' + p.cap;
+          if (countEl && p.likes !== undefined) countEl.innerText = p.likes.toLocaleString('de-DE') + ' Sterne';
+          if (p.likes !== undefined && likesState['like' + pNum]) likesState['like' + pNum].count = p.likes;
+          if (p.liked !== undefined && likesState['like' + pNum]) {
+            likesState['like' + pNum].liked = !!p.liked;
+            const icon = document.getElementById(`iconLike-like${pNum}`);
+            if (icon) {
+              if (p.liked) {
+                icon.classList.remove('fill-none', 'stroke-current');
+                icon.classList.add('fill-amber-400', 'text-amber-400');
+              } else {
+                icon.classList.add('fill-none', 'stroke-current');
+                icon.classList.remove('fill-amber-400', 'text-amber-400');
               }
             }
-          } catch(he) {
-            console.error('URL Hash import error:', he);
+          }
+          if (p.img && pNum !== 3) {
+            if (imgEl) imgEl.src = p.img;
+            if (gridImgEl) gridImgEl.src = p.img;
+          }
+        }
+      }
+      saveStorageState(true);
+      showSyncedToast();
+    }
+
+    function applyLegacyPayload(saved) {
+      if (typeof saved.isConnected === 'boolean') {
+        isConnected = saved.isConnected;
+        const btn = document.getElementById('connectBtn');
+        if (btn) {
+          if (isConnected) {
+            btn.innerText = 'Verbunden';
+            btn.className = 'flex-1 py-2 rounded-xl bg-zinc-800 text-xs font-semibold text-zinc-200 hover:bg-zinc-700 transition border border-zinc-700/50';
+          } else {
+            btn.innerText = 'Verbinden';
+            btn.className = 'flex-1 py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition shadow-md';
+          }
+        }
+      }
+
+      if (saved.likesState) {
+        likesState = saved.likesState;
+        for (let key in likesState) {
+          const st = likesState[key];
+          const icon = document.getElementById(`iconLike-${key}`);
+          const countEl = document.getElementById(`countLike-${key}`);
+          if (icon && st.liked) {
+            icon.classList.remove('fill-none', 'stroke-current');
+            icon.classList.add('fill-amber-400', 'text-amber-400');
+          }
+          if (countEl) {
+            countEl.innerText = st.count.toLocaleString('de-DE') + ' Sterne';
+          }
+        }
+      }
+
+      if (saved.postsData) {
+        for (let i = 1; i <= 26; i++) {
+          const p = saved.postsData['post' + i];
+          if (!p) continue;
+          const locEl = document.getElementById('location-post' + i);
+          const headerTimeEl = document.getElementById('timeHeader-post' + i);
+          const footerTimeEl = document.getElementById('timeFooter-post' + i);
+          const captionEl = document.getElementById('caption-post' + i);
+          const countEl = document.getElementById('countLike-like' + i);
+          const imgEl = document.getElementById('img-post' + i);
+          const gridImgEl = document.getElementById('gridImg-post' + i);
+
+          if (locEl && p.location !== undefined) locEl.innerText = p.location;
+          if (headerTimeEl && p.headerTime !== undefined) headerTimeEl.innerText = p.headerTime ? '\u2022 ' + p.headerTime : '';
+          if (footerTimeEl && p.footerTime !== undefined) footerTimeEl.innerText = p.footerTime;
+          if (captionEl && p.caption !== undefined) captionEl.innerText = ' ' + p.caption;
+          if (countEl && p.likesCount !== undefined) countEl.innerText = p.likesCount.toLocaleString('de-DE') + ' Sterne';
+          if (p.imageUrl && i !== 3) {
+            if (imgEl) imgEl.src = p.imageUrl;
+            if (gridImgEl) gridImgEl.src = p.imageUrl;
+          }
+        }
+      }
+
+      if (saved.propData) {
+        const pd = saved.propData;
+        if (pd.username) {
+          document.getElementById('headerUsername').innerText = pd.username;
+          document.querySelectorAll('.post-username').forEach(function(el) { el.innerText = pd.username; });
+          const pl = document.getElementById('profileLink');
+          if (pl) pl.innerText = 'picshare.net/' + pd.username.replace(/^@/, '');
+        }
+        if (pd.displayName) document.getElementById('profileDisplayName').innerText = pd.displayName;
+        if (pd.bio) document.getElementById('profileBio').innerHTML = pd.bio.replace(/\n/g, '<br>');
+        if (pd.statContacts) document.getElementById('statContacts').innerText = pd.statContacts;
+        if (pd.statPosts) document.getElementById('statPosts').innerText = pd.statPosts;
+        if (pd.avatarUrl) {
+          document.getElementById('profileAvatar').src = pd.avatarUrl;
+          document.getElementById('bottomNavAvatar').src = pd.avatarUrl;
+          document.querySelectorAll('.post-avatar').forEach(function(img) { img.src = pd.avatarUrl; });
+        }
+        if (pd.carouselUrls) {
+          const input = document.getElementById('editCarouselUrls');
+          if (input) input.value = pd.carouselUrls;
+          const urlsArr = pd.carouselUrls.split(',').map(s => s.trim()).filter(Boolean);
+          if (urlsArr.length > 0) {
+            totalSlides = urlsArr.length;
+            if (currentSlide >= totalSlides) currentSlide = 0;
+            const carouselTrack = document.getElementById('carouselTrack');
+            if (carouselTrack) {
+              carouselTrack.innerHTML = urlsArr.map(url => `
+                <div class="carousel-slide relative">
+                  <div class="vfx-marker absolute top-2 left-2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
+                  <div class="vfx-marker absolute top-2 right-2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
+                  <div class="vfx-marker absolute bottom-2 left-2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
+                  <div class="vfx-marker absolute bottom-2 right-2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
+                  <div class="vfx-marker absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
+                  <img src="${url}" class="w-full h-full object-cover pointer-events-none">
+                </div>
+              `).join('');
+            }
+            const gridThumb3 = document.getElementById('gridImg-post3');
+            if (gridThumb3) gridThumb3.src = urlsArr[0];
+            updateCarousel();
+          }
+        }
+      }
+      saveStorageState(true);
+      showSyncedToast();
+    }
+
+    function loadStorageState() {
+      try {
+        captureDefaults();
+
+        // 1. Check incoming scene from URL hash (#s=... or #scene=...) or URL search (?s=... or ?scene=...)
+        let rawIncoming = null;
+        if (window.location.hash) {
+          if (window.location.hash.startsWith('#s=')) {
+            rawIncoming = decodeURIComponent(window.location.hash.substring(3));
+          } else if (window.location.hash.startsWith('#scene=')) {
+            rawIncoming = decodeURIComponent(window.location.hash.substring(7));
+          }
+        }
+        if (!rawIncoming && window.location.search) {
+          const params = new URLSearchParams(window.location.search);
+          const qVal = params.get('s') || params.get('scene');
+          if (qVal) rawIncoming = qVal;
+        }
+
+        if (rawIncoming) {
+          try {
+            const parsed = JSON.parse(rawIncoming);
+            if (parsed) {
+              if (parsed.propData || parsed.postsData) {
+                applyLegacyPayload(parsed);
+              } else {
+                applyDiffPayload(parsed);
+              }
+              if (window.history && window.history.replaceState) {
+                window.history.replaceState(null, '', window.location.pathname);
+              }
+              return;
+            }
+          } catch (eHash) {
+            console.error('URL Scene import error:', eHash);
           }
         }
 
+        // Clean out any legacy storage keys
         const keysToRemove = [];
         for (let i = 0; i < localStorage.length; i++) {
           const k = localStorage.key(i);
@@ -2770,114 +3250,18 @@
         // Ensure VFX mode is ALWAYS reset to normal on fresh page load
         setVfxMode('normal', true);
 
+        // 2. Load locally saved state if available
         const raw = localStorage.getItem('picshare_film_prop_v2_page_state_v18000000') || sessionStorage.getItem('picshare_film_prop_v2_page_state_v18000000');
         if (!raw) return;
         const saved = JSON.parse(raw);
-        // 1. Connect State
-        if (typeof saved.isConnected === 'boolean') {
-          isConnected = saved.isConnected;
-          const btn = document.getElementById('connectBtn');
-          if (btn) {
-            if (isConnected) {
-              btn.innerText = 'Verbunden';
-              btn.className = 'flex-1 py-2 rounded-xl bg-zinc-800 text-xs font-semibold text-zinc-200 hover:bg-zinc-700 transition border border-zinc-700/50';
-            } else {
-              btn.innerText = 'Verbinden';
-              btn.className = 'flex-1 py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition shadow-md';
-            }
-          }
-        }
+        applyLegacyPayload(saved);
 
-        // 2. Likes State
-        if (saved.likesState) {
-          likesState = saved.likesState;
-          for (let key in likesState) {
-            const st = likesState[key];
-            const icon = document.getElementById(`iconLike-${key}`);
-            const countEl = document.getElementById(`countLike-${key}`);
-            if (icon && st.liked) {
-              icon.classList.remove('fill-none', 'stroke-current');
-              icon.classList.add('fill-amber-400', 'text-amber-400');
-            }
-            if (countEl) {
-              countEl.innerText = st.count.toLocaleString('de-DE') + ' Sterne';
-            }
-          }
-        }
-
-        // 3. Posts Data
-        if (saved.postsData) {
-          for (let i = 1; i <= 26; i++) {
-            const p = saved.postsData['post' + i];
-            if (!p) continue;
-            const locEl = document.getElementById('location-post' + i);
-            const headerTimeEl = document.getElementById('timeHeader-post' + i);
-            const footerTimeEl = document.getElementById('timeFooter-post' + i);
-            const captionEl = document.getElementById('caption-post' + i);
-            const countEl = document.getElementById('countLike-like' + i);
-            const imgEl = document.getElementById('img-post' + i);
-            const gridImgEl = document.getElementById('gridImg-post' + i);
-
-            if (locEl && p.location !== undefined) locEl.innerText = p.location;
-            if (headerTimeEl && p.headerTime !== undefined) headerTimeEl.innerText = p.headerTime ? '\u2022 ' + p.headerTime : '';
-            if (footerTimeEl && p.footerTime !== undefined) footerTimeEl.innerText = p.footerTime;
-            if (captionEl && p.caption !== undefined) captionEl.innerText = ' ' + p.caption;
-            if (countEl && p.likesCount !== undefined) countEl.innerText = p.likesCount.toLocaleString('de-DE') + ' Sterne';
-            if (p.imageUrl && i !== 3) {
-              if (imgEl) imgEl.src = p.imageUrl;
-              if (gridImgEl) gridImgEl.src = p.imageUrl;
-            }
-          }
-        }
-
-        // 4. Prop Data
-        if (saved.propData) {
-          const pd = saved.propData;
-          if (pd.username) {
-            document.getElementById('headerUsername').innerText = pd.username;
-            document.querySelectorAll('.post-username').forEach(function(el) { el.innerText = pd.username; });
-          }
-          if (pd.displayName) document.getElementById('profileDisplayName').innerText = pd.displayName;
-          if (pd.bio) document.getElementById('profileBio').innerHTML = pd.bio.replace(/\n/g, '<br>');
-          if (pd.statContacts) document.getElementById('statContacts').innerText = pd.statContacts;
-          if (pd.statPosts) document.getElementById('statPosts').innerText = pd.statPosts;
-          if (pd.avatarUrl) {
-            document.getElementById('profileAvatar').src = pd.avatarUrl;
-            document.getElementById('bottomNavAvatar').src = pd.avatarUrl;
-            document.querySelectorAll('.post-avatar').forEach(function(img) { img.src = pd.avatarUrl; });
-          }
-          if (pd.carouselUrls) {
-            const input = document.getElementById('editCarouselUrls');
-            if (input) input.value = pd.carouselUrls;
-            const urlsArr = pd.carouselUrls.split(',').map(s => s.trim()).filter(Boolean);
-            if (urlsArr.length > 0) {
-              totalSlides = urlsArr.length;
-              if (currentSlide >= totalSlides) currentSlide = 0;
-              const carouselTrack = document.getElementById('carouselTrack');
-              if (carouselTrack) {
-                carouselTrack.innerHTML = urlsArr.map(url => `
-                  <div class="carousel-slide relative">
-                    <div class="vfx-marker absolute top-2 left-2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
-<div class="vfx-marker absolute top-2 right-2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
-<div class="vfx-marker absolute bottom-2 left-2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
-<div class="vfx-marker absolute bottom-2 right-2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
-<div class="vfx-marker absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none items-center justify-center"><svg class="vfx-marker-svg w-6 h-6 text-black drop-shadow-[0_0_1.5px_rgba(255,255,255,0.95)]" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="2.4" fill="#000000"/></svg></div>
-                <img src="${url}" class="w-full h-full object-cover pointer-events-none">
-                  </div>
-                `).join('');
-              }
-              const gridThumb3 = document.getElementById('gridImg-post3');
-              if (gridThumb3) gridThumb3.src = urlsArr[0];
-              updateCarousel();
-            }
-          }
-        }
       } catch (e) {
         console.error('LocalStorage load error:', e);
       }
     }
 
-        function showSaveToast() {
+    function showSaveToast() {
       let toast = document.getElementById('saveToastPill');
       if (!toast) {
         toast = document.createElement('div');
@@ -2888,6 +3272,25 @@
       }
       toast.style.opacity = '1';
       setTimeout(() => { if (toast) toast.style.opacity = '0'; }, 1200);
+    }
+
+    function showSyncedToast() {
+      let toast = document.getElementById('syncedToastPill');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'syncedToastPill';
+        toast.className = 'fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-emerald-600 text-white text-xs font-bold px-4 py-2 rounded-2xl shadow-2xl backdrop-blur-md opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-1.5';
+        toast.innerHTML = '<span>&#10003;</span> Scena sincronizzata con successo!';
+        document.body.appendChild(toast);
+      }
+      toast.style.opacity = '1';
+      toast.style.transform = 'translate(-50%, 4px)';
+      setTimeout(() => {
+        if (toast) {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translate(-50%, 0)';
+        }
+      }, 3500);
     }
 
     function resetStorageState() {
